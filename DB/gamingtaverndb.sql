@@ -448,30 +448,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `service_game`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `service_game` ;
-
-CREATE TABLE IF NOT EXISTS `service_game` (
-  `service_id` INT NOT NULL,
-  `game_id` INT NOT NULL,
-  PRIMARY KEY (`service_id`, `game_id`),
-  INDEX `fk_service_game_game1_idx` (`game_id` ASC),
-  INDEX `fk_service_game_service1_idx` (`service_id` ASC),
-  CONSTRAINT `fk_service_game_service1`
-    FOREIGN KEY (`service_id`)
-    REFERENCES `platform` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_service_game_game1`
-    FOREIGN KEY (`game_id`)
-    REFERENCES `game` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `alias_game`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `alias_game` ;
@@ -690,6 +666,30 @@ CREATE TABLE IF NOT EXISTS `alias_platform` (
   CONSTRAINT `fk_alias_platform_platform1`
     FOREIGN KEY (`platform_id`)
     REFERENCES `platform` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `platform_game`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `platform_game` ;
+
+CREATE TABLE IF NOT EXISTS `platform_game` (
+  `platform_id` INT NOT NULL,
+  `game_id` INT NOT NULL,
+  PRIMARY KEY (`platform_id`, `game_id`),
+  INDEX `fk_platform_game_game1_idx` (`game_id` ASC),
+  INDEX `fk_platform_game_platform1_idx` (`platform_id` ASC),
+  CONSTRAINT `fk_platform_game_platform1`
+    FOREIGN KEY (`platform_id`)
+    REFERENCES `platform` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_platform_game_game1`
+    FOREIGN KEY (`game_id`)
+    REFERENCES `game` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
