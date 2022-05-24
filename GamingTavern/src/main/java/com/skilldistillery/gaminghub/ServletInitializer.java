@@ -1,4 +1,4 @@
-package com.skilldistillery.gaminghub.entities;
+package com.skilldistillery.gaminghub;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
