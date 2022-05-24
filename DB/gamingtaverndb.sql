@@ -638,7 +638,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `gamingtaverndb`;
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `middle_name`, `last_name`, `image_url`, `created`, `updated`) VALUES (1, 'admin', 'x', 1, 'ROLE_ADMIN', NULL, NULL, NULL, NULL, DEFAULT, DEFAULT);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `middle_name`, `last_name`, `image_url`, `created`, `updated`) VALUES (1, 'admin', '$2a$10$xkJUK7zUTr0fzqJINIbCO.szpKVuGxYH4jII5XA2CTlFBwkH/sDeO', 1, 'ROLE_ADMIN', NULL, NULL, NULL, NULL, DEFAULT, DEFAULT);
 
 COMMIT;
 
