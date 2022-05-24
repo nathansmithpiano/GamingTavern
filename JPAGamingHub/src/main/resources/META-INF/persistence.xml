@@ -6,6 +6,11 @@
 	
 	<!-- List Entities Here -->
 <class>com.skilldistillery.gaminghub.entities.User</class>
+<class>com.skilldistillery.gaminghub.entities.Location</class>
+<class>com.skilldistillery.gaminghub.entities.Event</class>
+<class>com.skilldistillery.gaminghub.entities.Equipment</class>
+<class>com.skilldistillery.gaminghub.entities.Chat</class>
+<class>com.skilldistillery.gaminghub.entities.Message</class>
 
 <!-- End Entities Here -->
     <properties>

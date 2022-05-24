@@ -10,35 +10,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user")
-public class User {
-
+@Table(name = "location")
+public class Location {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
-	private String username;
-	private String password;
-	private boolean enabled;
-	private String role;
 	
-	@Column(name = "first_name")
-	private String firstName;
+	private String name;
+	private String abbreviation;
+	private String city;
 	
-	@Column(name = "middle_name")
-	private String middleName;
+	@Column(name = "state_province")
+	private String stateProvince;
 	
-	@Column(name = "last_name")
-	private String lastName;
-	
-	@Column(name = "image_url")
-	private String imageUrl;
-	
+	private Integer zip;
+	private String country;
+	private String timezone;
 	private LocalDateTime created;
 	private LocalDateTime updated;
-
-	public User() {
-		super();
-	}
 
 }

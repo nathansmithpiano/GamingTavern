@@ -53,11 +53,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `user_endorsement`
+-- Table `received_endorsements`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `user_endorsement` ;
+DROP TABLE IF EXISTS `received_endorsements` ;
 
-CREATE TABLE IF NOT EXISTS `user_endorsement` (
+CREATE TABLE IF NOT EXISTS `received_endorsements` (
   `user_id` INT NOT NULL,
   `endorsement_id` INT NOT NULL,
   `created` TIMESTAMP NOT NULL,
@@ -232,8 +232,8 @@ CREATE TABLE IF NOT EXISTS `location` (
   `abbreviation` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `state_province` VARCHAR(45) NULL,
-  `zip` VARCHAR(45) NULL,
-  `county` VARCHAR(45) NULL,
+  `zip` INT NULL,
+  `country` VARCHAR(45) NULL,
   `timezone` VARCHAR(45) NULL,
   `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -302,15 +302,15 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `conversation`
+-- Table `chat`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `conversation` ;
+DROP TABLE IF EXISTS `chat` ;
 
-CREATE TABLE IF NOT EXISTS `conversation` (
+CREATE TABLE IF NOT EXISTS `chat` (
   `id` INT NOT NULL,
+  `description` VARCHAR(255) NULL,
   `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `description` VARCHAR(255) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -322,14 +322,14 @@ DROP TABLE IF EXISTS `message` ;
 
 CREATE TABLE IF NOT EXISTS `message` (
   `id` INT NOT NULL,
-  `conversation_id` INT NOT NULL,
+  `chat_id` INT NOT NULL,
   `contents` VARCHAR(45) NOT NULL,
   `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  INDEX `fk_message_conversation1_idx` (`conversation_id` ASC),
-  CONSTRAINT `fk_message_conversation1`
-    FOREIGN KEY (`conversation_id`)
-    REFERENCES `conversation` (`id`)
+  INDEX `fk_message_chat1_idx` (`chat_id` ASC),
+  CONSTRAINT `fk_message_chat1`
+    FOREIGN KEY (`chat_id`)
+    REFERENCES `chat` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -378,30 +378,6 @@ CREATE TABLE IF NOT EXISTS `alias_clan` (
   CONSTRAINT `fk_alias_clan_clan1`
     FOREIGN KEY (`clan_id`)
     REFERENCES `clan` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `user_conversation`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `user_conversation` ;
-
-CREATE TABLE IF NOT EXISTS `user_conversation` (
-  `user_id` INT NOT NULL,
-  `conversation_id` INT NOT NULL,
-  PRIMARY KEY (`user_id`, `conversation_id`),
-  INDEX `fk_user_conversation_conversation1_idx` (`conversation_id` ASC),
-  INDEX `fk_user_conversation_user1_idx` (`user_id` ASC),
-  CONSTRAINT `fk_user_conversation_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_conversation_conversation1`
-    FOREIGN KEY (`conversation_id`)
-    REFERENCES `conversation` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -618,6 +594,55 @@ CREATE TABLE IF NOT EXISTS `event_game` (
   CONSTRAINT `fk_event_game_game1`
     FOREIGN KEY (`game_id`)
     REFERENCES `game` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `user_chat`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_chat` ;
+
+CREATE TABLE IF NOT EXISTS `user_chat` (
+  `user_id` INT NOT NULL,
+  `chat_id` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `chat_id`),
+  INDEX `fk_user_chat_chat1_idx` (`chat_id` ASC),
+  INDEX `fk_user_chat_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_user_chat_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_chat_chat1`
+    FOREIGN KEY (`chat_id`)
+    REFERENCES `chat` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `sent_endorsements`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sent_endorsements` ;
+
+CREATE TABLE IF NOT EXISTS `sent_endorsements` (
+  `user_id` INT NOT NULL,
+  `endorsement_id` INT NOT NULL,
+  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`, `endorsement_id`),
+  INDEX `fk_user_endorsement1_endorsement1_idx` (`endorsement_id` ASC),
+  INDEX `fk_user_endorsement1_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_user_endorsement1_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_endorsement1_endorsement1`
+    FOREIGN KEY (`endorsement_id`)
+    REFERENCES `endorsement` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
