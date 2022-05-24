@@ -53,31 +53,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `received_endorsements`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `received_endorsements` ;
-
-CREATE TABLE IF NOT EXISTS `received_endorsements` (
-  `user_id` INT NOT NULL,
-  `endorsement_id` INT NOT NULL,
-  `created` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`user_id`, `endorsement_id`),
-  INDEX `fk_user_endorsement_endorsement1_idx` (`endorsement_id` ASC),
-  INDEX `fk_user_endorsement_user1_idx` (`user_id` ASC),
-  CONSTRAINT `fk_user_endorsement_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_endorsement_endorsement1`
-    FOREIGN KEY (`endorsement_id`)
-    REFERENCES `endorsement` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `alias`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `alias` ;
@@ -624,17 +599,19 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sent_endorsements`
+-- Table `user_endorsement`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sent_endorsements` ;
+DROP TABLE IF EXISTS `user_endorsement` ;
 
-CREATE TABLE IF NOT EXISTS `sent_endorsements` (
+CREATE TABLE IF NOT EXISTS `user_endorsement` (
   `user_id` INT NOT NULL,
+  `endorsed_user_id` INT NOT NULL,
   `endorsement_id` INT NOT NULL,
   `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`user_id`, `endorsement_id`),
+  PRIMARY KEY (`user_id`, `endorsed_user_id`, `endorsement_id`),
   INDEX `fk_user_endorsement1_endorsement1_idx` (`endorsement_id` ASC),
   INDEX `fk_user_endorsement1_user1_idx` (`user_id` ASC),
+  INDEX `fk_user_endorsement_user1_idx` (`endorsed_user_id` ASC),
   CONSTRAINT `fk_user_endorsement1_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
@@ -643,6 +620,11 @@ CREATE TABLE IF NOT EXISTS `sent_endorsements` (
   CONSTRAINT `fk_user_endorsement1_endorsement1`
     FOREIGN KEY (`endorsement_id`)
     REFERENCES `endorsement` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_endorsement_user1`
+    FOREIGN KEY (`endorsed_user_id`)
+    REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

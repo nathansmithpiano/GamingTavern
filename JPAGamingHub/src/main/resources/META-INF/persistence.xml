@@ -11,6 +11,8 @@
 <class>com.skilldistillery.gaminghub.entities.Equipment</class>
 <class>com.skilldistillery.gaminghub.entities.Chat</class>
 <class>com.skilldistillery.gaminghub.entities.Message</class>
+<class>com.skilldistillery.gaminghub.entities.Endorsement</class>
+<class>com.skilldistillery.gaminghub.entities.Alias</class>
 
 <!-- End Entities Here -->
     <properties>
