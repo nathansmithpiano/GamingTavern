@@ -22,16 +22,17 @@ DROP TABLE IF EXISTS `user` ;
 
 CREATE TABLE IF NOT EXISTS `user` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `enabled` TINYINT NOT NULL DEFAULT 1,
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(200) NOT NULL,
-  `enabled` TINYINT NOT NULL DEFAULT 1,
   `role` VARCHAR(45) NOT NULL DEFAULT 0,
   `first_name` VARCHAR(45) NULL,
   `middle_name` VARCHAR(45) NULL,
   `last_name` VARCHAR(45) NULL,
-  `image_url` VARCHAR(100) NULL,
-  `created` TIMESTAMP NOT NULL,
-  `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `description` TEXT NULL,
+  `image_url` VARCHAR(1000) NULL,
+  `created` DATETIME NULL,
+  `updated` DATETIME NULL,
   UNIQUE INDEX `username_UNIQUE` (`username` ASC),
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -44,11 +45,12 @@ DROP TABLE IF EXISTS `endorsement` ;
 
 CREATE TABLE IF NOT EXISTS `endorsement` (
   `id` INT NOT NULL,
-  `description` VARCHAR(45) NOT NULL,
-  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `name` VARCHAR(45) NOT NULL,
+  `image_url` VARCHAR(1000) NULL,
+  `created` DATETIME NULL,
+  `updated` DATETIME NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `description_UNIQUE` (`description` ASC))
+  UNIQUE INDEX `description_UNIQUE` (`name` ASC))
 ENGINE = InnoDB;
 
 
@@ -60,10 +62,12 @@ DROP TABLE IF EXISTS `alias` ;
 CREATE TABLE IF NOT EXISTS `alias` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
+  `enabled` TINYINT NOT NULL DEFAULT 1,
   `name` VARCHAR(45) NOT NULL,
-  `is_active` TINYINT NOT NULL DEFAULT 1,
-  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `description` TEXT NULL,
+  `image_url` VARCHAR(1000) NULL,
+  `created` DATETIME NULL,
+  `updated` DATETIME NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_alias_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_alias_user1`
@@ -81,8 +85,8 @@ DROP TABLE IF EXISTS `equipment` ;
 
 CREATE TABLE IF NOT EXISTS `equipment` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `model` VARCHAR(45) NULL,
+  `name` VARCHAR(100) NOT NULL,
+  `model` VARCHAR(100) NULL,
   `description` VARCHAR(255) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -113,31 +117,32 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `service`
+-- Table `platform`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `service` ;
+DROP TABLE IF EXISTS `platform` ;
 
-CREATE TABLE IF NOT EXISTS `service` (
+CREATE TABLE IF NOT EXISTS `platform` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `enabled` TINYINT NOT NULL DEFAULT 1,
+  `name` VARCHAR(100) NOT NULL,
   `type` VARCHAR(45) NOT NULL,
-  `description` VARCHAR(255) NULL,
-  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `description` TEXT NULL,
+  `created` DATETIME NULL,
+  `updated` DATETIME NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `name_UNIQUE` (`name` ASC))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `user_friends`
+-- Table `user_friend`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `user_friends` ;
+DROP TABLE IF EXISTS `user_friend` ;
 
-CREATE TABLE IF NOT EXISTS `user_friends` (
+CREATE TABLE IF NOT EXISTS `user_friend` (
   `user_id` INT NOT NULL,
   `friend_id` INT NOT NULL,
-  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created` DATETIME NULL,
   PRIMARY KEY (`user_id`, `friend_id`),
   INDEX `fk_user_user_user3_idx` (`friend_id` ASC),
   INDEX `fk_user_user_user2_idx` (`user_id` ASC),
@@ -155,14 +160,15 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `user_blocks`
+-- Table `blocked_user`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `user_blocks` ;
+DROP TABLE IF EXISTS `blocked_user` ;
 
-CREATE TABLE IF NOT EXISTS `user_blocks` (
+CREATE TABLE IF NOT EXISTS `blocked_user` (
   `user_id` INT NOT NULL,
   `block_id` INT NOT NULL,
-  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created` DATETIME NULL,
+  `reason` TEXT NULL,
   PRIMARY KEY (`user_id`, `block_id`),
   INDEX `fk_user_user_user4_idx` (`block_id` ASC),
   INDEX `fk_user_user_user1_idx` (`user_id` ASC),
@@ -180,19 +186,42 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `rating`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `rating` ;
+
+CREATE TABLE IF NOT EXISTS `rating` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `description` TEXT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `game`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `game` ;
 
 CREATE TABLE IF NOT EXISTS `game` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `rating` VARCHAR(45) NULL,
+  `rating_id` INT NULL,
+  `enabled` TINYINT NOT NULL DEFAULT 1,
+  `name` VARCHAR(255) NOT NULL,
   `studio` VARCHAR(45) NULL,
-  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created` DATETIME NULL,
+  `updated` DATETIME NULL,
+  `image_url` VARCHAR(1000) NULL,
+  `url` VARCHAR(1000) NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC),
+  INDEX `fk_game_rating1_idx` (`rating_id` ASC),
+  CONSTRAINT `fk_game_rating1`
+    FOREIGN KEY (`rating_id`)
+    REFERENCES `rating` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -204,14 +233,14 @@ DROP TABLE IF EXISTS `location` ;
 CREATE TABLE IF NOT EXISTS `location` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `abbreviation` VARCHAR(45) NULL,
+  `street` VARCHAR(100) NULL,
   `city` VARCHAR(45) NULL,
-  `state_province` VARCHAR(45) NULL,
-  `zip` INT NULL,
+  `state` VARCHAR(45) NULL,
+  `zip` VARCHAR(45) NULL,
   `country` VARCHAR(45) NULL,
   `timezone` VARCHAR(45) NULL,
-  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created` DATETIME NULL,
+  `updated` DATETIME NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -223,11 +252,20 @@ DROP TABLE IF EXISTS `clan` ;
 
 CREATE TABLE IF NOT EXISTS `clan` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `description` VARCHAR(255) NULL,
-  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`))
+  `creator_id` INT NOT NULL,
+  `enabled` TINYINT NOT NULL DEFAULT 1,
+  `name` VARCHAR(100) NOT NULL,
+  `description` TEXT NULL,
+  `image_url` VARCHAR(1000) NULL,
+  `created` DATETIME NULL,
+  `updated` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_clan_alias1_idx` (`creator_id` ASC),
+  CONSTRAINT `fk_clan_alias1`
+    FOREIGN KEY (`creator_id`)
+    REFERENCES `alias` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -239,15 +277,16 @@ DROP TABLE IF EXISTS `server` ;
 CREATE TABLE IF NOT EXISTS `server` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `game_id` INT NOT NULL,
+  `enabled` TINYINT NOT NULL DEFAULT 1,
   `name` VARCHAR(45) NOT NULL,
   `type` VARCHAR(45) NOT NULL,
   `ip` VARCHAR(45) NULL,
-  `url` VARCHAR(45) NULL,
+  `url` VARCHAR(1000) NULL,
   `password` VARCHAR(45) NULL,
   `capacity` INT NULL,
   `description` VARCHAR(255) NULL,
-  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created` DATETIME NULL,
+  `updated` DATETIME NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_server_game1_idx` (`game_id` ASC),
   CONSTRAINT `fk_server_game1`
@@ -259,20 +298,27 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `event`
+-- Table `meetup`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `event` ;
+DROP TABLE IF EXISTS `meetup` ;
 
-CREATE TABLE IF NOT EXISTS `event` (
+CREATE TABLE IF NOT EXISTS `meetup` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `user_id` INT NOT NULL,
+  `name` VARCHAR(100) NOT NULL,
   `date` DATETIME NULL,
   `timezone` VARCHAR(45) NULL,
   `capacity` INT NULL,
-  `description` VARCHAR(255) NULL,
-  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`))
+  `description` TEXT NULL,
+  `created` DATETIME NULL,
+  `updated` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_meetup_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_meetup_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -283,10 +329,45 @@ DROP TABLE IF EXISTS `chat` ;
 
 CREATE TABLE IF NOT EXISTS `chat` (
   `id` INT NOT NULL,
+  `created_by_user_id` INT NOT NULL,
+  `enabled` TINYINT NOT NULL DEFAULT 1,
+  `title` VARCHAR(100) NULL,
   `description` VARCHAR(255) NULL,
-  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`))
+  `image_url` VARCHAR(100) NULL,
+  `created` DATETIME NULL,
+  `updated` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_chat_user1_idx` (`created_by_user_id` ASC),
+  CONSTRAINT `fk_chat_user1`
+    FOREIGN KEY (`created_by_user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `chat_user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `chat_user` ;
+
+CREATE TABLE IF NOT EXISTS `chat_user` (
+  `chat_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `added` DATETIME NULL,
+  PRIMARY KEY (`chat_id`, `user_id`),
+  INDEX `fk_chat_user_user1_idx` (`user_id` ASC),
+  INDEX `fk_chat_user_chat1_idx` (`chat_id` ASC),
+  CONSTRAINT `fk_chat_user_chat1`
+    FOREIGN KEY (`chat_id`)
+    REFERENCES `chat` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_chat_user_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -297,14 +378,22 @@ DROP TABLE IF EXISTS `message` ;
 
 CREATE TABLE IF NOT EXISTS `message` (
   `id` INT NOT NULL,
-  `chat_id` INT NOT NULL,
-  `contents` VARCHAR(45) NOT NULL,
-  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `chat_user_chat_id` INT NOT NULL,
+  `chat_user_user_id` INT NOT NULL,
+  `message_id` INT NULL,
+  `contents` TEXT NOT NULL,
+  `created` DATETIME NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_message_chat1_idx` (`chat_id` ASC),
-  CONSTRAINT `fk_message_chat1`
-    FOREIGN KEY (`chat_id`)
-    REFERENCES `chat` (`id`)
+  INDEX `fk_message_chat_user1_idx` (`chat_user_chat_id` ASC, `chat_user_user_id` ASC),
+  INDEX `fk_message_message1_idx` (`message_id` ASC),
+  CONSTRAINT `fk_message_chat_user1`
+    FOREIGN KEY (`chat_user_chat_id` , `chat_user_user_id`)
+    REFERENCES `chat_user` (`chat_id` , `user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_message_message1`
+    FOREIGN KEY (`message_id`)
+    REFERENCES `message` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -371,7 +460,7 @@ CREATE TABLE IF NOT EXISTS `service_game` (
   INDEX `fk_service_game_service1_idx` (`service_id` ASC),
   CONSTRAINT `fk_service_game_service1`
     FOREIGN KEY (`service_id`)
-    REFERENCES `service` (`id`)
+    REFERENCES `platform` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_service_game_game1`
@@ -401,30 +490,6 @@ CREATE TABLE IF NOT EXISTS `alias_game` (
   CONSTRAINT `fk_alias_game_game1`
     FOREIGN KEY (`game_id`)
     REFERENCES `game` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `alias_service`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `alias_service` ;
-
-CREATE TABLE IF NOT EXISTS `alias_service` (
-  `alias_id` INT NOT NULL,
-  `service_id` INT NOT NULL,
-  PRIMARY KEY (`alias_id`, `service_id`),
-  INDEX `fk_alias_service_service1_idx` (`service_id` ASC),
-  INDEX `fk_alias_service_alias1_idx` (`alias_id` ASC),
-  CONSTRAINT `fk_alias_service_alias1`
-    FOREIGN KEY (`alias_id`)
-    REFERENCES `alias` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_alias_service_service1`
-    FOREIGN KEY (`service_id`)
-    REFERENCES `service` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -503,102 +568,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `alias_event`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `alias_event` ;
-
-CREATE TABLE IF NOT EXISTS `alias_event` (
-  `alias_id` INT NOT NULL,
-  `event_id` INT NOT NULL,
-  PRIMARY KEY (`alias_id`, `event_id`),
-  INDEX `fk_alias_event_event1_idx` (`event_id` ASC),
-  INDEX `fk_alias_event_alias1_idx` (`alias_id` ASC),
-  CONSTRAINT `fk_alias_event_alias1`
-    FOREIGN KEY (`alias_id`)
-    REFERENCES `alias` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_alias_event_event1`
-    FOREIGN KEY (`event_id`)
-    REFERENCES `event` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `event_location`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `event_location` ;
-
-CREATE TABLE IF NOT EXISTS `event_location` (
-  `event_id` INT NOT NULL,
-  `location_id` INT NOT NULL,
-  PRIMARY KEY (`event_id`, `location_id`),
-  INDEX `fk_event_location_location1_idx` (`location_id` ASC),
-  INDEX `fk_event_location_event1_idx` (`event_id` ASC),
-  CONSTRAINT `fk_event_location_event1`
-    FOREIGN KEY (`event_id`)
-    REFERENCES `event` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_event_location_location1`
-    FOREIGN KEY (`location_id`)
-    REFERENCES `location` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `event_game`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `event_game` ;
-
-CREATE TABLE IF NOT EXISTS `event_game` (
-  `event_id` INT NOT NULL,
-  `game_id` INT NOT NULL,
-  PRIMARY KEY (`event_id`, `game_id`),
-  INDEX `fk_event_game_game1_idx` (`game_id` ASC),
-  INDEX `fk_event_game_event1_idx` (`event_id` ASC),
-  CONSTRAINT `fk_event_game_event1`
-    FOREIGN KEY (`event_id`)
-    REFERENCES `event` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_event_game_game1`
-    FOREIGN KEY (`game_id`)
-    REFERENCES `game` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `user_chat`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `user_chat` ;
-
-CREATE TABLE IF NOT EXISTS `user_chat` (
-  `user_id` INT NOT NULL,
-  `chat_id` INT NOT NULL,
-  PRIMARY KEY (`user_id`, `chat_id`),
-  INDEX `fk_user_chat_chat1_idx` (`chat_id` ASC),
-  INDEX `fk_user_chat_user1_idx` (`user_id` ASC),
-  CONSTRAINT `fk_user_chat_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_chat_chat1`
-    FOREIGN KEY (`chat_id`)
-    REFERENCES `chat` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `user_endorsement`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `user_endorsement` ;
@@ -607,7 +576,7 @@ CREATE TABLE IF NOT EXISTS `user_endorsement` (
   `user_id` INT NOT NULL,
   `endorsed_user_id` INT NOT NULL,
   `endorsement_id` INT NOT NULL,
-  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created` DATETIME NULL,
   PRIMARY KEY (`user_id`, `endorsed_user_id`, `endorsement_id`),
   INDEX `fk_user_endorsement1_endorsement1_idx` (`endorsement_id` ASC),
   INDEX `fk_user_endorsement1_user1_idx` (`user_id` ASC),
@@ -629,6 +598,102 @@ CREATE TABLE IF NOT EXISTS `user_endorsement` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `meetup_location`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `meetup_location` ;
+
+CREATE TABLE IF NOT EXISTS `meetup_location` (
+  `meetup_id` INT NOT NULL,
+  `location_id` INT NOT NULL,
+  PRIMARY KEY (`meetup_id`, `location_id`),
+  INDEX `fk_meetup_location_location1_idx` (`location_id` ASC),
+  INDEX `fk_meetup_location_meetup1_idx` (`meetup_id` ASC),
+  CONSTRAINT `fk_meetup_location_meetup1`
+    FOREIGN KEY (`meetup_id`)
+    REFERENCES `meetup` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_meetup_location_location1`
+    FOREIGN KEY (`location_id`)
+    REFERENCES `location` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `meetup_game`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `meetup_game` ;
+
+CREATE TABLE IF NOT EXISTS `meetup_game` (
+  `meetup_id` INT NOT NULL,
+  `game_id` INT NOT NULL,
+  PRIMARY KEY (`meetup_id`, `game_id`),
+  INDEX `fk_meetup_game_game1_idx` (`game_id` ASC),
+  INDEX `fk_meetup_game_meetup1_idx` (`meetup_id` ASC),
+  CONSTRAINT `fk_meetup_game_meetup1`
+    FOREIGN KEY (`meetup_id`)
+    REFERENCES `meetup` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_meetup_game_game1`
+    FOREIGN KEY (`game_id`)
+    REFERENCES `game` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `meetup_alias`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `meetup_alias` ;
+
+CREATE TABLE IF NOT EXISTS `meetup_alias` (
+  `meetup_id` INT NOT NULL,
+  `alias_id` INT NOT NULL,
+  PRIMARY KEY (`meetup_id`, `alias_id`),
+  INDEX `fk_meetup_alias_alias1_idx` (`alias_id` ASC),
+  INDEX `fk_meetup_alias_meetup1_idx` (`meetup_id` ASC),
+  CONSTRAINT `fk_meetup_alias_meetup1`
+    FOREIGN KEY (`meetup_id`)
+    REFERENCES `meetup` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_meetup_alias_alias1`
+    FOREIGN KEY (`alias_id`)
+    REFERENCES `alias` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `alias_platform`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `alias_platform` ;
+
+CREATE TABLE IF NOT EXISTS `alias_platform` (
+  `alias_id` INT NOT NULL,
+  `platform_id` INT NOT NULL,
+  PRIMARY KEY (`alias_id`, `platform_id`),
+  INDEX `fk_alias_platform_platform1_idx` (`platform_id` ASC),
+  INDEX `fk_alias_platform_alias1_idx` (`alias_id` ASC),
+  CONSTRAINT `fk_alias_platform_alias1`
+    FOREIGN KEY (`alias_id`)
+    REFERENCES `alias` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_alias_platform_platform1`
+    FOREIGN KEY (`platform_id`)
+    REFERENCES `platform` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 SET SQL_MODE = '';
 DROP USER IF EXISTS gamingtavernuser@localhost;
 SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -645,7 +710,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `gamingtaverndb`;
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `middle_name`, `last_name`, `image_url`, `created`, `updated`) VALUES (1, 'admin', '$2a$10$xkJUK7zUTr0fzqJINIbCO.szpKVuGxYH4jII5XA2CTlFBwkH/sDeO', 1, 'ROLE_ADMIN', NULL, NULL, NULL, NULL, DEFAULT, DEFAULT);
+INSERT INTO `user` (`id`, `enabled`, `username`, `password`, `role`, `first_name`, `middle_name`, `last_name`, `description`, `image_url`, `created`, `updated`) VALUES (1, 1, 'admin', '$2a$10$xkJUK7zUTr0fzqJINIbCO.szpKVuGxYH4jII5XA2CTlFBwkH/sDeO', 'ROLE_ADMIN', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 COMMIT;
 
