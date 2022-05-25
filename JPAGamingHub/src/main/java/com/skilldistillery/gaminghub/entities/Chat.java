@@ -36,11 +36,7 @@ public class Chat {
 	private LocalDateTime created;
 	private LocalDateTime updated;
 	@ManyToMany
-	@JoinTable(
-	        name = "chat_user", 
-	        joinColumns = @JoinColumn(name = "chat_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "user_id") 
-	    )
+	@JoinTable(name = "chat_user", joinColumns = @JoinColumn(name = "chat_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> users;
 
 //	@JsonIgnore
@@ -51,114 +47,112 @@ public class Chat {
 		super();
 	}
 
-public Chat(int id, User user, boolean enabled, String title, String description, String imageUrl,
-		LocalDateTime created, LocalDateTime updated) {
-	super();
-	this.id = id;
-	this.user = user;
-	this.enabled = enabled;
-	this.title = title;
-	this.description = description;
-	this.imageUrl = imageUrl;
-	this.created = created;
-	this.updated = updated;
-}
+	public Chat(int id, User user, boolean enabled, String title, String description, String imageUrl,
+			LocalDateTime created, LocalDateTime updated) {
+		super();
+		this.id = id;
+		this.user = user;
+		this.enabled = enabled;
+		this.title = title;
+		this.description = description;
+		this.imageUrl = imageUrl;
+		this.created = created;
+		this.updated = updated;
+	}
 
-public int getId() {
-	return id;
-}
+	public int getId() {
+		return id;
+	}
 
-public void setId(int id) {
-	this.id = id;
-}
+	public void setId(int id) {
+		this.id = id;
+	}
 
-public User getUser() {
-	return user;
-}
+	public User getUser() {
+		return user;
+	}
 
-public void setUser(User user) {
-	this.user = user;
-}
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-public boolean isEnabled() {
-	return enabled;
-}
+	public boolean isEnabled() {
+		return enabled;
+	}
 
-public void setEnabled(boolean enabled) {
-	this.enabled = enabled;
-}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
-public String getTitle() {
-	return title;
-}
+	public String getTitle() {
+		return title;
+	}
 
-public void setTitle(String title) {
-	this.title = title;
-}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-public String getDescription() {
-	return description;
-}
+	public String getDescription() {
+		return description;
+	}
 
-public void setDescription(String description) {
-	this.description = description;
-}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-public String getImageUrl() {
-	return imageUrl;
-}
+	public String getImageUrl() {
+		return imageUrl;
+	}
 
-public void setImageUrl(String imageUrl) {
-	this.imageUrl = imageUrl;
-}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
-public LocalDateTime getCreated() {
-	return created;
-}
+	public LocalDateTime getCreated() {
+		return created;
+	}
 
-public void setCreated(LocalDateTime created) {
-	this.created = created;
-}
+	public void setCreated(LocalDateTime created) {
+		this.created = created;
+	}
 
-public LocalDateTime getUpdated() {
-	return updated;
-}
+	public LocalDateTime getUpdated() {
+		return updated;
+	}
 
-public void setUpdated(LocalDateTime updated) {
-	this.updated = updated;
-}
+	public void setUpdated(LocalDateTime updated) {
+		this.updated = updated;
+	}
 
-public List<User> getUsers() {
-	return users;
-}
+	public List<User> getUsers() {
+		return users;
+	}
 
-public void setUsers(List<User> users) {
-	this.users = users;
-}
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
 
-@Override
-public int hashCode() {
-	return Objects.hash(id);
-}
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 
-@Override
-public boolean equals(Object obj) {
-	if (this == obj)
-		return true;
-	if (obj == null)
-		return false;
-	if (getClass() != obj.getClass())
-		return false;
-	Chat other = (Chat) obj;
-	return id == other.id;
-}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Chat other = (Chat) obj;
+		return id == other.id;
+	}
 
-@Override
-public String toString() {
-	return "Chat [id=" + id + ", user=" + user + ", enabled=" + enabled + ", title=" + title + ", description="
-			+ description + ", imageUrl=" + imageUrl + ", created=" + created + ", updated=" + updated + "]";
-}
-	
-	
+	@Override
+	public String toString() {
+		return "Chat [id=" + id + ", user=" + user + ", enabled=" + enabled + ", title=" + title + ", description="
+				+ description + ", imageUrl=" + imageUrl + ", created=" + created + ", updated=" + updated + "]";
+	}
 
 }

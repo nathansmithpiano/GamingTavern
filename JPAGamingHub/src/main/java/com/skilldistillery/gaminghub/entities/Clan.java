@@ -181,7 +181,5 @@ public class Clan {
 		return "Clan [id=" + id + ", alias=" + alias + ", enabled=" + enabled + ", name=" + name + ", description="
 				+ description + ", imageUrl=" + imageUrl + ", created=" + created + ", updated=" + updated + "]";
 	}
-	
-	
 
 }

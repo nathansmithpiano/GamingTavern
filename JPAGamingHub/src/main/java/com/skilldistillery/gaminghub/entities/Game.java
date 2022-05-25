@@ -169,29 +169,9 @@ public class Game {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Game [id=");
-		builder.append(id);
-		builder.append(", ratingId=");
-		builder.append(ratingId);
-		builder.append(", enabled=");
-		builder.append(enabled);
-		builder.append(", name=");
-		builder.append(name);
-		builder.append(", studio=");
-		builder.append(studio);
-		builder.append(", created=");
-		builder.append(created);
-		builder.append(", updated=");
-		builder.append(updated);
-		builder.append(", imageUrl=");
-		builder.append(imageUrl);
-		builder.append(", url=");
-		builder.append(url);
-		builder.append(", meetups=");
-		builder.append(meetups);
-		builder.append("]");
-		return builder.toString();
+		return "Game [id=" + id + ", ratingId=" + ratingId + ", enabled=" + enabled + ", name=" + name + ", studio="
+				+ studio + ", created=" + created + ", updated=" + updated + ", imageUrl=" + imageUrl + ", url=" + url
+				+ ", meetups=" + meetups + ", aliases=" + aliases + ", clans=" + clans + "]";
 	}
 
 }
