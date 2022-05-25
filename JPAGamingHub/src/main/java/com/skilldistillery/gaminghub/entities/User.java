@@ -61,6 +61,13 @@ public class User {
 			)
 	private List<Location> locations;
 	
+	@ManyToMany
+	@JoinTable(name = "user_equipment",
+	joinColumns = @JoinColumn(name = "user_id"),
+	inverseJoinColumns = @JoinColumn(name = "equipment_id") 
+			)
+	private List<Equipment> equipments;
+	
 	@OneToMany(mappedBy = "user")
 	private List<Meetup> meetups;
 	
@@ -172,6 +179,23 @@ public class User {
 			location.removeUser(this);
 			}
 	}
+			
+	public void addEquipment(Equipment equipment) {
+				if (equipments == null) {
+				equipments = new ArrayList<>();
+				}
+				if (equipment != null) {
+				equipments.add(equipment);
+				equipment.addUser(this);
+				}
+				}
+
+	public void removeEquipment(Equipment equipment) {
+				if (equipment != null) {
+				equipments.remove(equipment);
+				equipment.removeUser(this);
+				}
+		}		
 	
 
 	@Override
