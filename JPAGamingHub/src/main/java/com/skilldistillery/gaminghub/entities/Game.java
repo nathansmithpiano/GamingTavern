@@ -138,8 +138,8 @@ public class Game {
 		return aliases;
 	}
 
-	public void setAliases(List<Alias> alias) {
-		this.aliases = alias;
+	public void setAliases(List<Alias> aliases) {
+		this.aliases = aliases;
 	}
 
 	public List<Clan> getClans() {
@@ -152,7 +152,8 @@ public class Game {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(aliases, clans, created, enabled, id, imageUrl, meetups, name, ratingId, studio, updated,
+				url);
 	}
 
 	@Override
@@ -164,14 +165,19 @@ public class Game {
 		if (getClass() != obj.getClass())
 			return false;
 		Game other = (Game) obj;
-		return id == other.id;
+		return Objects.equals(aliases, other.aliases) && Objects.equals(clans, other.clans)
+				&& Objects.equals(created, other.created) && enabled == other.enabled && id == other.id
+				&& Objects.equals(imageUrl, other.imageUrl) && Objects.equals(meetups, other.meetups)
+				&& Objects.equals(name, other.name) && ratingId == other.ratingId
+				&& Objects.equals(studio, other.studio) && Objects.equals(updated, other.updated)
+				&& Objects.equals(url, other.url);
 	}
 
 	@Override
 	public String toString() {
 		return "Game [id=" + id + ", ratingId=" + ratingId + ", enabled=" + enabled + ", name=" + name + ", studio="
 				+ studio + ", created=" + created + ", updated=" + updated + ", imageUrl=" + imageUrl + ", url=" + url
-				+ ", meetups=" + meetups + ", aliases=" + aliases + ", clans=" + clans + "]";
+				+ "]";
 	}
 
 }
