@@ -1,6 +1,8 @@
 package com.skilldistillery.gaminghub.controllers;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,7 +31,7 @@ public class AuthController {
 		user = authSvc.register(user);
 		return user;
 	}
-
+	
 	@GetMapping(path = "/authenticate")
 	public User authenticate(Principal principal) {
 		return authSvc.getUserByUsername(principal.getName());
