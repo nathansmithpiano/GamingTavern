@@ -37,6 +37,15 @@ public class Game {
 	private String imageUrl;
 	
 	private String url;
+	
+	@ManyToMany
+	@JoinTable(name = "meetup_game",
+	joinColumns =  @JoinColumn(name = "game_id"),
+	inverseJoinColumns =  @JoinColumn(name = "meetup_id") 
+							)
+	private List<Meetup> meetups;
+	
+	
 	@ManyToMany
 	@JoinTable(
 	        name = "alias_game", 
