@@ -67,7 +67,7 @@ public class Message {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(contents, created, id, replyingToMessage);
 	}
 
 	@Override
@@ -79,20 +79,16 @@ public class Message {
 		if (getClass() != obj.getClass())
 			return false;
 		Message other = (Message) obj;
-		return id == other.id;
+		return Objects.equals(contents, other.contents) && Objects.equals(created, other.created) && id == other.id
+				&& Objects.equals(replyingToMessage, other.replyingToMessage);
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Message [id=");
-		builder.append(id);
-		builder.append(", contents=");
-		builder.append(contents);
-		builder.append(", created=");
-		builder.append(created);
-		builder.append("]");
-		return builder.toString();
+		return "Message [id=" + id + ", contents=" + contents + ", created=" + created + ", replyingToMessage="
+				+ replyingToMessage + "]";
 	}
+
+	
 
 }
