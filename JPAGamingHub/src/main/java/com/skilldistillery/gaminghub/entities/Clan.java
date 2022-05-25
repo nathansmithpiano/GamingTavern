@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -31,6 +32,7 @@ public class Clan {
 	private String imageUrl;
 	private LocalDateTime created;
 	private LocalDateTime updated;
+	@ManyToMany
 	@JoinTable(
 	        name = "alias_clan", 
 	        joinColumns = @JoinColumn(name = "clan_id"), 

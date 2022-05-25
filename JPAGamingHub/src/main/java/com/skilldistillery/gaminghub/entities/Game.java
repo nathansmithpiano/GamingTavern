@@ -2,7 +2,6 @@ package com.skilldistillery.gaminghub.entities;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Game {
@@ -36,7 +36,7 @@ public class Game {
 	private String imageUrl;
 	
 	private String url;
-	
+	@ManyToMany
 	@JoinTable(
 	        name = "alias_game", 
 	        joinColumns = @JoinColumn(name = "game_id"), 
