@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Game {
@@ -53,6 +54,13 @@ public class Game {
 	        inverseJoinColumns =  @JoinColumn(name = "alias_id") 
 	    )
 	private List<Alias> alias;
+	@ManyToMany
+	@JoinTable(
+	        name = "clan_game", 
+	        joinColumns = @JoinColumn(name = "game_id"), 
+	        inverseJoinColumns =  @JoinColumn(name = "clan_id") 
+	    )
+	private List<Clan> clans;
 
 	public Game() {
 		super();
@@ -146,6 +154,7 @@ public class Game {
 		this.alias = alias;
 	}
 
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(alias, created, enabled, id, imageUrl, meetups, name, ratingId, studio, updated, url);
@@ -172,6 +181,15 @@ public class Game {
 		return "Game [id=" + id + ", ratingId=" + ratingId + ", enabled=" + enabled + ", name=" + name + ", studio="
 				+ studio + ", created=" + created + ", updated=" + updated + ", imageUrl=" + imageUrl + ", url=" + url
 				+ ", meetups=" + meetups + ", alias=" + alias + "]";
+	}
+
+
+	public List<Clan> getClans() {
+		return clans;
+	}
+
+	public void setClans(List<Clan> clans) {
+		this.clans = clans;
 	}
 
 	

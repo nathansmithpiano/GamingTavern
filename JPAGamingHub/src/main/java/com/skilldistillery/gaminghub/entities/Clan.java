@@ -39,6 +39,20 @@ public class Clan {
 	        inverseJoinColumns =  @JoinColumn(name = "alias_id") 
 	    )
 	private List<Alias> alia;
+	@ManyToMany
+	@JoinTable(
+	        name = "clan_server", 
+	        joinColumns = @JoinColumn(name = "clan_id"), 
+	        inverseJoinColumns =  @JoinColumn(name = "server_id") 
+	    )
+	private List<Server> servers;
+	@ManyToMany
+	@JoinTable(
+	        name = "clan_game", 
+	        joinColumns = @JoinColumn(name = "clan_id"), 
+	        inverseJoinColumns =  @JoinColumn(name = "game_id") 
+	    )
+	private List<Game> games;
 	
 	public Clan() {
 		super();
@@ -127,6 +141,22 @@ public class Clan {
 
 	public void setAlia(List<Alias> alia) {
 		this.alia = alia;
+	}
+	
+	public List<Server> getServers() {
+		return servers;
+	}
+
+	public void setServers(List<Server> servers) {
+		this.servers = servers;
+	}
+
+	public List<Game> getGames() {
+		return games;
+	}
+
+	public void setGames(List<Game> games) {
+		this.games = games;
 	}
 
 	@Override
