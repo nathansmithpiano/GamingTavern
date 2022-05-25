@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "endorsement")
 public class Endorsement {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -22,7 +22,7 @@ public class Endorsement {
 	private String imageUrl;
 	private LocalDateTime created;
 	private LocalDateTime updated;
-	
+
 	public Endorsement() {
 		super();
 	}
@@ -98,10 +98,5 @@ public class Endorsement {
 		return "Endorsement [id=" + id + ", name=" + name + ", imageUrl=" + imageUrl + ", created=" + created
 				+ ", updated=" + updated + "]";
 	}
-	
-	
-	
-	
-	
 
 }
