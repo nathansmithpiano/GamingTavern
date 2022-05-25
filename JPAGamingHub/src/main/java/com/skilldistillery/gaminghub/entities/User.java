@@ -47,37 +47,27 @@ public class User {
 
 	private LocalDateTime created;
 	private LocalDateTime updated;
-	
+
 	@OneToMany(mappedBy = "user")
-	private List<Alias> alias;
-	
+	private List<Alias> aliases;
+
 	@OneToMany(mappedBy = "user")
 	private List<Chat> chat;
 
 	@ManyToMany
-	@JoinTable(name = "user_location",
-	joinColumns = @JoinColumn(name = "user_id"),
-	inverseJoinColumns = @JoinColumn(name = "location_id") 
-			)
+	@JoinTable(name = "user_location", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
 	private List<Location> locations;
 	@ManyToMany
-	@JoinTable(
-	        name = "chat_user", 
-	        joinColumns = @JoinColumn(name = "user_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "chat_id") 
-	    )
+	@JoinTable(name = "chat_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "chat_id"))
 	private List<Chat> chats;
-	
+
 	@ManyToMany
-	@JoinTable(name = "user_equipment",
-	joinColumns = @JoinColumn(name = "user_id"),
-	inverseJoinColumns = @JoinColumn(name = "equipment_id") 
-			)
+	@JoinTable(name = "user_equipment", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "equipment_id"))
 	private List<Equipment> equipments;
-	
+
 	@OneToMany(mappedBy = "user")
 	private List<Meetup> meetups;
-	
+
 	public User() {
 		super();
 	}
@@ -169,7 +159,7 @@ public class User {
 	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
 	}
-	
+
 	public List<Chat> getChats() {
 		return chats;
 	}
@@ -179,39 +169,78 @@ public class User {
 	}
 
 	public void addLocation(Location location) {
-			if (locations == null) {
+		if (locations == null) {
 			locations = new ArrayList<>();
-			}
-			if (location != null) {
+		}
+		if (location != null) {
 			locations.add(location);
 			location.addUser(this);
-			}
-			}
+		}
+	}
 
-			public void removeLocation(Location location) {
-			if (location != null) {
+	public void removeLocation(Location location) {
+		if (location != null) {
 			locations.remove(location);
 			location.removeUser(this);
-			}
+		}
 	}
-			
+
 	public void addEquipment(Equipment equipment) {
-				if (equipments == null) {
-				equipments = new ArrayList<>();
-				}
-				if (equipment != null) {
-				equipments.add(equipment);
-				equipment.addUser(this);
-				}
-				}
+		if (equipments == null) {
+			equipments = new ArrayList<>();
+		}
+		if (equipment != null) {
+			equipments.add(equipment);
+			equipment.addUser(this);
+		}
+	}
 
 	public void removeEquipment(Equipment equipment) {
-				if (equipment != null) {
-				equipments.remove(equipment);
-				equipment.removeUser(this);
-				}
-		}		
-	
+		if (equipment != null) {
+			equipments.remove(equipment);
+			equipment.removeUser(this);
+		}
+	}
+
+	public List<Alias> getAliases() {
+		return aliases;
+	}
+
+	public void setAliases(List<Alias> aliases) {
+		this.aliases = aliases;
+	}
+
+	public List<Chat> getChat() {
+		return chat;
+	}
+
+	public void setChat(List<Chat> chat) {
+		this.chat = chat;
+	}
+
+	public List<Location> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(List<Location> locations) {
+		this.locations = locations;
+	}
+
+	public List<Equipment> getEquipments() {
+		return equipments;
+	}
+
+	public void setEquipments(List<Equipment> equipments) {
+		this.equipments = equipments;
+	}
+
+	public List<Meetup> getMeetups() {
+		return meetups;
+	}
+
+	public void setMeetups(List<Meetup> meetups) {
+		this.meetups = meetups;
+	}
 
 	@Override
 	public int hashCode() {
