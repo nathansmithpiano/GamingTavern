@@ -11,14 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Platform {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
 	private boolean enabled;
 	private String name;
 	private String type;
@@ -26,13 +26,12 @@ public class Platform {
 	private LocalDateTime created;
 	private LocalDateTime updated;
 	@ManyToMany
-	@JoinTable(
-	        name = "alias_platform", 
-	        joinColumns = @JoinColumn(name = "alias_id") , 
-	        inverseJoinColumns =  @JoinColumn(name = "platform_id") 
-	    )
+	@JoinTable(name = "alias_platform", joinColumns = @JoinColumn(name = "alias_id"), inverseJoinColumns = @JoinColumn(name = "platform_id"))
 	private List<Alias> alias;
-	
+	@ManyToMany
+	@JoinTable(name = "platform_game", joinColumns = @JoinColumn(name = "platform_id"), inverseJoinColumns = @JoinColumn(name = "game_id"))
+	private List<Game> games;
+
 	public Platform() {
 		super();
 	}
@@ -101,9 +100,18 @@ public class Platform {
 		this.alias = alias;
 	}
 
+	public List<Game> getGames() {
+		return games;
+	}
+
+	public void setGames(List<Game> games) {
+		this.games = games;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(alias, created, description, enabled, id, name, type, updated);
+		return Objects.hash(id);
+
 	}
 
 	@Override
@@ -115,18 +123,16 @@ public class Platform {
 		if (getClass() != obj.getClass())
 			return false;
 		Platform other = (Platform) obj;
-		return Objects.equals(alias, other.alias) && Objects.equals(created, other.created)
-				&& Objects.equals(description, other.description) && enabled == other.enabled && id == other.id
-				&& Objects.equals(name, other.name) && Objects.equals(type, other.type)
-				&& Objects.equals(updated, other.updated);
+
+		return id == other.id;
+
 	}
 
 	@Override
 	public String toString() {
 		return "Platform [id=" + id + ", enabled=" + enabled + ", name=" + name + ", type=" + type + ", description="
-				+ description + ", created=" + created + ", updated=" + updated + ", alias=" + alias + "]";
+
+				+ description + ", created=" + created + ", updated=" + updated + "]";
 	}
 
-	
-	
 }

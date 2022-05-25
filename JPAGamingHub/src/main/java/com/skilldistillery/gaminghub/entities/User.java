@@ -60,6 +60,13 @@ public class User {
 	inverseJoinColumns = @JoinColumn(name = "location_id") 
 			)
 	private List<Location> locations;
+	@ManyToMany
+	@JoinTable(
+	        name = "chat_user", 
+	        joinColumns = @JoinColumn(name = "user_id"), 
+	        inverseJoinColumns =  @JoinColumn(name = "chat_id") 
+	    )
+	private List<Chat> chats;
 	
 	@ManyToMany
 	@JoinTable(name = "user_equipment",
@@ -163,6 +170,14 @@ public class User {
 		this.updated = updated;
 	}
 	
+	public List<Chat> getChats() {
+		return chats;
+	}
+
+	public void setChats(List<Chat> chats) {
+		this.chats = chats;
+	}
+
 	public void addLocation(Location location) {
 			if (locations == null) {
 			locations = new ArrayList<>();
