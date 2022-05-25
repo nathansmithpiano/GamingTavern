@@ -16,31 +16,20 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "equipment")
 public class Equipment {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private String model;
 	private String description;
-	
+
 	@ManyToMany
-	@JoinTable(name = "user_equipment",
-	joinColumns = @JoinColumn(name = "equipment_id"),
-	inverseJoinColumns = @JoinColumn(name = "user_id") 
-			)
+	@JoinTable(name = "user_equipment", joinColumns = @JoinColumn(name = "equipment_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> users;
 
 	public Equipment() {
 		super();
-	}
-	
-	public Equipment(int id, String name, String model, String description) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.model = model;
-		this.description = description;
 	}
 
 	public int getId() {
@@ -75,6 +64,23 @@ public class Equipment {
 		this.description = description;
 	}
 
+	public void addUser(User user) {
+		if (users == null) {
+			users = new ArrayList<>();
+		}
+		if (user != null) {
+			users.add(user);
+			user.addEquipment(this);
+		}
+	}
+
+	public void removeUser(User user) {
+		if (user != null) {
+			users.remove(user);
+			user.removeEquipment(this);
+		}
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -96,22 +102,5 @@ public class Equipment {
 	public String toString() {
 		return "Equipment [id=" + id + ", name=" + name + ", model=" + model + ", description=" + description + "]";
 	}
-	
-	
-	public void addUser(User user) {
-		if (users == null) {
-		users = new ArrayList<>();
-		}
-		if (user != null) {
-		users.add(user);
-		user.addEquipment(this);
-		}
-		}
 
-		public void removeUser(User user) {
-		if (user != null) {
-		users.remove(user);
-		user.removeEquipment(this);
-		}
-}
 }
