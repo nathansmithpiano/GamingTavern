@@ -69,7 +69,7 @@ public class Alias {
 	        joinColumns = @JoinColumn(name = "meetup_id"), 
 	        inverseJoinColumns =  @JoinColumn(name = "alias_id") 
 	    )
-	private List<Meetup> meetUps;
+	private List<Meetup> meetups;
 	
 	public Alias() {
 		super();
@@ -180,11 +180,11 @@ public class Alias {
 	}
 	
 	public List<Meetup> getMeetUps() {
-		return meetUps;
+		return meetups;
 	}
 
 	public void setMeetUps(List<Meetup> meetUps) {
-		this.meetUps = meetUps;
+		this.meetups = meetUps;
 	}
 	
 	@Override
