@@ -1,12 +1,16 @@
 package com.skilldistillery.gaminghub.entities;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,6 +33,13 @@ public class Server {
 	private String description;
 	private LocalDateTime created;
 	private LocalDateTime updated;
+	@ManyToMany
+	@JoinTable(
+	        name = "alias_server", 
+	        joinColumns = @JoinColumn(name = "server_id"), 
+	        inverseJoinColumns =  @JoinColumn(name = "alias_id") 
+	    )
+	private List<Alias> alias;
 	
 	public Server() {
 		super();
