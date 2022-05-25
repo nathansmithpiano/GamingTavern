@@ -1,6 +1,7 @@
 package com.skilldistillery.gaminghub.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,11 +14,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class MeetupTest {
+class EquipmentTest {
 	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Meetup meetup;
+	private Equipment equip;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,7 +33,7 @@ class MeetupTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		meetup = em.find(Meetup.class, 1);
+		equip = em.find(Equipment.class, 1);
 	}
 
 	@AfterEach
@@ -41,11 +42,11 @@ class MeetupTest {
 	}
 
 	@Test
-	@DisplayName("Meetup mapping")
-	void test() {
-		assertNotNull(meetup);
-		assertNotNull(meetup.getName());
-		assertEquals("Free for all", meetup.getName());
+	@DisplayName("Equipment mapping")
+	void test_equipment_mapping() {
+		assertNotNull(equip);
+		
 	}
+	
 
 }

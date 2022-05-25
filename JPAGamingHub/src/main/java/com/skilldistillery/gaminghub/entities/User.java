@@ -1,7 +1,9 @@
 package com.skilldistillery.gaminghub.entities;
 
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -10,9 +12,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -44,6 +48,12 @@ public class User {
 	private LocalDateTime created;
 	private LocalDateTime updated;
 	
+	@OneToMany(mappedBy = "user")
+	private List<Alias> alias;
+	
+	@OneToMany(mappedBy = "user")
+	private List<Chat> chat;
+
 	@ManyToMany
 	@JoinTable(name = "user_location",
 	joinColumns = @JoinColumn(name = "user_id"),
@@ -60,7 +70,6 @@ public class User {
 	
 	@OneToMany(mappedBy = "user")
 	private List<Meetup> meetups;
-	
 	
 	public User() {
 		super();
