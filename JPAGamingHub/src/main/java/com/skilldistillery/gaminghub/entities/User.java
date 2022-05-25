@@ -1,6 +1,9 @@
 package com.skilldistillery.gaminghub.entities;
 
 import java.time.LocalDateTime;
+
+import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -9,6 +12,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -46,6 +54,16 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<Chat> chat;
 
+	@ManyToMany
+	@JoinTable(name = "user_location",
+	joinColumns = @JoinColumn(name = "user_id"),
+	inverseJoinColumns = @JoinColumn(name = "location_id") 
+			)
+	private List<Location> locations;
+	
+	@OneToMany(mappedBy = "user")
+	private List<Meetup> meetups;
+	
 	public User() {
 		super();
 	}
@@ -137,6 +155,24 @@ public class User {
 	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
 	}
+	
+	public void addLocation(Location location) {
+			if (locations == null) {
+			locations = new ArrayList<>();
+			}
+			if (location != null) {
+			locations.add(location);
+			location.addUser(this);
+			}
+			}
+
+			public void removeLocation(Location location) {
+			if (location != null) {
+			locations.remove(location);
+			location.removeUser(this);
+			}
+	}
+	
 
 	@Override
 	public int hashCode() {
