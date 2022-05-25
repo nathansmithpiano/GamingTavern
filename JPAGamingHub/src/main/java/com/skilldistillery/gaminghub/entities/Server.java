@@ -40,6 +40,13 @@ public class Server {
 	        inverseJoinColumns =  @JoinColumn(name = "alias_id") 
 	    )
 	private List<Alias> alias;
+	@ManyToMany
+	@JoinTable(
+	        name = "clan_server", 
+	        joinColumns = @JoinColumn(name = "server_id"), 
+	        inverseJoinColumns =  @JoinColumn(name = "clan_id") 
+	    )
+	private List<Clan> clans;
 	
 	public Server() {
 		super();
