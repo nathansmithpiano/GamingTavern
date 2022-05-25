@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Platform {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -26,20 +26,12 @@ public class Platform {
 	private LocalDateTime created;
 	private LocalDateTime updated;
 	@ManyToMany
-	@JoinTable(
-	        name = "alias_platform", 
-	        joinColumns = @JoinColumn(name = "alias_id") , 
-	        inverseJoinColumns =  @JoinColumn(name = "platform_id") 
-	    )
+	@JoinTable(name = "alias_platform", joinColumns = @JoinColumn(name = "alias_id"), inverseJoinColumns = @JoinColumn(name = "platform_id"))
 	private List<Alias> alias;
 	@ManyToMany
-	@JoinTable(
-	        name = "platform_game", 
-	        joinColumns = @JoinColumn(name = "platform_id") , 
-	        inverseJoinColumns =  @JoinColumn(name = "game_id") 
-	    )
+	@JoinTable(name = "platform_game", joinColumns = @JoinColumn(name = "platform_id"), inverseJoinColumns = @JoinColumn(name = "game_id"))
 	private List<Game> games;
-		
+
 	public Platform() {
 		super();
 	}
@@ -115,10 +107,11 @@ public class Platform {
 	public void setGames(List<Game> games) {
 		this.games = games;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
+
 	}
 
 	@Override
@@ -130,15 +123,16 @@ public class Platform {
 		if (getClass() != obj.getClass())
 			return false;
 		Platform other = (Platform) obj;
+
 		return id == other.id;
+
 	}
 
 	@Override
 	public String toString() {
 		return "Platform [id=" + id + ", enabled=" + enabled + ", name=" + name + ", type=" + type + ", description="
+
 				+ description + ", created=" + created + ", updated=" + updated + "]";
 	}
-	
-	
 
 }
