@@ -1,6 +1,7 @@
 package com.skilldistillery.gaminghub.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -8,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 
 @Entity
 public class Game {
@@ -33,10 +36,27 @@ public class Game {
 	private String imageUrl;
 	
 	private String url;
+	
+	@JoinTable(
+	        name = "alias_game", 
+	        joinColumns = @JoinColumn(name = "game_id"), 
+	        inverseJoinColumns =  @JoinColumn(name = "alias_id") 
+	    )
+	private List<Alias> alias;
 
 	public Game() {
 		super();
 	}
+
+	public List<Alias> getAlias() {
+		return alias;
+	}
+
+	public void setAlias(List<Alias> alias) {
+		this.alias = alias;
+	}
+	
+	
 
 	
 }
