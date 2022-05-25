@@ -57,12 +57,6 @@ public class Message {
 		this.created = created;
 	}
 
-	public Chat getChat() {
-		return chat;
-	}
-
-	public void setChat(Chat chat) {
-		this.chat = chat;
 	public Message getReplyingToMessage() {
 		return replyingToMessage;
 	}
@@ -73,8 +67,7 @@ public class Message {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(chat, contents, created, id);
-		return Objects.hash(id);
+		return Objects.hash(contents, created, id, replyingToMessage);
 	}
 
 	@Override
@@ -86,27 +79,16 @@ public class Message {
 		if (getClass() != obj.getClass())
 			return false;
 		Message other = (Message) obj;
-		return Objects.equals(chat, other.chat) && Objects.equals(contents, other.contents)
-				&& Objects.equals(created, other.created) && id == other.id;
-		return id == other.id;
+		return Objects.equals(contents, other.contents) && Objects.equals(created, other.created) && id == other.id
+				&& Objects.equals(replyingToMessage, other.replyingToMessage);
 	}
 
 	@Override
 	public String toString() {
-		return "Message [id=" + id + ", contents=" + contents + ", created=" + created + ", chat=" + chat + "]";
+		return "Message [id=" + id + ", contents=" + contents + ", created=" + created + ", replyingToMessage="
+				+ replyingToMessage + "]";
 	}
+
 	
-	
-	
-		StringBuilder builder = new StringBuilder();
-		builder.append("Message [id=");
-		builder.append(id);
-		builder.append(", contents=");
-		builder.append(contents);
-		builder.append(", created=");
-		builder.append(created);
-		builder.append("]");
-		return builder.toString();
-	}
 
 }
