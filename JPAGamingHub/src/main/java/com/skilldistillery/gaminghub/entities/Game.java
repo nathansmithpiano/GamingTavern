@@ -1,36 +1,42 @@
 package com.skilldistillery.gaminghub.entities;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "chat")
-public class Chat {
+public class Game {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
-	private String description;
+	
+	@Column(name="rating_id")
+	private int ratingId;
+	
+	private boolean enabled;
+	
+	private String name;
+	
+	private String studio;
+	
 	private LocalDateTime created;
+	
 	private LocalDateTime updated;
+	
+	@Column(name="image_url")
+	private String imageUrl;
+	
+	private String url;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "chat")
-	private List<Message> messages;
-
-	public Chat() {
+	public Game() {
 		super();
 	}
 
+	
 }
