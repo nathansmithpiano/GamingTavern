@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Game {
@@ -52,6 +53,13 @@ public class Game {
 	        inverseJoinColumns =  @JoinColumn(name = "alias_id") 
 	    )
 	private List<Alias> alias;
+	@ManyToMany
+	@JoinTable(
+	        name = "clan_game", 
+	        joinColumns = @JoinColumn(name = "game_id"), 
+	        inverseJoinColumns =  @JoinColumn(name = "clan_id") 
+	    )
+	private List<Clan> clans;
 
 	public Game() {
 		super();
@@ -64,6 +72,16 @@ public class Game {
 	public void setAlias(List<Alias> alias) {
 		this.alias = alias;
 	}
+
+	public List<Clan> getClans() {
+		return clans;
+	}
+
+	public void setClans(List<Clan> clans) {
+		this.clans = clans;
+	}
+	
+	
 	
 	
 

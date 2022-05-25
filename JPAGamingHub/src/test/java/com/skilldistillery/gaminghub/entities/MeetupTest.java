@@ -1,6 +1,11 @@
 package com.skilldistillery.gaminghub.entities;
 
+<<<<<<< HEAD
 import static org.junit.jupiter.api.Assertions.*;
+=======
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+>>>>>>> 9d638e46d37a8c3a6294756fa14c4e84d4a05a5f
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -42,6 +47,7 @@ class MeetupTest {
 
 	@Test
 	@DisplayName("Meetup mapping")
+<<<<<<< HEAD
 	void test() {
 		assertNotNull(meetup);
 		assertNotNull(meetup.getName());
@@ -49,3 +55,22 @@ class MeetupTest {
 	}
 
 }
+=======
+	void test_meetup_mapping() {
+		
+//		SELECT * FROM meetup WHERE id=1;
+//		+----+-------------+---------+--------------+---------------------+----------+-------------+---------------------+---------------------+
+//		| id | timezone_id | user_id | name         | date                | capacity | description | created             | updated             |
+//		+----+-------------+---------+--------------+---------------------+----------+-------------+---------------------+---------------------+
+//		|  1 |           8 |     398 | Free for all | 2022-05-03 20:00:00 |       36 |             | 2022-05-24 18:30:00 | 2022-05-24 18:30:00 |
+//		+----+-------------+---------+--------------+---------------------+----------+-------------+---------------------+---------------------+
+		
+		assertNotNull(meetup);
+		assertNotNull(meetup.getName());
+		assertEquals("Free for all", meetup.getName());
+		
+	}
+	
+
+}
+>>>>>>> 9d638e46d37a8c3a6294756fa14c4e84d4a05a5f
