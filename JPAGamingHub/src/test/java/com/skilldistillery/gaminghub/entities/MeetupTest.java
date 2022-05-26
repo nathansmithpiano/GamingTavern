@@ -1,8 +1,6 @@
 package com.skilldistillery.gaminghub.entities;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -42,15 +40,6 @@ class MeetupTest {
 		em.close();
 	}
 
-	@Test
-	@DisplayName("Meetup mapping")
-	void test() {
-		assertNotNull(meetup);
-		assertNotNull(meetup.getName());
-		assertEquals("Free for all", meetup.getName());
-	}
-
-
 
 	void test_meetup_mapping() {
 		
@@ -67,5 +56,39 @@ class MeetupTest {
 		
 	}
 	
+	@Test
+	@DisplayName("Meetup MTM location mapping")
+	void test() {
+		meetup = em.find(Meetup.class, 1);
+		assertNotNull(meetup);
+		assertNotNull(meetup.getLocations());
+		assertTrue(meetup.getLocations().size() > 0);
+		assertEquals(1, meetup.getLocations().get(0)
+				.getMeetups().get(0).getId());
+		//select * from meetup_location join location l on l.id = meetup_location.location_id 
+		// join meetup on meetup.id = meetup_location.location_id;
+	}
+	
+	@Test
+	@DisplayName("Meetup MTM alias mapping")
+	void test2() {
+		meetup = em.find(Meetup.class, 1);
+		assertNotNull(meetup);
+		assertNotNull(meetup.getAliases());
+		assertTrue(meetup.getAliases().size() > 0);
+		assertEquals(1, meetup.getAliases().get(0)
+				.getMeetups().get(0).getId());
+	}
+	
+	@Test
+	@DisplayName("Meetup MTM games mapping")
+	void test3() {
+		meetup = em.find(Meetup.class, 1);
+		assertNotNull(meetup);
+		assertNotNull(meetup.getGames());
+		assertTrue(meetup.getGames().size() > 0);
+		assertEquals(1, meetup.getGames().get(0)
+				.getMeetups().get(0).getId());
+	}
 
 }

@@ -183,14 +183,15 @@ public class Alias {
 		this.clan = clan;
 	}
 	
-	public List<Meetup> getMeetUps() {
+	
+	public List<Meetup> getMeetups() {
 		return meetups;
 	}
 
-	public void setMeetUps(List<Meetup> meetUps) {
-		this.meetups = meetUps;
+	public void setMeetups(List<Meetup> meetups) {
+		this.meetups = meetups;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
