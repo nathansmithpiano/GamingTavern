@@ -2,6 +2,7 @@ package com.skilldistillery.gaminghub.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -58,14 +59,27 @@ public class GameTest {
 	}
 	
 	@Test
-	@DisplayName("Testing ManyToMany Category(1) ---> User(Many)")
+	@DisplayName("Testing ManyToMany game(1) ---> Alias(Many)")
 	void test2() {
 		game = em.find(Game.class, 1);
 		assertNotNull(game);
 		assertNotNull(game.getAliases());
 //		assertNotNull(game.getMeetups());
 //		assertNotNull(game.getClans());
-		assertEquals("", game.getAliases().size() > 0);
+		assertTrue(game.getAliases().size() > 0);
+		assertEquals(1, game.getAliases().get(0).getGames().get(0).getId());
 	}
+	
+	@Test
+	@DisplayName("Testing ManyToMany Game(1) ---> (Many)")
+	void test3() {
+		game = em.find(Game.class, 1);
+		assertNotNull(game);
+		assertNotNull(game.getAliases());
+//		assertNotNull(game.getMeetups());
+//		assertNotNull(game.getClans());
+//		assertTrue(game.getAliases().size() > 0);
+	}
+
 
 }
