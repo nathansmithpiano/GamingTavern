@@ -4,9 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -52,7 +49,7 @@ class UserTest {
 		assertEquals("admin", user.getUsername());
 	}
 	
-	@DisplayName("User Alias mapping")
+	@DisplayName("User Alias oTm mapping")
 	@Test
 	void test_user_alias_mapping() {
 		
@@ -138,5 +135,112 @@ class UserTest {
 		// toString puts "T" where there was a space in mysql
 		assertEquals("2019-01-20T19:37:35", userFriend.getCreated().toString());
 	}
+	
+	@DisplayName("User --> Chat Mapping")
+	@Test
+	void test_user_to_chat_mapping() {
 
+//		SELECT id, created_by_user_id, enabled, title, description FROM chat;
+//		+----+--------------------+---------+--------------------+------------------------------+
+//		| id | created_by_user_id | enabled | title              | description                  |
+//		+----+--------------------+---------+--------------------+------------------------------+
+//		|  1 |                  1 |       1 | Hell's Angels Chat | Guild Chat for Hell's Angels |
+//		|  2 |                  7 |       1 | Hell's Angels Chat | Guild Chat for Hell's Angels |
+//		+----+--------------------+---------+--------------------+------------------------------+
+		user = em.find(User.class, 1);
+		assertNotNull(user);
+		assertNotNull(user.getChats());
+		int matches = 0;
+		int expectedMatches = user.getChats().size();
+		for(Chat chat: user.getChats()) {
+			assertNotNull(chat.getUsers());
+			assertTrue(chat.getUsers().size() > 0);
+			for(User chatUser: chat.getUsers()) {
+				if(chatUser.getUsername().equals(user.getUsername())) {
+					matches++;
+				}
+			}
+		}
+		assertEquals(expectedMatches, matches);
+		}
+	
+	@DisplayName("User --> Location ManyToMany Mapping")
+	@Test
+	void test_user_to_location_mapping() {
+//		SELECT user_id, COUNT(*) FROM user_location GROUP BY user_id ORDER BY COUNT(*) DESC;
+//		+---------+----------+
+//		| user_id | COUNT(*) |
+//		+---------+----------+
+//		|    1024 |        2 |
+		
+		user = em.find(User.class, 1024);
+		assertNotNull(user);
+		assertNotNull(user.getLocations());
+		assertTrue(user.getLocations().size() > 0);
+		int matches = 0;
+		for(Location location: user.getLocations()) {
+			assertNotNull(location.getUsers());
+			assertTrue(location.getUsers().size() > 0);
+			for(User locationUser: location.getUsers()) {
+				if(locationUser.getUsername().equals(user.getUsername())) {
+					matches++;
+				}
+			}
+		}
+		assertEquals(2, matches);
+	}
+	
+	@DisplayName("User --> Equipment ManyToMany Mapping")
+	@Test
+	void test_user_to_equipment_mapping() {
+//		SELECT user_id, count(*) FROM user_equipment GROUP BY user_id ORDER BY count(*) desc;
+//		+---------+----------+
+//		| user_id | count(*) |
+//		+---------+----------+
+//		|      16 |        3 |
+		
+		user = em.find(User.class, 16);
+		assertNotNull(user);
+		assertNotNull(user.getEquipments());
+		assertTrue(user.getEquipments().size() > 0);
+		int matches = 0;
+		for(Equipment equipment: user.getEquipments()) {
+			assertNotNull(equipment.getUsers());
+			assertTrue(equipment.getUsers().size() > 0);
+			for(User equipmentUser: equipment.getUsers()) {
+				if(equipmentUser.getFirstName().equals(user.getFirstName())) {
+					matches++;
+				}
+			}
+		}
+		assertEquals(3, matches);
+	}
+	
+	@DisplayName("User --> Meetup OneToMany Mapping")
+	@Test
+	void test_user_to_meetup_mapping() {
+//		SELECT * from meetup WHERE user_id=398;
+//		+----+-------------+---------+--------------+---------------------+----------+-------------+---------------------+---------------------+
+//		| id | timezone_id | user_id | name         | date                | capacity | description | created             | updated             |
+//		+----+-------------+---------+--------------+---------------------+----------+-------------+---------------------+---------------------+
+//		|  1 |           8 |     398 | Free for all | 2022-05-03 20:00:00 |       36 |             | 2022-05-24 18:30:00 | 2022-05-24 18:30:00 |
+//		+----+-------------+---------+--------------+---------------------+----------+-------------+---------------------+---------------------+
+		user = em.find(User.class, 398);
+		assertNotNull(user);
+		assertNotNull(user.getMeetups());
+		assertTrue(user.getMeetups().size() > 0);
+		int matches = 0;
+		int expectedMatches = user.getMeetups().size();
+		for(Meetup meetup: user.getMeetups()) {
+			if(meetup.getUser().getUsername().equals(user.getUsername())) {
+				matches++;
+			}
+		}
+		assertEquals(expectedMatches, matches);
+	}
+	
+	
+	
+	
+	
 }
