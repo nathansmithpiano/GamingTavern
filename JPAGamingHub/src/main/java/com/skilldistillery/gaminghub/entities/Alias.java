@@ -33,41 +33,45 @@ public class Alias {
 	private String imageUrl;
 	private LocalDateTime created;
 	private LocalDateTime updated;
+	
 	@OneToMany(mappedBy = "alias")
 	private List<Clan> clans;
+	
 	@ManyToMany
-	@JoinTable(
-	        name = "alias_platform", 
-	        joinColumns = @JoinColumn(name = "alias_id") , 
-	        inverseJoinColumns =  @JoinColumn(name = "platform_id") 
+	@JoinTable(name = "alias_platform", 
+	joinColumns = @JoinColumn(name = "alias_id") , 
+	inverseJoinColumns =  @JoinColumn(name = "platform_id") 
 	    )
 	private List<Platform> platforms;
+	
 	@ManyToMany
-	@JoinTable(
-	        name = "alias_game", 
-	        joinColumns = @JoinColumn(name = "alias_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "game_id") 
+	@JoinTable(name = "alias_game", 
+	joinColumns = @JoinColumn(name = "alias_id"), 
+	inverseJoinColumns =  @JoinColumn(name = "game_id") 
 	    )
 	private List<Game> games;
+	
 	@ManyToMany
 	@JoinTable(
-	        name = "alias_server", 
-	        joinColumns = @JoinColumn(name = "alias_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "server_id") 
+	 name = "alias_server", 
+	 joinColumns = @JoinColumn(name = "alias_id"), 
+	 inverseJoinColumns =  @JoinColumn(name = "server_id") 
 	    )
 	private List<Server> servers;
+	
 	@ManyToMany
 	@JoinTable(
-	        name = "alias_clan", 
-	        joinColumns = @JoinColumn(name = "alias_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "clan_id") 
+	 name = "alias_clan", 
+	 joinColumns = @JoinColumn(name = "alias_id"), 
+	 inverseJoinColumns =  @JoinColumn(name = "clan_id") 
 	    )
 	private List<Clan> clan;
+	
 	@ManyToMany
 	@JoinTable(
-	        name = "meetup_alias", 
-	        joinColumns = @JoinColumn(name = "meetup_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "alias_id") 
+	 name = "meetup_alias", 
+	 joinColumns = @JoinColumn(name = "meetup_id"), 
+	 inverseJoinColumns =  @JoinColumn(name = "alias_id") 
 	    )
 	private List<Meetup> meetups;
 	
@@ -179,14 +183,15 @@ public class Alias {
 		this.clan = clan;
 	}
 	
-	public List<Meetup> getMeetUps() {
+	
+	public List<Meetup> getMeetups() {
 		return meetups;
 	}
 
-	public void setMeetUps(List<Meetup> meetUps) {
-		this.meetups = meetUps;
+	public void setMeetups(List<Meetup> meetups) {
+		this.meetups = meetups;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

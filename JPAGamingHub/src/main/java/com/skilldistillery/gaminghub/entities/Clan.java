@@ -32,6 +32,7 @@ public class Clan {
 	private String imageUrl;
 	private LocalDateTime created;
 	private LocalDateTime updated;
+	
 	@ManyToMany
 	@JoinTable(
 	        name = "alias_clan", 
@@ -39,6 +40,7 @@ public class Clan {
 	        inverseJoinColumns =  @JoinColumn(name = "alias_id") 
 	    )
 	private List<Alias> alia;
+	
 	@ManyToMany
 	@JoinTable(
 	        name = "clan_server", 

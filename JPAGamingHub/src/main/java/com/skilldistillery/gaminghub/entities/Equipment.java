@@ -25,7 +25,9 @@ public class Equipment {
 	private String description;
 
 	@ManyToMany
-	@JoinTable(name = "user_equipment", joinColumns = @JoinColumn(name = "equipment_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	@JoinTable(name = "user_equipment", 
+	joinColumns = @JoinColumn(name = "equipment_id"),
+	inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> users;
 
 	public Equipment() {
