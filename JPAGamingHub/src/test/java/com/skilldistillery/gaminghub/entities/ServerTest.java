@@ -41,11 +41,19 @@ public class ServerTest {
 		em.close();
 	}
 
+//	SELECT name FROM SERVER where id=1;
+//	+--------------+
+//	| name         |
+//	+--------------+
+//	| The Gauntlet |
+//	+--------------+
+	
 	@Test
 	@DisplayName("Server mapping")
 	void test_user_mapping() {
 		assertNotNull(server);
 		assertEquals("The Gauntlet", server.getName());
+		
 	}
 
 	
