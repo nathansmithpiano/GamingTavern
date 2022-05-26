@@ -29,7 +29,7 @@ public class Location {
 
 	private String state;
 
-	private Integer zip;
+	private String zip;
 	private String country;
 	private LocalDateTime created;
 	private LocalDateTime updated;
@@ -95,11 +95,11 @@ public class Location {
 		this.state = state;
 	}
 
-	public Integer getZip() {
+	public String getZip() {
 		return zip;
 	}
 
-	public void setZip(Integer zip) {
+	public void setZip(String zip) {
 		this.zip = zip;
 	}
 
@@ -144,6 +144,30 @@ public class Location {
 			user.removeLocation(this);
 		}
 
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	public List<Meetup> getMeetups() {
+		return meetups;
+	}
+
+	public void setMeetups(List<Meetup> meetups) {
+		this.meetups = meetups;
+	}
+
+	public Timezone getTimezone() {
+		return timezone;
+	}
+
+	public void setTimezone(Timezone timezone) {
+		this.timezone = timezone;
 	}
 
 	@Override

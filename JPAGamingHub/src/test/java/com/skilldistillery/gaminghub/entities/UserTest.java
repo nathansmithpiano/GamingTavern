@@ -4,9 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -158,4 +155,33 @@ class UserTest {
 		assertEquals("Guild Chat for Hell's Angels", user.getChats().get(0).getDescription());
 		
 	}
+	
+	@DisplayName("User --> Location Mapping")
+	@Test
+	void test_user_to_location_mapping() {
+//		SELECT * FROM user_location where user_id=115;
+//		+---------+-------------+
+//		| user_id | location_id |
+//		+---------+-------------+
+//		|     115 |        2491 |
+//		+---------+-------------+
+		
+		user = em.find(User.class, 115);
+		assertNotNull(user);
+		assertNotNull(user.getLocations());
+		assertTrue(user.getLocations().size() > 0);
+		int matches = 0;
+		for(Location location: user.getLocations()) {
+			assertNotNull(location.getUsers());
+			assertTrue(location.getUsers().size() > 0);
+			for(User locationUser: location.getUsers()) {
+				if(locationUser.getUsername().equals(user.getUsername())) {
+					matches++;
+				}
+			}
+		}
+		assertEquals(1, matches);
+	}
+	
+	
 }

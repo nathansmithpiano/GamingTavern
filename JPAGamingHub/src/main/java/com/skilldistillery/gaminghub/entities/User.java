@@ -57,6 +57,7 @@ public class User {
 	@ManyToMany
 	@JoinTable(name = "user_location", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
 	private List<Location> locations;
+	
 	@ManyToMany
 	@JoinTable(name = "chat_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "chat_id"))
 	private List<Chat> chats;
