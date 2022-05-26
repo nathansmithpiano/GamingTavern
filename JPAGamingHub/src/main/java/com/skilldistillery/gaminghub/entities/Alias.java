@@ -33,8 +33,10 @@ public class Alias {
 	private String imageUrl;
 	private LocalDateTime created;
 	private LocalDateTime updated;
+	
 	@OneToMany(mappedBy = "alias")
 	private List<Clan> clans;
+	
 	@ManyToMany
 	@JoinTable(
 	        name = "alias_platform", 
@@ -42,6 +44,7 @@ public class Alias {
 	        inverseJoinColumns =  @JoinColumn(name = "platform_id") 
 	    )
 	private List<Platform> platforms;
+	
 	@ManyToMany
 	@JoinTable(
 	        name = "alias_game", 
@@ -49,6 +52,7 @@ public class Alias {
 	        inverseJoinColumns =  @JoinColumn(name = "game_id") 
 	    )
 	private List<Game> games;
+	
 	@ManyToMany
 	@JoinTable(
 	        name = "alias_server", 
@@ -56,6 +60,7 @@ public class Alias {
 	        inverseJoinColumns =  @JoinColumn(name = "server_id") 
 	    )
 	private List<Server> servers;
+	
 	@ManyToMany
 	@JoinTable(
 	        name = "alias_clan", 
@@ -63,6 +68,7 @@ public class Alias {
 	        inverseJoinColumns =  @JoinColumn(name = "clan_id") 
 	    )
 	private List<Clan> clan;
+	
 	@ManyToMany
 	@JoinTable(
 	        name = "meetup_alias", 
