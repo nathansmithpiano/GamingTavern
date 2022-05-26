@@ -29,8 +29,8 @@ public class Meetup {
 	
 	@ManyToMany
 	@JoinTable(name = "meetup_location",
-	joinColumns =  @JoinColumn(name = "location_id"),
-	inverseJoinColumns =  @JoinColumn(name = "meetup_id") 
+	joinColumns =  @JoinColumn(name = "meetup_id"),
+	inverseJoinColumns =  @JoinColumn(name = "location_id") 
 							)
 	private List<Location> locations;
 	

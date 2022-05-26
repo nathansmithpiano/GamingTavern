@@ -65,8 +65,7 @@ class MeetupTest {
 		assertTrue(meetup.getLocations().size() > 0);
 		assertEquals(1, meetup.getLocations().get(0)
 				.getMeetups().get(0).getId());
-		//select * from meetup_location join location l on l.id = meetup_location.location_id 
-		// join meetup on meetup.id = meetup_location.location_id;
+		
 	}
 	
 	@Test

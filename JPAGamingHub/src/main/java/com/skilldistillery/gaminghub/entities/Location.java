@@ -29,7 +29,7 @@ public class Location {
 
 	private String state;
 
-	private Integer zip;
+	private String zip;
 	private String country;
 	private LocalDateTime created;
 	private LocalDateTime updated;
@@ -95,11 +95,11 @@ public class Location {
 		this.state = state;
 	}
 
-	public Integer getZip() {
+	public String getZip() {
 		return zip;
 	}
 
-	public void setZip(Integer zip) {
+	public void setZip(String zip) {
 		this.zip = zip;
 	}
 
