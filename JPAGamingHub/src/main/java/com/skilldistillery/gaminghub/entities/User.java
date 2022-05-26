@@ -54,9 +54,13 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<Chat> chat;
 
+	@OneToMany(mappedBy = "user")
+	private List<Meetup> meetups;
+	
 	@ManyToMany
 	@JoinTable(name = "user_location", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
 	private List<Location> locations;
+	
 	@ManyToMany
 	@JoinTable(name = "chat_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "chat_id"))
 	private List<Chat> chats;
@@ -65,8 +69,6 @@ public class User {
 	@JoinTable(name = "user_equipment", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "equipment_id"))
 	private List<Equipment> equipments;
 
-	@OneToMany(mappedBy = "user")
-	private List<Meetup> meetups;
 	
 	@ManyToMany
 	@JoinTable(name = "user_friend", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "friend_id"))

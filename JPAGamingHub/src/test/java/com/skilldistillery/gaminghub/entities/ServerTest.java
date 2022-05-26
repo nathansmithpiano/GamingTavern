@@ -42,11 +42,19 @@ public class ServerTest {
 		em.close();
 	}
 
+//	SELECT name FROM SERVER where id=1;
+//	+--------------+
+//	| name         |
+//	+--------------+
+//	| The Gauntlet |
+//	+--------------+
+	
 	@Test
 	@DisplayName("Server mapping")
 	void test_user_mapping() {
 		assertNotNull(server);
 		assertEquals("The Gauntlet", server.getName());
+		
 	}
 	
 	@Test
@@ -117,9 +125,9 @@ public class ServerTest {
 	
 	@Test
 		void test_server_game_mapping() {
-		assertNotNull(server.getGames());
-		assertEquals("Stellaris", server.getGames().getName());
-		assertEquals(3, server.getGames().getRatingId());
+		assertNotNull(server.getGame());
+		assertEquals("Stellaris", server.getGame().getName());
+		assertEquals(3, server.getGame().getRatingId());
 		
 		
 		

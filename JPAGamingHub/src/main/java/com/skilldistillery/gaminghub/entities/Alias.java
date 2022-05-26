@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "alias")
 public class Alias {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -33,44 +33,30 @@ public class Alias {
 	private String imageUrl;
 	private LocalDateTime created;
 	private LocalDateTime updated;
+
 	@OneToMany(mappedBy = "alias")
 	private List<Clan> clans;
+
 	@ManyToMany
-	@JoinTable(
-	        name = "alias_platform", 
-	        joinColumns = @JoinColumn(name = "alias_id") , 
-	        inverseJoinColumns =  @JoinColumn(name = "platform_id") 
-	    )
+	@JoinTable(name = "alias_platform", joinColumns = @JoinColumn(name = "alias_id"), inverseJoinColumns = @JoinColumn(name = "platform_id"))
 	private List<Platform> platforms;
+
 	@ManyToMany
-	@JoinTable(
-	        name = "alias_game", 
-	        joinColumns = @JoinColumn(name = "alias_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "game_id") 
-	    )
+	@JoinTable(name = "alias_game", joinColumns = @JoinColumn(name = "alias_id"), inverseJoinColumns = @JoinColumn(name = "game_id"))
 	private List<Game> games;
+
 	@ManyToMany
-	@JoinTable(
-	        name = "alias_server", 
-	        joinColumns = @JoinColumn(name = "alias_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "server_id") 
-	    )
+	@JoinTable(name = "alias_server", joinColumns = @JoinColumn(name = "alias_id"), inverseJoinColumns = @JoinColumn(name = "server_id"))
 	private List<Server> servers;
+
 	@ManyToMany
-	@JoinTable(
-	        name = "alias_clan", 
-	        joinColumns = @JoinColumn(name = "alias_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "clan_id") 
-	    )
+	@JoinTable(name = "alias_clan", joinColumns = @JoinColumn(name = "alias_id"), inverseJoinColumns = @JoinColumn(name = "clan_id"))
 	private List<Clan> clan;
+
 	@ManyToMany
-	@JoinTable(
-	        name = "meetup_alias", 
-	        joinColumns = @JoinColumn(name = "meetup_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "alias_id") 
-	    )
+	@JoinTable(name = "meetup_alias", joinColumns = @JoinColumn(name = "meetup_id"), inverseJoinColumns = @JoinColumn(name = "alias_id"))
 	private List<Meetup> meetups;
-	
+
 	public Alias() {
 		super();
 	}
@@ -138,7 +124,7 @@ public class Alias {
 	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
 	}
-	
+
 	public List<Clan> getClans() {
 		return clans;
 	}
@@ -162,7 +148,7 @@ public class Alias {
 	public void setGames(List<Game> games) {
 		this.games = games;
 	}
-	
+
 	public List<Server> getServers() {
 		return servers;
 	}
@@ -170,7 +156,7 @@ public class Alias {
 	public void setServers(List<Server> servers) {
 		this.servers = servers;
 	}
-	
+
 	public List<Clan> getClan() {
 		return clan;
 	}
@@ -178,17 +164,15 @@ public class Alias {
 	public void setClan(List<Clan> clan) {
 		this.clan = clan;
 	}
-	
-	public List<Meetup> getMeetUps() {
+
+	public List<Meetup> getMeetups() {
 		return meetups;
 	}
 
-	public void setMeetUps(List<Meetup> meetUps) {
-		this.meetups = meetUps;
+	public void setMeetups(List<Meetup> meetups) {
+		this.meetups = meetups;
 	}
-	
-	
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -211,6 +195,5 @@ public class Alias {
 		return "Alias [id=" + id + ", user=" + user + ", enabled=" + enabled + ", name=" + name + ", description="
 				+ description + ", imageUrl=" + imageUrl + ", created=" + created + ", updated=" + updated + "]";
 	}
-	
-	
+
 }
