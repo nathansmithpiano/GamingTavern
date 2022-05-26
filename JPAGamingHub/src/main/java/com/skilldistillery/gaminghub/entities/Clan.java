@@ -38,7 +38,7 @@ public class Clan {
 	        joinColumns = @JoinColumn(name = "clan_id"), 
 	        inverseJoinColumns =  @JoinColumn(name = "alias_id") 
 	    )
-	private List<Alias> alia;
+	private List<Alias> aliases;
 	@ManyToMany
 	@JoinTable(
 	        name = "clan_server", 
@@ -135,12 +135,12 @@ public class Clan {
 		this.updated = updated;
 	}
 	
-	public List<Alias> getAlia() {
-		return alia;
+	public List<Alias> getAliases() {
+		return aliases;
 	}
 
-	public void setAlia(List<Alias> alia) {
-		this.alia = alia;
+	public void setAliases(List<Alias> aliases) {
+		this.aliases = aliases;
 	}
 	
 	public List<Server> getServers() {

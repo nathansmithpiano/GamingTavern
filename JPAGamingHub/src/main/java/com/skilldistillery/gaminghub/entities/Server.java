@@ -21,9 +21,9 @@ public class Server {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	// Game id
-	
+	@ManyToOne
+	@JoinColumn(name = "game_id")
+	private Game games;
 	private boolean enabled;
 	private String name;
 	private String type;
@@ -148,6 +148,22 @@ public class Server {
 
 	public void setAlias(List<Alias> alias) {
 		this.alias = alias;
+	}
+	
+	public List<Clan> getClans() {
+		return clans;
+	}
+
+	public void setClans(List<Clan> clans) {
+		this.clans = clans;
+	}
+	
+	public Game getGames() {
+		return games;
+	}
+
+	public void setGames(Game games) {
+		this.games = games;
 	}
 
 	@Override

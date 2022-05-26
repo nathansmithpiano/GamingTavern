@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Game {
@@ -38,6 +39,9 @@ public class Game {
 	private String imageUrl;
 
 	private String url;
+	
+	@OneToMany(mappedBy = "games")
+	private List<Server> servers;
 
 	@ManyToMany
 	@JoinTable(name = "meetup_game", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "meetup_id"))
@@ -148,6 +152,14 @@ public class Game {
 
 	public void setClans(List<Clan> clans) {
 		this.clans = clans;
+	}
+	
+	public List<Server> getServer() {
+		return servers;
+	}
+
+	public void setServer(List<Server> server) {
+		this.servers = server;
 	}
 
 	@Override

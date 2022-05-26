@@ -91,15 +91,7 @@ public class Platform {
 	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
 	}
-
-	public List<Alias> getAlias() {
-		return aliases;
-	}
-
-	public void setAlias(List<Alias> alias) {
-		this.aliases = alias;
-	}
-
+	
 	public List<Game> getGames() {
 		return games;
 	}
@@ -108,6 +100,14 @@ public class Platform {
 		this.games = games;
 	}
 	
+	public List<Alias> getAliases() {
+		return aliases;
+	}
+
+	public void setAliases(List<Alias> aliases) {
+		this.aliases = aliases;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

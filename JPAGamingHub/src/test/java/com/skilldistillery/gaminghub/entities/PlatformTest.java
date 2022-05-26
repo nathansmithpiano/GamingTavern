@@ -57,15 +57,18 @@ class PlatformTest {
 	}
 	@Test
 	void test_alias_platform_mapping() {
-		assertNotNull(platform.getAlias());
-//		assertEquals(1, platform.getAlias().size());
+		assertNotNull(platform.getAliases());
+		assertEquals(10, platform.getAliases().size());
+		assertEquals("Baya", platform.getAliases().get(0).getName());
 		
 	}
 	
 	@Test
 	void test_platform_game_mapping() {
 		assertNotNull(platform.getGames());
+		assertEquals(7, platform.getGames().size());
 		assertEquals("Counter-Strike: Global Offensive", platform.getGames().get(0).getName());
+		
 	}
-	
+		
 }
