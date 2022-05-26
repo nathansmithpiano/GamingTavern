@@ -156,7 +156,7 @@ class UserTest {
 		
 	}
 	
-	@DisplayName("User --> Location Mapping")
+	@DisplayName("User --> Location ManyToMany Mapping")
 	@Test
 	void test_user_to_location_mapping() {
 //		SELECT user_id, COUNT(*) FROM user_location GROUP BY user_id ORDER BY COUNT(*) DESC;
@@ -182,7 +182,7 @@ class UserTest {
 		assertEquals(2, matches);
 	}
 	
-	@DisplayName("User --> User_Equipment Mapping")
+	@DisplayName("User --> Equipment ManyToMany Mapping")
 	@Test
 	void test_user_to_equipment_mapping() {
 //		SELECT user_id, count(*) FROM user_equipment GROUP BY user_id ORDER BY count(*) desc;
@@ -206,6 +206,23 @@ class UserTest {
 			}
 		}
 		assertEquals(3, matches);
+	}
+	
+	@DisplayName("User --> Meetups OneToMany Mapping")
+	@Test
+//	SELECT * from meetup WHERE user_id=398;
+//	+----+-------------+---------+--------------+---------------------+----------+-------------+---------------------+---------------------+
+//	| id | timezone_id | user_id | name         | date                | capacity | description | created             | updated             |
+//	+----+-------------+---------+--------------+---------------------+----------+-------------+---------------------+---------------------+
+//	|  1 |           8 |     398 | Free for all | 2022-05-03 20:00:00 |       36 |             | 2022-05-24 18:30:00 | 2022-05-24 18:30:00 |
+//	+----+-------------+---------+--------------+---------------------+----------+-------------+---------------------+---------------------+
+	void test_user_to_meetup_mapping() {
+		user = em.find(User.class, 398);
+		assertNotNull(user);
+		assertNotNull(user.getMeetups());
+		assertTrue(user.getMeetups().size() > 0);
+		assertEquals("Free for all", user.getMeetups().get(0).getName());
+		
 	}
 	
 	
