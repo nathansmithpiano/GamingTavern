@@ -45,8 +45,14 @@ class ClanTest {
 	@DisplayName("Clan mapping")
 	void test_clan_mapping() {
 		assertNotNull(clan);
+		assertEquals("Axon", clan.getName());
+		assertEquals("Chads and Chaddettes", clan.getDescription());
 		
 	}
-	
-
 }
+//+----+------------+---------+------+----------------------+---------------------+---------------------+
+//| id | creator_id | enabled | name | description          | created             | updated             |
+//+----+------------+---------+------+----------------------+---------------------+---------------------+
+//|  1 |          1 |       0 | Axon | Chads and Chaddettes | 2022-05-25 18:30:00 | 2022-05-25 18:30:00 |
+//+----+------------+---------+------+----------------------+---------------------+---------------------+
+
