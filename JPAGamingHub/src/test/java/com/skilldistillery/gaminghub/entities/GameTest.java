@@ -56,5 +56,16 @@ public class GameTest {
 		assertNotNull(game.getName());
 		assertEquals("Counter-Strike: Global Offensive", game.getName());
 	}
+	
+	@Test
+	@DisplayName("Testing ManyToMany Category(1) ---> User(Many)")
+	void test2() {
+		game = em.find(Game.class, 1);
+		assertNotNull(game);
+		assertNotNull(game.getAliases());
+//		assertNotNull(game.getMeetups());
+//		assertNotNull(game.getClans());
+		assertEquals("", game.getAliases().size() > 0);
+	}
 
 }

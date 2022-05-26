@@ -34,6 +34,22 @@ public class Meetup {
 							)
 	private List<Location> locations;
 	
+	// Alias
+	@ManyToMany
+	@JoinTable(name = "meetup_alias",
+	joinColumns =  @JoinColumn(name = "alias_id"),
+	inverseJoinColumns =  @JoinColumn(name = "meetup_id") 
+							)
+	private List<Alias> aliases;
+	
+	//Game
+	@ManyToMany
+	@JoinTable(name = "meetup_game",
+	joinColumns =  @JoinColumn(name = "game_id"),
+	inverseJoinColumns =  @JoinColumn(name = "meetup_id") 
+							)
+	private List<Game> games;
+	
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;

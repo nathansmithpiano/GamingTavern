@@ -38,18 +38,16 @@ public class Alias {
 	private List<Clan> clans;
 	
 	@ManyToMany
-	@JoinTable(
-	        name = "alias_platform", 
-	        joinColumns = @JoinColumn(name = "alias_id") , 
-	        inverseJoinColumns =  @JoinColumn(name = "platform_id") 
+	@JoinTable(name = "alias_platform", 
+	joinColumns = @JoinColumn(name = "alias_id") , 
+	inverseJoinColumns =  @JoinColumn(name = "platform_id") 
 	    )
 	private List<Platform> platforms;
 	
 	@ManyToMany
-	@JoinTable(
-	        name = "alias_game", 
-	        joinColumns = @JoinColumn(name = "alias_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "game_id") 
+	@JoinTable(name = "alias_game", 
+	joinColumns = @JoinColumn(name = "alias_id"), 
+	inverseJoinColumns =  @JoinColumn(name = "game_id") 
 	    )
 	private List<Game> games;
 	
