@@ -19,6 +19,8 @@
 <class>com.skilldistillery.gaminghub.entities.Server</class>
 <class>com.skilldistillery.gaminghub.entities.Timezone</class>
 <class>com.skilldistillery.gaminghub.entities.User</class>
+<class>com.skilldistillery.gaminghub.entities.UserFriend</class>
+<class>com.skilldistillery.gaminghub.entities.UserFriendId</class>
 
 <!-- End Entities Here -->
     <properties>

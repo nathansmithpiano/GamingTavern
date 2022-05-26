@@ -2,6 +2,10 @@ package com.skilldistillery.gaminghub.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -48,6 +52,8 @@ class UserTest {
 		assertEquals("admin", user.getUsername());
 	}
 	
+	@DisplayName("User Alias mapping")
+	@Test
 	void test_user_alias_mapping() {
 		
 //		SELECT * FROM user JOIN alias ON alias.user_id = user.id WHERE user.id = 2;
@@ -68,6 +74,69 @@ class UserTest {
 		for (Alias alias : user.getAliases()) {
 			assertEquals("bamboogateway", alias.getUser().getUsername());
 		}
+	}
+	
+	@DisplayName("User Friend mapping")
+	@Test
+	void test_user_friend_mapping() {
+		
+//		SELECT user_id, COUNT(*) FROM user_friend GROUP BY user_id ORDER BY COUNT(*) DESC;
+//		+---------+----------+
+//		| user_id | COUNT(*) |
+//		+---------+----------+
+//		|     675 |       70 |
+		
+		// user has friends
+		user = em.find(User.class, 675);
+		assertNotNull(user);
+		assertNotNull(user.getFriends());
+		assertEquals(70, user.getFriends().size());
+		
+		// user has each friend only one time
+		int matchCount = 0;
+		for (User usersFriend : user.getFriends()) {
+			
+			// user's friend has friends
+			assertNotNull(usersFriend.getFriends());
+			assertTrue(usersFriend.getFriends().size() > 0);
+			
+			// find match by usernames
+			for (User friendsFriend : usersFriend.getFriends()) {
+				if (friendsFriend.getUsername().equals(user.getUsername())) {
+					matchCount++;
+				}
+			}
+		}
+		
+		// number of times user's friends have this user as a friend
+		assertEquals(70, matchCount);
+	}
+	
+	@DisplayName("UserFriend ID")
+	@Test
+	void test_user_friend_id() {
+		
+		// find user with only 1 friend via user_friend table
+		// composite key is basically user.friend.id ( user.user.{id1, id2} )
+		
+//		SELECT * FROM user_friend WHERE user_id = 2;
+//		+---------+-----------+---------------------+
+//		| user_id | friend_id | created             |
+//		+---------+-----------+---------------------+
+//		|       2 |      1957 | 2019-01-20 19:37:35 |
+//		+---------+-----------+---------------------+
+		
+		// create new composite id as above
+		UserFriendId id = new UserFriendId();
+		id.setUserId(2);
+		id.setFriendId(1957);
+		
+		// this works just like em.find(class, int id)
+		UserFriend userFriend = em.find(UserFriend.class, id);
+		assertNotNull(userFriend);
+		
+		// toString puts "T" where there was a space in mysql
+		assertEquals("2019-01-20T19:37:35", userFriend.getCreated().toString());
 	}
 
 }
