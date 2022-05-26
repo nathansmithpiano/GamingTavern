@@ -138,5 +138,24 @@ class UserTest {
 		// toString puts "T" where there was a space in mysql
 		assertEquals("2019-01-20T19:37:35", userFriend.getCreated().toString());
 	}
+	
+	@DisplayName("User --> Chat Mapping")
+	@Test
+	void test_user_to_chat_mapping() {
 
+//		SELECT id, created_by_user_id, enabled, title, description FROM chat;
+//		+----+--------------------+---------+--------------------+------------------------------+
+//		| id | created_by_user_id | enabled | title              | description                  |
+//		+----+--------------------+---------+--------------------+------------------------------+
+//		|  1 |                  1 |       1 | Hell's Angels Chat | Guild Chat for Hell's Angels |
+//		|  2 |                  7 |       1 | Hell's Angels Chat | Guild Chat for Hell's Angels |
+//		+----+--------------------+---------+--------------------+------------------------------+
+		user = em.find(User.class, 1);
+		assertNotNull(user);
+		assertNotNull(user.getChats());
+		assertTrue(user.getChats().size() > 0);
+		assertEquals(1, user.getChats().get(0).getId());
+		assertEquals("Guild Chat for Hell's Angels", user.getChats().get(0).getDescription());
+		
+	}
 }
