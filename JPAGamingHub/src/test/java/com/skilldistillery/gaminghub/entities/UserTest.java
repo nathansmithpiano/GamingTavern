@@ -159,14 +159,13 @@ class UserTest {
 	@DisplayName("User --> Location Mapping")
 	@Test
 	void test_user_to_location_mapping() {
-//		SELECT * FROM user_location where user_id=115;
-//		+---------+-------------+
-//		| user_id | location_id |
-//		+---------+-------------+
-//		|     115 |        2491 |
-//		+---------+-------------+
+//		SELECT user_id, COUNT(*) FROM user_location GROUP BY user_id ORDER BY COUNT(*) DESC;
+//		+---------+----------+
+//		| user_id | COUNT(*) |
+//		+---------+----------+
+//		|    1024 |        2 |
 		
-		user = em.find(User.class, 115);
+		user = em.find(User.class, 1024);
 		assertNotNull(user);
 		assertNotNull(user.getLocations());
 		assertTrue(user.getLocations().size() > 0);
@@ -180,8 +179,36 @@ class UserTest {
 				}
 			}
 		}
-		assertEquals(1, matches);
+		assertEquals(2, matches);
 	}
+	
+	@DisplayName("User --> User_Equipment Mapping")
+	@Test
+	void test_user_to_equipment_mapping() {
+//		SELECT user_id, count(*) FROM user_equipment GROUP BY user_id ORDER BY count(*) desc;
+//		+---------+----------+
+//		| user_id | count(*) |
+//		+---------+----------+
+//		|      16 |        3 |
+		
+		user = em.find(User.class, 16);
+		assertNotNull(user);
+		assertNotNull(user.getEquipments());
+		assertTrue(user.getEquipments().size() > 0);
+		int matches = 0;
+		for(Equipment equipment: user.getEquipments()) {
+			assertNotNull(equipment.getUsers());
+			assertTrue(equipment.getUsers().size() > 0);
+			for(User equipmentUser: equipment.getUsers()) {
+				if(equipmentUser.getFirstName().equals(user.getFirstName())) {
+					matches++;
+				}
+			}
+		}
+		assertEquals(3, matches);
+	}
+	
+	
 	
 	
 }
