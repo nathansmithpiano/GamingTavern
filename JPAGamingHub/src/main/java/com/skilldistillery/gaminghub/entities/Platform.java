@@ -26,8 +26,8 @@ public class Platform {
 	private LocalDateTime created;
 	private LocalDateTime updated;
 	@ManyToMany
-	@JoinTable(name = "alias_platform", joinColumns = @JoinColumn(name = "alias_id"), inverseJoinColumns = @JoinColumn(name = "platform_id"))
-	private List<Alias> alias;
+	@JoinTable(name = "alias_platform", joinColumns = @JoinColumn(name = "platform_id"), inverseJoinColumns = @JoinColumn(name = "alias_id"))
+	private List<Alias> aliases;
 	@ManyToMany
 	@JoinTable(name = "platform_game", joinColumns = @JoinColumn(name = "platform_id"), inverseJoinColumns = @JoinColumn(name = "game_id"))
 	private List<Game> games;
@@ -93,11 +93,11 @@ public class Platform {
 	}
 
 	public List<Alias> getAlias() {
-		return alias;
+		return aliases;
 	}
 
 	public void setAlias(List<Alias> alias) {
-		this.alias = alias;
+		this.aliases = alias;
 	}
 
 	public List<Game> getGames() {
@@ -107,7 +107,7 @@ public class Platform {
 	public void setGames(List<Game> games) {
 		this.games = games;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

@@ -187,6 +187,8 @@ public class Alias {
 		this.meetups = meetUps;
 	}
 	
+	
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

@@ -47,10 +47,25 @@ class PlatformTest {
 		assertNotNull(platform);
 		assertEquals("Steam", platform.getName());
 		assertEquals("Library", platform.getType());
+		
+		//+----+---------+-------+---------+------------------------+-----------+---------------------+---------------------+
+		//| id | enabled | name  | type    | description            | image_url | created             | updated             |
+		//+----+---------+-------+---------+------------------------+-----------+---------------------+---------------------+
+		//|  1 |       1 | Steam | Library | Game Store and Library |           | 2020-04-10 18:30:00 | 2020-04-11 18:30:00 |
+		//+----+---------+-------+---------+------------------------+-----------+---------------------+---------------------+
+
 	}
+	@Test
+	void test_alias_platform_mapping() {
+		assertNotNull(platform.getAlias());
+//		assertEquals(1, platform.getAlias().size());
+		
+	}
+	
+	@Test
+	void test_platform_game_mapping() {
+		assertNotNull(platform.getGames());
+		assertEquals("Counter-Strike: Global Offensive", platform.getGames().get(0).getName());
+	}
+	
 }
-//+----+---------+-------+---------+------------------------+-----------+---------------------+---------------------+
-//| id | enabled | name  | type    | description            | image_url | created             | updated             |
-//+----+---------+-------+---------+------------------------+-----------+---------------------+---------------------+
-//|  1 |       1 | Steam | Library | Game Store and Library |           | 2020-04-10 18:30:00 | 2020-04-11 18:30:00 |
-//+----+---------+-------+---------+------------------------+-----------+---------------------+---------------------+
