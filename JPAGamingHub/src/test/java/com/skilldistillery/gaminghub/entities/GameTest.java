@@ -59,26 +59,43 @@ public class GameTest {
 	}
 	
 	@Test
-	@DisplayName("Testing ManyToMany game(1) ---> Alias(Many)")
+	@DisplayName("Testing ManyToMany game(Many) ---> Alias(Many)")
 	void test2() {
 		game = em.find(Game.class, 1);
 		assertNotNull(game);
 		assertNotNull(game.getAliases());
-//		assertNotNull(game.getMeetups());
-//		assertNotNull(game.getClans());
 		assertTrue(game.getAliases().size() > 0);
-		assertEquals(1, game.getAliases().get(0).getGames().get(0).getId());
+		assertEquals(1, game.getAliases().get(0)
+				.getGames().get(0).getId());
 	}
 	
 	@Test
-	@DisplayName("Testing ManyToMany Game(1) ---> (Many)")
+	@DisplayName("Testing ManyToMany game(Many) ---> meetup(Many)")
 	void test3() {
 		game = em.find(Game.class, 1);
 		assertNotNull(game);
-		assertNotNull(game.getAliases());
-//		assertNotNull(game.getMeetups());
-//		assertNotNull(game.getClans());
-//		assertTrue(game.getAliases().size() > 0);
+		assertNotNull(game.getMeetups());
+		assertTrue(game.getMeetups().size() > 0);
+		assertEquals(1, game.getMeetups().get(0).getGames().get(0).getId());
+	}
+	
+	@Test
+	@DisplayName("Testing ManyToMany game(Many) ---> clans(Many)")
+	void test4() {
+		game = em.find(Game.class, 1);
+		assertNotNull(game);
+		assertNotNull(game.getClans());
+		assertTrue(game.getClans().size() > 0);
+		assertEquals(1, game.getClans().get(0).getGames().get(0).getId());
+	}
+	
+	@Test
+	@DisplayName("Testing OneToMany game(one) ----> servers(many) ")
+	void test5() {
+		assertNotNull(game);
+		assertNotNull(game.getServers());		
+		assertTrue(game.getServers().size()>0);
+		
 	}
 
 

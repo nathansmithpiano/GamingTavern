@@ -53,25 +53,25 @@ public class Alias {
 	
 	@ManyToMany
 	@JoinTable(
-	        name = "alias_server", 
-	        joinColumns = @JoinColumn(name = "alias_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "server_id") 
+	 name = "alias_server", 
+	 joinColumns = @JoinColumn(name = "alias_id"), 
+	 inverseJoinColumns =  @JoinColumn(name = "server_id") 
 	    )
 	private List<Server> servers;
 	
 	@ManyToMany
 	@JoinTable(
-	        name = "alias_clan", 
-	        joinColumns = @JoinColumn(name = "alias_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "clan_id") 
+	 name = "alias_clan", 
+	 joinColumns = @JoinColumn(name = "alias_id"), 
+	 inverseJoinColumns =  @JoinColumn(name = "clan_id") 
 	    )
 	private List<Clan> clan;
 	
 	@ManyToMany
 	@JoinTable(
-	        name = "meetup_alias", 
-	        joinColumns = @JoinColumn(name = "meetup_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "alias_id") 
+	 name = "meetup_alias", 
+	 joinColumns = @JoinColumn(name = "meetup_id"), 
+	 inverseJoinColumns =  @JoinColumn(name = "alias_id") 
 	    )
 	private List<Meetup> meetups;
 	

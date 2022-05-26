@@ -143,6 +143,22 @@ public class Meetup {
 		this.timezone = timezone;
 	}
 
+	public List<Alias> getAliases() {
+		return aliases;
+	}
+
+	public void setAliases(List<Alias> aliases) {
+		this.aliases = aliases;
+	}
+
+	public List<Game> getGames() {
+		return games;
+	}
+
+	public void setGames(List<Game> games) {
+		this.games = games;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

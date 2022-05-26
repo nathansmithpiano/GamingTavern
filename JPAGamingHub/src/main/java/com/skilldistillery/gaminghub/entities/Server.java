@@ -155,6 +155,22 @@ public class Server {
 		this.alias = alias;
 	}
 
+	public List<Clan> getClans() {
+		return clans;
+	}
+
+	public void setClans(List<Clan> clans) {
+		this.clans = clans;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(alias, capacity, created, description, enabled, id, ip, name, password, type, updated, url);

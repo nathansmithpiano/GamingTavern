@@ -160,6 +160,14 @@ public class Game {
 		this.clans = clans;
 	}
 
+	public List<Server> getServers() {
+		return servers;
+	}
+
+	public void setServers(List<Server> servers) {
+		this.servers = servers;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(aliases, clans, created, enabled, id, imageUrl, meetups, name, ratingId, studio, updated,
