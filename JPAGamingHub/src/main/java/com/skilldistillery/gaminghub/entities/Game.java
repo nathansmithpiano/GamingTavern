@@ -53,6 +53,12 @@ public class Game {
 	@ManyToMany
 	@JoinTable(name = "clan_game", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "clan_id"))
 	private List<Clan> clans;
+	
+	@ManyToMany
+	@JoinTable(name = "platform_game",
+	joinColumns = @JoinColumn(name = "game_id"),
+	inverseJoinColumns = @JoinColumn(name = "platform_id"))
+	private List<Platform> platform;
 
 	public Game() {
 		super();
@@ -168,6 +174,14 @@ public class Game {
 
 	public void setServers(List<Server> servers) {
 		this.servers = servers;
+	}
+
+	public List<Platform> getPlatform() {
+		return platform;
+	}
+
+	public void setPlatform(List<Platform> platform) {
+		this.platform = platform;
 	}
 
 	@Override
