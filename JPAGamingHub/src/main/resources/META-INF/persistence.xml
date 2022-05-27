@@ -21,6 +21,10 @@
 <class>com.skilldistillery.gaminghub.entities.User</class>
 <class>com.skilldistillery.gaminghub.entities.UserFriend</class>
 <class>com.skilldistillery.gaminghub.entities.UserFriendId</class>
+<class>com.skilldistillery.gaminghub.entities.BlockedUser</class>
+<class>com.skilldistillery.gaminghub.entities.BlockedUserId</class>
+<class>com.skilldistillery.gaminghub.entities.UserEndorsement</class>
+<class>com.skilldistillery.gaminghub.entities.UserEndorsementId</class>
 
 <!-- End Entities Here -->
     <properties>

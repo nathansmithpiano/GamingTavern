@@ -57,6 +57,7 @@ public class User {
 	@ManyToMany
 	@JoinTable(name = "user_location", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
 	private List<Location> locations;
+
 	@ManyToMany
 	@JoinTable(name = "chat_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "chat_id"))
 	private List<Chat> chats;
@@ -67,10 +68,18 @@ public class User {
 
 	@OneToMany(mappedBy = "user")
 	private List<Meetup> meetups;
-	
+
 	@ManyToMany
 	@JoinTable(name = "user_friend", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "friend_id"))
 	private List<User> friends;
+
+	@ManyToMany
+	@JoinTable(name = "blocked_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "blocked_user_id"))
+	private List<User> blocks;
+
+	@ManyToMany
+	@JoinTable(name = "user_endorsement", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "endorsement_id"))
+	private List<UserEndorsement> endorsements;
 
 	public User() {
 		super();
@@ -252,6 +261,22 @@ public class User {
 
 	public void setFriends(List<User> friends) {
 		this.friends = friends;
+	}
+
+	public List<User> getBlocks() {
+		return blocks;
+	}
+
+	public void setBlocks(List<User> blocks) {
+		this.blocks = blocks;
+	}
+
+	public List<UserEndorsement> getEndorsements() {
+		return endorsements;
+	}
+
+	public void setEndorsements(List<UserEndorsement> endorsements) {
+		this.endorsements = endorsements;
 	}
 
 	@Override
