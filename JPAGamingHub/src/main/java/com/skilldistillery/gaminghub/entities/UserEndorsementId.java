@@ -17,7 +17,7 @@ public class UserEndorsementId implements Serializable {
 	@Column(name = "endorsed_user_id")
 	private int endorsedUserId;
 
-	@Column(name = "endorsed_id")
+	@Column(name = "endorsement_id")
 	private int endorsementId;
 
 	public UserEndorsementId() {

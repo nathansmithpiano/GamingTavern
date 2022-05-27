@@ -2,6 +2,7 @@ package com.skilldistillery.gaminghub.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -45,69 +46,44 @@ class ClanTest {
 	@DisplayName("Clan mapping")
 	void test_clan_mapping() {
 		assertNotNull(clan);
+		assertEquals("Axon", clan.getName());
+		assertEquals("Chads and Chaddettes", clan.getDescription());
 		
+		//+----+------------+---------+------+----------------------+---------------------+---------------------+
+		//| id | creator_id | enabled | name | description          | created             | updated             |
+		//+----+------------+---------+------+----------------------+---------------------+---------------------+
+		//|  1 |          1 |       0 | Axon | Chads and Chaddettes | 2022-05-25 18:30:00 | 2022-05-25 18:30:00 |
+		//+----+------------+---------+------+----------------------+---------------------+---------------------+
+	
 	}
 	
-//	// MANY TO MANY RELATIONSHIP TEMPLATE
-//	@Test
-//	@DisplayName("Test clan server")
-//	void test_clan_server() {
+	@Test
+	@DisplayName("Test Clan Game ")
+	void test_clan_game() {
+		// find example with more than one in list
+		clan = em.find(Clan.class, 15);
+		assertNotNull(clan);
+		assertNotNull(clan.getGames());
+		assertTrue(clan.getGames().size() > 0);
 //	
-//		// find example with more than one in list
-//		server = em.find(Server.class, 15);
-//		assertNotNull(server);
-//		assertNotNull(server.getClans());
-//		assertTrue(server.getClans().size() > 0);
-//	
-//		// test both sides and no duplicates
-//		int expectedMatches = server.getClans().size();
-//		int matches = 0;
-//	
-//		// each of server's clans
-//		for(Clan clan : server.getClans()) {
-//			// each of the server's clan's servers
-//			for(Server clanServer : clan.getServers()) {
-//				// verify valid data
-//				if(clanServer.getName().equals(server.getName())) {
-//					matches++;
-//				}
-//			}
-//		}
-//		
-//		assertEquals(expectedMatches, matches);
-//	}
-//	
-//	// ONE TO MANY RELATIONSHIP TEMPLATE
-//	@DisplayName("User 1:m Meetup")
-//	@Test
-//	void test_user_meetup() {
-//	
-//		// find example with more than one in list
-//		SELECT * from meetup WHERE user_id=398;
-//		+----+-------------+---------+--------------+---------------------+----------+-------------+---------------------+---------------------+
-//		| id | timezone_id | user_id | name         | date                | capacity | description | created             | updated             |
-//		+----+-------------+---------+--------------+---------------------+----------+-------------+---------------------+---------------------+
-//		|  1 |           8 |     398 | Free for all | 2022-05-03 20:00:00 |       36 |             | 2022-05-24 18:30:00 | 2022-05-24 18:30:00 |
-//		+----+-------------+---------+--------------+---------------------+----------+-------------+---------------------+---------------------+
-//		user = em.find(User.class, 398);
-//		assertNotNull(user);
-//		assertNotNull(user.getMeetups());
-//		assertTrue(user.getMeetups().size() > 0);
-//	
-//		// test both sides and no duplicates
-//		int matches = 0;
-//		int expectedMatches = user.getMeetups().size();
-//	
-//		each of the user's meetups
-//		for(Meetup meetup: user.getMeetups()) {
-//			// verify valid data
-//			if(meetup.getUser().getUsername().equals(user.getUsername())) {
-//				matches++;
-//			}
-//		}
-//	
-//		assertEquals(expectedMatches, matches);
-//	}
+		// test both sides and no duplicates
+		int expectedMatches = clan.getGames().size();
+		int matches = 0;
 	
-
+		// each of server's clans
+		for(Game game : clan.getGames()) {
+			// each of the server's clan's servers
+			for(Clan gameClan : game.getClans()) {
+				// verify valid data
+				if(gameClan.getName().equals(clan.getName())) {
+					matches++;
+				}
+			}
+		}
+		
+		assertEquals(expectedMatches, matches);
+	
+	}
 }
+
+

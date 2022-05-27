@@ -5,6 +5,9 @@ import java.util.Objects;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 @Entity
@@ -15,6 +18,45 @@ public class UserEndorsement {
 	private UserEndorsementId id;
 
 	private LocalDateTime created;
+	
+	@ManyToOne
+	@JoinColumn(name="endorsement_id")
+	@MapsId("endorsementId")
+	private Endorsement endorsement;
+	
+	@ManyToOne
+	@JoinColumn(name="endorsed_user_id")
+	@MapsId("endorsedUserId")
+	private User endorsedUser;
+	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	@MapsId("endorsingUserId")
+	private User endorsingUser;
+
+	public Endorsement getEndorsement() {
+		return endorsement;
+	}
+
+	public void setEndorsement(Endorsement endorsement) {
+		this.endorsement = endorsement;
+	}
+
+	public User getEndorsedUser() {
+		return endorsedUser;
+	}
+
+	public void setEndorsedUser(User endorsedUser) {
+		this.endorsedUser = endorsedUser;
+	}
+
+	public User getEndorsingUser() {
+		return endorsingUser;
+	}
+
+	public void setEndorsingUser(User endorsingUser) {
+		this.endorsingUser = endorsingUser;
+	}
 
 	public UserEndorsement() {
 		super();

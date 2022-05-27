@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "clan")
 public class Clan {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -32,28 +32,19 @@ public class Clan {
 	private String imageUrl;
 	private LocalDateTime created;
 	private LocalDateTime updated;
+
 	@ManyToMany
-	@JoinTable(
-	        name = "alias_clan", 
-	        joinColumns = @JoinColumn(name = "clan_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "alias_id") 
-	    )
-	private List<Alias> alia;
+	@JoinTable(name = "alias_clan", joinColumns = @JoinColumn(name = "clan_id"), inverseJoinColumns = @JoinColumn(name = "alias_id"))
+
+	private List<Alias> aliases;
+
 	@ManyToMany
-	@JoinTable(
-	        name = "clan_server", 
-	        joinColumns = @JoinColumn(name = "clan_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "server_id") 
-	    )
+	@JoinTable(name = "clan_server", joinColumns = @JoinColumn(name = "clan_id"), inverseJoinColumns = @JoinColumn(name = "server_id"))
 	private List<Server> servers;
 	@ManyToMany
-	@JoinTable(
-	        name = "clan_game", 
-	        joinColumns = @JoinColumn(name = "clan_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "game_id") 
-	    )
+	@JoinTable(name = "clan_game", joinColumns = @JoinColumn(name = "clan_id"), inverseJoinColumns = @JoinColumn(name = "game_id"))
 	private List<Game> games;
-	
+
 	public Clan() {
 		super();
 	}
@@ -134,15 +125,15 @@ public class Clan {
 	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
 	}
-	
-	public List<Alias> getAlia() {
-		return alia;
+
+	public List<Alias> getAliases() {
+		return aliases;
 	}
 
-	public void setAlia(List<Alias> alia) {
-		this.alia = alia;
+	public void setAliases(List<Alias> aliases) {
+		this.aliases = aliases;
 	}
-	
+
 	public List<Server> getServers() {
 		return servers;
 	}
