@@ -1,6 +1,7 @@
 package com.skilldistillery.gaminghub.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Platform {
@@ -19,15 +19,18 @@ public class Platform {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
 	private boolean enabled;
 	private String name;
 	private String type;
 	private String description;
 	private LocalDateTime created;
 	private LocalDateTime updated;
+
 	@ManyToMany
-	@JoinTable(name = "alias_platform", joinColumns = @JoinColumn(name = "alias_id"), inverseJoinColumns = @JoinColumn(name = "platform_id"))
-	private List<Alias> alias;
+	@JoinTable(name = "alias_platform", joinColumns = @JoinColumn(name = "platform_id"), inverseJoinColumns = @JoinColumn(name = "alias_id"))
+	private List<Alias> aliases;
+
 	@ManyToMany
 	@JoinTable(name = "platform_game", joinColumns = @JoinColumn(name = "platform_id"), inverseJoinColumns = @JoinColumn(name = "game_id"))
 	private List<Game> games;
@@ -92,14 +95,6 @@ public class Platform {
 		this.updated = updated;
 	}
 
-	public List<Alias> getAlias() {
-		return alias;
-	}
-
-	public void setAlias(List<Alias> alias) {
-		this.alias = alias;
-	}
-
 	public List<Game> getGames() {
 		return games;
 	}
@@ -108,10 +103,49 @@ public class Platform {
 		this.games = games;
 	}
 
+	public void addGame(Game game) {
+		if (this.games == null) {
+			this.games = new ArrayList<>();
+		}
+		this.games.add(game);
+		game.addPlatform(this);
+	}
+
+	public void removeGame(Game game) {
+		if (game != null) {
+			this.games.remove(game);
+			game.removePlatform(this);
+		}
+	}
+
+	public List<Alias> getAliases() {
+		return aliases;
+	}
+
+	public void setAliases(List<Alias> aliases) {
+		this.aliases = aliases;
+	}
+
+	public void addAlias(Alias alias) {
+		if (this.aliases == null) {
+			this.aliases = new ArrayList<>();
+		}
+		this.aliases.add(alias);
+		alias.addPlatform(this);
+	}
+
+	public void removeAlias(Alias alias) {
+		if (alias != null) {
+			this.aliases.remove(alias);
+			if (alias.getPlatforms().contains(this)) {
+				alias.removePlatform(this);
+			}
+		}
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
-
 	}
 
 	@Override
@@ -123,7 +157,6 @@ public class Platform {
 		if (getClass() != obj.getClass())
 			return false;
 		Platform other = (Platform) obj;
-
 		return id == other.id;
 
 	}
@@ -131,7 +164,6 @@ public class Platform {
 	@Override
 	public String toString() {
 		return "Platform [id=" + id + ", enabled=" + enabled + ", name=" + name + ", type=" + type + ", description="
-
 				+ description + ", created=" + created + ", updated=" + updated + "]";
 	}
 

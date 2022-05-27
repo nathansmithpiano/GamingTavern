@@ -25,7 +25,9 @@ public class Equipment {
 	private String description;
 
 	@ManyToMany
-	@JoinTable(name = "user_equipment", joinColumns = @JoinColumn(name = "equipment_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	@JoinTable(name = "user_equipment", 
+	joinColumns = @JoinColumn(name = "equipment_id"),
+	inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> users;
 
 	public Equipment() {
@@ -79,6 +81,14 @@ public class Equipment {
 			users.remove(user);
 			user.removeEquipment(this);
 		}
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 	@Override

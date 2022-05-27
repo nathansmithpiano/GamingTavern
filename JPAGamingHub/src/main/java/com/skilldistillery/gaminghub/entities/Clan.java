@@ -1,6 +1,7 @@
 package com.skilldistillery.gaminghub.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,57 +19,38 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "clan")
 public class Clan {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
 	@ManyToOne
 	@JoinColumn(name = "creator_id")
 	private Alias alias;
+
 	private boolean enabled;
 	private String name;
 	private String description;
+
 	@Column(name = "image_url")
 	private String imageUrl;
 	private LocalDateTime created;
 	private LocalDateTime updated;
+
 	@ManyToMany
-	@JoinTable(
-	        name = "alias_clan", 
-	        joinColumns = @JoinColumn(name = "clan_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "alias_id") 
-	    )
-	private List<Alias> alia;
+	@JoinTable(name = "alias_clan", joinColumns = @JoinColumn(name = "clan_id"), inverseJoinColumns = @JoinColumn(name = "alias_id"))
+	private List<Alias> aliases;
+
 	@ManyToMany
-	@JoinTable(
-	        name = "clan_server", 
-	        joinColumns = @JoinColumn(name = "clan_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "server_id") 
-	    )
+	@JoinTable(name = "clan_server", joinColumns = @JoinColumn(name = "clan_id"), inverseJoinColumns = @JoinColumn(name = "server_id"))
 	private List<Server> servers;
+
 	@ManyToMany
-	@JoinTable(
-	        name = "clan_game", 
-	        joinColumns = @JoinColumn(name = "clan_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "game_id") 
-	    )
+	@JoinTable(name = "clan_game", joinColumns = @JoinColumn(name = "clan_id"), inverseJoinColumns = @JoinColumn(name = "game_id"))
 	private List<Game> games;
-	
+
 	public Clan() {
 		super();
-	}
-
-	public Clan(int id, Alias alias, boolean enabled, String name, String description, String imageUrl,
-			LocalDateTime created, LocalDateTime updated) {
-		super();
-		this.id = id;
-		this.alias = alias;
-		this.enabled = enabled;
-		this.name = name;
-		this.description = description;
-		this.imageUrl = imageUrl;
-		this.created = created;
-		this.updated = updated;
 	}
 
 	public int getId() {
@@ -134,15 +116,30 @@ public class Clan {
 	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
 	}
-	
-	public List<Alias> getAlia() {
-		return alia;
+
+	public List<Alias> getAliases() {
+		return aliases;
 	}
 
-	public void setAlia(List<Alias> alia) {
-		this.alia = alia;
+	public void addAlias(Alias alias) {
+		if (this.aliases == null) {
+			this.aliases = new ArrayList<>();
+		}
+		this.aliases.add(alias);
+		alias.addClan(this);
 	}
-	
+
+	public void removeAlias(Alias alias) {
+		if (alias != null) {
+			this.aliases.remove(alias);
+			alias.removeClan(this);
+		}
+	}
+
+	public void setAliases(List<Alias> aliases) {
+		this.aliases = aliases;
+	}
+
 	public List<Server> getServers() {
 		return servers;
 	}
@@ -151,12 +148,42 @@ public class Clan {
 		this.servers = servers;
 	}
 
+	public void addServer(Server server) {
+		if (this.servers == null) {
+			this.servers = new ArrayList<>();
+		}
+		this.servers.add(server);
+		server.addClan(this);
+	}
+
+	public void removeServer(Server server) {
+		if (server != null) {
+			this.servers.remove(server);
+			server.removeClan(this);
+		}
+	}
+
 	public List<Game> getGames() {
 		return games;
 	}
 
 	public void setGames(List<Game> games) {
 		this.games = games;
+	}
+
+	public void addGame(Game game) {
+		if (this.games == null) {
+			this.games = new ArrayList<>();
+		}
+		this.games.add(game);
+		game.addClan(this);
+	}
+
+	public void removeGame(Game game) {
+		if (game != null) {
+			this.games.remove(game);
+			game.removeClan(this);
+		}
 	}
 
 	@Override
@@ -178,8 +205,8 @@ public class Clan {
 
 	@Override
 	public String toString() {
-		return "Clan [id=" + id + ", alias=" + alias + ", enabled=" + enabled + ", name=" + name + ", description="
-				+ description + ", imageUrl=" + imageUrl + ", created=" + created + ", updated=" + updated + "]";
+		return "Clan [id=" + id + ", enabled=" + enabled + ", name=" + name + ", description=" + description
+				+ ", imageUrl=" + imageUrl + ", created=" + created + ", updated=" + updated + "]";
 	}
 
 }

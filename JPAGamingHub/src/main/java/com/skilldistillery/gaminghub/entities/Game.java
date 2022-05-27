@@ -1,6 +1,7 @@
 package com.skilldistillery.gaminghub.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Game {
@@ -20,9 +22,6 @@ public class Game {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
-	@Column(name = "rating_id")
-	private int ratingId;
 
 	private boolean enabled;
 
@@ -39,6 +38,13 @@ public class Game {
 
 	private String url;
 
+	@OneToMany(mappedBy = "game")
+	private List<Server> servers;
+
+	@ManyToOne
+	@JoinColumn(name = "rating_id")
+	private Rating rating;
+
 	@ManyToMany
 	@JoinTable(name = "meetup_game", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "meetup_id"))
 	private List<Meetup> meetups;
@@ -46,9 +52,14 @@ public class Game {
 	@ManyToMany
 	@JoinTable(name = "alias_game", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "alias_id"))
 	private List<Alias> aliases;
+
 	@ManyToMany
 	@JoinTable(name = "clan_game", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "clan_id"))
 	private List<Clan> clans;
+
+	@ManyToMany
+	@JoinTable(name = "platform_game", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "platform_id"))
+	private List<Platform> platforms;
 
 	public Game() {
 		super();
@@ -60,14 +71,6 @@ public class Game {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getRatingId() {
-		return ratingId;
-	}
-
-	public void setRatingId(int ratingId) {
-		this.ratingId = ratingId;
 	}
 
 	public boolean isEnabled() {
@@ -126,12 +129,35 @@ public class Game {
 		this.url = url;
 	}
 
+	public Rating getRating() {
+		return rating;
+	}
+
+	public void setRating(Rating rating) {
+		this.rating = rating;
+	}
+
 	public List<Meetup> getMeetups() {
 		return meetups;
 	}
 
 	public void setMeetups(List<Meetup> meetups) {
 		this.meetups = meetups;
+	}
+
+	public void addMeetup(Meetup meetup) {
+		if (this.meetups == null) {
+			this.meetups = new ArrayList<>();
+		}
+		this.meetups.add(meetup);
+		meetup.addGame(this);
+	}
+
+	public void removeMeetup(Meetup meetup) {
+		if (meetup != null) {
+			this.meetups.remove(meetup);
+			meetup.removeGame(this);
+		}
 	}
 
 	public List<Alias> getAliases() {
@@ -142,6 +168,21 @@ public class Game {
 		this.aliases = aliases;
 	}
 
+	public void addAlias(Alias alias) {
+		if (this.aliases == null) {
+			this.aliases = new ArrayList<>();
+		}
+		this.aliases.add(alias);
+		alias.addGame(this);
+	}
+
+	public void removeAlias(Alias alias) {
+		if (alias != null) {
+			this.aliases.remove(alias);
+			alias.removeGame(this);
+		}
+	}
+
 	public List<Clan> getClans() {
 		return clans;
 	}
@@ -150,10 +191,70 @@ public class Game {
 		this.clans = clans;
 	}
 
+	public void addClan(Clan clan) {
+		if (this.clans == null) {
+			this.clans = new ArrayList<>();
+		}
+		this.clans.add(clan);
+		clan.addGame(this);
+	}
+
+	public void removeClan(Clan clan) {
+		if (clan != null) {
+			this.clans.remove(clan);
+			clan.removeGame(this);
+		}
+	}
+
+	public List<Server> getServers() {
+		return servers;
+	}
+
+	public void setServers(List<Server> servers) {
+		this.servers = servers;
+	}
+
+	public void addServer(Server server) {
+		if (this.servers == null) {
+			this.servers = new ArrayList<>();
+		}
+		this.servers.add(server);
+		server.setGame(this);
+	}
+
+	public void removeServer(Server server) {
+		if (server != null) {
+			this.servers.remove(server);
+			server.setGame(null);
+		}
+	}
+
+	public List<Platform> getPlatforms() {
+		return platforms;
+	}
+
+	public void setPlatforms(List<Platform> platforms) {
+		this.platforms = platforms;
+	}
+
+	public void addPlatform(Platform platform) {
+		if (this.platforms == null) {
+			this.platforms = new ArrayList<>();
+		}
+		this.platforms.add(platform);
+		platform.addGame(this);
+	}
+
+	public void removePlatform(Platform platform) {
+		if (platform != null) {
+			this.platforms.remove(platform);
+			platform.removeGame(this);
+		}
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(aliases, clans, created, enabled, id, imageUrl, meetups, name, ratingId, studio, updated,
-				url);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -165,18 +266,13 @@ public class Game {
 		if (getClass() != obj.getClass())
 			return false;
 		Game other = (Game) obj;
-		return Objects.equals(aliases, other.aliases) && Objects.equals(clans, other.clans)
-				&& Objects.equals(created, other.created) && enabled == other.enabled && id == other.id
-				&& Objects.equals(imageUrl, other.imageUrl) && Objects.equals(meetups, other.meetups)
-				&& Objects.equals(name, other.name) && ratingId == other.ratingId
-				&& Objects.equals(studio, other.studio) && Objects.equals(updated, other.updated)
-				&& Objects.equals(url, other.url);
+		return id == other.id;
 	}
 
 	@Override
 	public String toString() {
-		return "Game [id=" + id + ", ratingId=" + ratingId + ", enabled=" + enabled + ", name=" + name + ", studio="
-				+ studio + ", created=" + created + ", updated=" + updated + ", imageUrl=" + imageUrl + ", url=" + url
+		return "Game [id=" + id + ", enabled=" + enabled + ", name=" + name + ", studio=" + studio + ", created="
+				+ created + ", updated=" + updated + ", imageUrl=" + imageUrl + ", url=" + url + ", rating=" + rating
 				+ "]";
 	}
 
