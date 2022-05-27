@@ -35,19 +35,15 @@ public class Location {
 	private LocalDateTime updated;
 
 	@ManyToMany
-	@JoinTable(name = "user_location", 
-	joinColumns = @JoinColumn(name = "location_id"), 
-	inverseJoinColumns = @JoinColumn(name = "user_id"))
+	@JoinTable(name = "user_location", joinColumns = @JoinColumn(name = "location_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> users;
 
 	@ManyToMany
-	@JoinTable(name = "meetup_location", 
-	joinColumns = @JoinColumn(name = "location_id"), 
-	inverseJoinColumns = @JoinColumn(name = "meetup_id"))
+	@JoinTable(name = "meetup_location", joinColumns = @JoinColumn(name = "location_id"), inverseJoinColumns = @JoinColumn(name = "meetup_id"))
 	private List<Meetup> meetups;
-	
+
 	@ManyToOne
-	@JoinColumn(name="timezone_id")
+	@JoinColumn(name = "timezone_id")
 	private Timezone timezone;
 
 	public Location() {
@@ -69,7 +65,6 @@ public class Location {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 	public String getStreet() {
 		return street;
@@ -111,7 +106,6 @@ public class Location {
 		this.country = country;
 	}
 
-
 	public LocalDateTime getCreated() {
 		return created;
 	}
@@ -126,24 +120,6 @@ public class Location {
 
 	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
-	}
-
-	public void addUser(User user) {
-		if (users == null) {
-			users = new ArrayList<User>();
-		}
-		if (user != null) {
-			users.add(user);
-			user.addLocation(this);
-		}
-	}
-
-	public void removeUser(User user) {
-		if (user != null) {
-			users.remove(user);
-			user.removeLocation(this);
-		}
-
 	}
 
 	public List<User> getUsers() {
@@ -170,6 +146,24 @@ public class Location {
 		this.timezone = timezone;
 	}
 
+	public void addUser(User user) {
+		if (users == null) {
+			users = new ArrayList<User>();
+		}
+		if (user != null) {
+			users.add(user);
+			user.addLocation(this);
+		}
+	}
+
+	public void removeUser(User user) {
+		if (user != null) {
+			users.remove(user);
+			user.removeLocation(this);
+		}
+
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -189,10 +183,9 @@ public class Location {
 
 	@Override
 	public String toString() {
-		return "Location [id=" + id + ", name=" + name + ", street=" + street + ", city=" + city
-				+ ", state=" + state + ", zip=" + zip + ", country=" + country + ", timezone=" + timezone + ", created="
-				+ created + ", updated=" + updated + "]";
+		return "Location [id=" + id + ", name=" + name + ", street=" + street + ", city=" + city + ", state=" + state
+				+ ", zip=" + zip + ", country=" + country + ", timezone=" + timezone + ", created=" + created
+				+ ", updated=" + updated + "]";
 	}
-	
-	
+
 }

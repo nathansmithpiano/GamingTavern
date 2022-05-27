@@ -29,10 +29,26 @@ public class Meetup {
 	
 	@ManyToMany
 	@JoinTable(name = "meetup_location",
-	joinColumns =  @JoinColumn(name = "location_id"),
-	inverseJoinColumns =  @JoinColumn(name = "meetup_id") 
+	joinColumns =  @JoinColumn(name = "meetup_id"),
+	inverseJoinColumns =  @JoinColumn(name = "location_id") 
 							)
 	private List<Location> locations;
+	
+	// Alias
+	@ManyToMany
+	@JoinTable(name = "meetup_alias",
+	joinColumns =  @JoinColumn(name = "alias_id"),
+	inverseJoinColumns =  @JoinColumn(name = "meetup_id") 
+							)
+	private List<Alias> aliases;
+	
+	//Game
+	@ManyToMany
+	@JoinTable(name = "meetup_game",
+	joinColumns =  @JoinColumn(name = "game_id"),
+	inverseJoinColumns =  @JoinColumn(name = "meetup_id") 
+							)
+	private List<Game> games;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
@@ -125,6 +141,22 @@ public class Meetup {
 
 	public void setTimezone(Timezone timezone) {
 		this.timezone = timezone;
+	}
+
+	public List<Alias> getAliases() {
+		return aliases;
+	}
+
+	public void setAliases(List<Alias> aliases) {
+		this.aliases = aliases;
+	}
+
+	public List<Game> getGames() {
+		return games;
+	}
+
+	public void setGames(List<Game> games) {
+		this.games = games;
 	}
 
 	@Override
