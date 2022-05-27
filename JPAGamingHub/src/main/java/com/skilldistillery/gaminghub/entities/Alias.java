@@ -38,9 +38,7 @@ public class Alias {
 	private List<Clan> clans;
 
 	@ManyToMany
-	@JoinTable(name = "alias_platform", 
-	joinColumns = @JoinColumn(name = "alias_id"), 
-	inverseJoinColumns = @JoinColumn(name = "platform_id"))
+	@JoinTable(name = "alias_platform", joinColumns = @JoinColumn(name = "alias_id"), inverseJoinColumns = @JoinColumn(name = "platform_id"))
 	private List<Platform> platforms;
 
 	@ManyToMany
