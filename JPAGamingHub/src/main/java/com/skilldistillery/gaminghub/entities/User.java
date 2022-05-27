@@ -48,20 +48,18 @@ public class User {
 	private List<Alias> aliases;
 
 	@OneToMany(mappedBy = "user")
-	private List<Meetup> meetups;
+	private List<Chat> chat;
 
+	@OneToMany(mappedBy = "user")
+	private List<Meetup> meetups;
+	
 	@ManyToMany
 	@JoinTable(name = "user_location", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
 	private List<Location> locations;
 
-	// all chats a User is in
 	@ManyToMany
 	@JoinTable(name = "chat_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "chat_id"))
 	private List<Chat> chats;
-
-	// all the chats a User has created
-	@OneToMany(mappedBy = "creatingUser")
-	private List<Chat> createdChats;
 
 	@ManyToMany
 	@JoinTable(name = "user_equipment", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "equipment_id"))
@@ -73,13 +71,13 @@ public class User {
 
 	@ManyToMany
 	@JoinTable(name = "blocked_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "blocked_user_id"))
-	private List<User> blockedUsers;
+	private List<User> blocks;
 
 	@OneToMany(mappedBy = "endorsingUser")
-	private List<UserEndorsement> sentUserEndorsements;
+	private List<UserEndorsement> sentEndorsements;
 
 	@OneToMany(mappedBy = "endorsedUser")
-	private List<UserEndorsement> userReceivedEndorsements;
+	private List<UserEndorsement> receivedEndorsements;
 
 	public User() {
 		super();
@@ -173,33 +171,6 @@ public class User {
 		this.updated = updated;
 	}
 
-	public List<Chat> getCreatedChats() {
-		return createdChats;
-	}
-
-	public void setCreatedChats(List<Chat> createdChats) {
-		this.createdChats = createdChats;
-	}
-
-	public void addCreatedChat(Chat createdChat) {
-		if (this.createdChats == null) {
-			this.createdChats = new ArrayList<>();
-		}
-		this.createdChats.add(createdChat);
-		if (createdChat.getCreatingUser() == null) {
-			createdChat.setCreatingUser(this);
-		}
-	}
-
-	public void removeCreatedChat(Chat createdChat) {
-		if (createdChat != null) {
-			this.chats.remove(createdChat);
-			if (createdChat.getCreatingUser().getUsername().equals(this.getUsername())) {
-				createdChat.setCreatingUser(null);
-			}
-		}
-	}
-
 	public List<Chat> getChats() {
 		return chats;
 	}
@@ -207,7 +178,7 @@ public class User {
 	public void setChats(List<Chat> chats) {
 		this.chats = chats;
 	}
-
+	
 	public void addChat(Chat chat) {
 		if (this.chats == null) {
 			this.chats = new ArrayList<>();
@@ -227,14 +198,6 @@ public class User {
 		}
 	}
 
-	public List<Location> getLocations() {
-		return locations;
-	}
-
-	public void setLocations(List<Location> locations) {
-		this.locations = locations;
-	}
-
 	public void addLocation(Location location) {
 		if (locations == null) {
 			locations = new ArrayList<>();
@@ -252,6 +215,23 @@ public class User {
 		}
 	}
 
+	public void addEquipment(Equipment equipment) {
+		if (equipments == null) {
+			equipments = new ArrayList<>();
+		}
+		if (equipment != null) {
+			equipments.add(equipment);
+			equipment.addUser(this);
+		}
+	}
+
+	public void removeEquipment(Equipment equipment) {
+		if (equipment != null) {
+			equipments.remove(equipment);
+			equipment.removeUser(this);
+		}
+	}
+
 	public List<Alias> getAliases() {
 		return aliases;
 	}
@@ -260,23 +240,20 @@ public class User {
 		this.aliases = aliases;
 	}
 
-	public void addAlias(Alias alias) {
-		if (this.aliases == null) {
-			this.aliases = new ArrayList<>();
-		}
-		this.aliases.add(alias);
-		if (!alias.getUser().equals(this)) {
-			alias.setUser(this);
-		}
+	public List<Chat> getChat() {
+		return chat;
 	}
 
-	public void removeAlias(Alias alias) {
-		if (alias != null) {
-			this.aliases.remove(alias);
-			if (alias.getUser().getUsername().equals(this.getUsername())) {
-				alias.setUser(null);
-			}
-		}
+	public void setChat(List<Chat> chat) {
+		this.chat = chat;
+	}
+
+	public List<Location> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(List<Location> locations) {
+		this.locations = locations;
 	}
 
 	public List<Equipment> getEquipments() {
@@ -285,23 +262,6 @@ public class User {
 
 	public void setEquipments(List<Equipment> equipments) {
 		this.equipments = equipments;
-	}
-
-	public void addEquipment(Equipment equipment) {
-		if (this.equipments == null) {
-			this.equipments = new ArrayList<>();
-		}
-		equipments.add(equipment);
-		if (this.equipments != null) {
-			equipment.addUser(this);
-		}
-	}
-
-	public void removeEquipment(Equipment equipment) {
-		if (equipment != null) {
-			this.equipments.remove(equipment);
-			equipment.removeUser(this);
-		}
 	}
 
 	public List<Meetup> getMeetups() {
@@ -320,86 +280,28 @@ public class User {
 		this.friends = friends;
 	}
 
-	public void addFriend(User friend) {
-		if (this.friends == null) {
-			this.friends = new ArrayList<>();
-		}
-		this.friends.add(friend);
-		friend.addFriend(this);
+	public List<User> getBlocks() {
+		return blocks;
 	}
 
-	public void removeFriend(User friend) {
-		if (friend != null) {
-			this.friends.remove(friend);
-			friend.removeFriend(this);
-		}
+	public void setBlocks(List<User> blocks) {
+		this.blocks = blocks;
 	}
 
-	public List<User> getBlockedUsers() {
-		return blockedUsers;
+	public List<UserEndorsement> getSentEndorsements() {
+		return sentEndorsements;
 	}
 
-	public void setBlockedUsers(List<User> blockedUsers) {
-		this.blockedUsers = blockedUsers;
+	public void setSentEndorsements(List<UserEndorsement> sentEndorsements) {
+		this.sentEndorsements = sentEndorsements;
 	}
 
-	public void addBlockedUser(User blockedUser) {
-		if (this.blockedUsers == null) {
-			this.blockedUsers = new ArrayList<>();
-		}
-		this.blockedUsers.add(blockedUser);
+	public List<UserEndorsement> getReceivedEndorsements() {
+		return receivedEndorsements;
 	}
 
-	public void removeBlockedUser(User blockedUser) {
-		if (blockedUser != null) {
-			this.blockedUsers.remove(blockedUser);
-		}
-	}
-
-	public List<UserEndorsement> getSentUserEndorsements() {
-		return sentUserEndorsements;
-	}
-
-	public void setSentUserEndorsements(List<UserEndorsement> sentUserEndorsements) {
-		this.sentUserEndorsements = sentUserEndorsements;
-	}
-
-	public void addSentUserEndorsement(UserEndorsement sentUserEndorsement) {
-		if (this.sentUserEndorsements == null) {
-			this.sentUserEndorsements = new ArrayList<>();
-		}
-		this.sentUserEndorsements.add(sentUserEndorsement);
-		sentUserEndorsement.setEndorsingUser(this);
-	}
-
-	public void removeSentUserEndorsement(UserEndorsement sentUserEndorsement) {
-		if (sentUserEndorsement != null) {
-			this.sentUserEndorsements.remove(sentUserEndorsement);
-			sentUserEndorsement.setEndorsingUser(null);
-		}
-	}
-
-	public List<UserEndorsement> getUserReceivedEndorsements() {
-		return userReceivedEndorsements;
-	}
-
-	public void setUserReceivedEndorsements(List<UserEndorsement> userReceivedEndorsements) {
-		this.userReceivedEndorsements = userReceivedEndorsements;
-	}
-
-	public void addUserReceivedEndorsement(UserEndorsement userReceivedEndorsement) {
-		if (this.userReceivedEndorsements == null) {
-			this.userReceivedEndorsements = new ArrayList<>();
-		}
-		this.userReceivedEndorsements.add(userReceivedEndorsement);
-		userReceivedEndorsement.setEndorsedUser(this);
-	}
-
-	public void removeUserReceivedEndorsement(UserEndorsement userReceivedEndorsement) {
-		if (userReceivedEndorsement != null) {
-			this.userReceivedEndorsements.remove(userReceivedEndorsement);
-			userReceivedEndorsement.setEndorsedUser(null);
-		}
+	public void setReceivedEndorsements(List<UserEndorsement> receivedEndorsements) {
+		this.receivedEndorsements = receivedEndorsements;
 	}
 
 	@Override
@@ -421,9 +323,31 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
-				+ ", role=" + role + ", firstName=" + firstName + ", middleName=" + middleName + ", lastName="
-				+ lastName + ", imageUrl=" + imageUrl + ", created=" + created + ", updated=" + updated + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("User [id=");
+		builder.append(id);
+		builder.append(", username=");
+		builder.append(username);
+		builder.append(", password=");
+		builder.append(password);
+		builder.append(", enabled=");
+		builder.append(enabled);
+		builder.append(", role=");
+		builder.append(role);
+		builder.append(", firstName=");
+		builder.append(firstName);
+		builder.append(", middleName=");
+		builder.append(middleName);
+		builder.append(", lastName=");
+		builder.append(lastName);
+		builder.append(", imageUrl=");
+		builder.append(imageUrl);
+		builder.append(", created=");
+		builder.append(created);
+		builder.append(", updated=");
+		builder.append(updated);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }
