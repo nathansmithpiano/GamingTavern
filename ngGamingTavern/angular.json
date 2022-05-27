@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "mdb-angular-free": {
+    "ng-gaming-tavern": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -123,7 +123,7 @@
       }
     }
   },
-  "defaultProject": "mdb-angular-free",
+  "defaultProject": "ng-gaming-tavern",
   "cli": {
     "defaultCollection": "@angular-eslint/schematics"
   }

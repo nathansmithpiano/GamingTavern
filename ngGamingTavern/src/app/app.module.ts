@@ -9,11 +9,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule } from '@angular/forms';
 import { NavComponent } from './components/nav/nav.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent
+    NavComponent,
+    LoginComponent
   ],
   imports: [
     AppRoutingModule,
