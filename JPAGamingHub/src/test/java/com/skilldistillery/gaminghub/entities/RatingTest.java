@@ -60,13 +60,13 @@ class RatingTest {
 	@Test
 	@DisplayName("Rating 1:m Game")
 	void test_rating_game_apping() {
-		
+
 //		SELECT game.id, rating_id FROM game JOIN rating ON rating.id = game.rating_id;
 //		+----+-----------+
 //		| id | rating_id |
 //		+----+-----------+
 //		|  2 |         4 |
-		
+
 		rating = em.find(Rating.class, 4);
 		assertNotNull(rating);
 		assertNotNull(rating.getGames());

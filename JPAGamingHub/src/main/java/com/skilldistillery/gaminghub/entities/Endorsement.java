@@ -32,6 +32,7 @@ public class Endorsement {
 
 	@OneToMany(mappedBy = "endorsingUser")
 	private List<UserEndorsement> endorsingUsers;
+	
 
 	public Endorsement() {
 		super();
@@ -93,6 +94,7 @@ public class Endorsement {
 	public void setEndorsedUsers(List<UserEndorsement> endorsedUsers) {
 		this.endorsedUsers = endorsedUsers;
 	}
+
 
 	public List<UserEndorsement> getEndorsingUsers() {
 		return endorsingUsers;

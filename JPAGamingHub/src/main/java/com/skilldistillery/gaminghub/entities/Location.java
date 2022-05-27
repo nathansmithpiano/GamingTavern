@@ -176,6 +176,7 @@ public class Location {
 		}
 	}
 
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
