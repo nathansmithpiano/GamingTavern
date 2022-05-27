@@ -1,6 +1,7 @@
 package com.skilldistillery.gaminghub.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +24,12 @@ public class Endorsement {
 	private String imageUrl;
 	private LocalDateTime created;
 	private LocalDateTime updated;
+
+	@OneToMany(mappedBy="endorsedUser")
+	private List<UserEndorsement> endorsedUsers;
+
+	@OneToMany(mappedBy="endorsingUser")
+	private List<UserEndorsement> endorsingUsers;
 
 	public Endorsement() {
 		super();
@@ -74,6 +82,24 @@ public class Endorsement {
 
 	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
+	}
+
+	
+
+	public List<UserEndorsement> getEndorsedUsers() {
+		return endorsedUsers;
+	}
+
+	public void setEndorsedUsers(List<UserEndorsement> endorsedUsers) {
+		this.endorsedUsers = endorsedUsers;
+	}
+
+	public List<UserEndorsement> getEndorsingUsers() {
+		return endorsingUsers;
+	}
+
+	public void setEndorsingUsers(List<UserEndorsement> endorsingUsers) {
+		this.endorsingUsers = endorsingUsers;
 	}
 
 	@Override
