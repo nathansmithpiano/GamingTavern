@@ -2,6 +2,7 @@ package com.skilldistillery.gaminghub.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,7 +16,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class PlatformTest {
-	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
 	private Platform platform;
@@ -53,8 +53,33 @@ class PlatformTest {
 		//+----+---------+-------+---------+------------------------+-----------+---------------------+---------------------+
 		//|  1 |       1 | Steam | Library | Game Store and Library |           | 2020-04-10 18:30:00 | 2020-04-11 18:30:00 |
 		//+----+---------+-------+---------+------------------------+-----------+---------------------+---------------------+
-
 	}
+	
+	@Test
+	@DisplayName("Platform MTM games mapping")
+	void test2() {
+		platform = em.find(Platform.class, 1);
+		assertNotNull(platform);
+		assertNotNull(platform.getGames());
+		assertTrue(platform.getGames().size() > 0);
+		assertEquals(1, platform.getGames().get(0).getMeetups().get(0).getId());
+		// test both sides and no duplicates
+		int expectedMatches = platform.getGames().size();
+		int matches = 0;
+
+		// each of server's clans m = s c = game
+		for (Game games : platform.getGames()) {
+			// each of the server's clan's servers
+			for (Platform gamePlatform : games.getPlatform()) {
+				// verify valid data
+				if (gamePlatform.getName().equals(platform.getName())) {
+					matches++;
+				}
+			}
+		}
+		assertEquals(expectedMatches, matches);
+	}
+
 	@Test
 	void test_alias_platform_mapping() {
 		assertNotNull(platform.getAliases());
