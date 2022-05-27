@@ -65,12 +65,13 @@ public class User {
 	@JoinTable(name = "user_equipment", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "equipment_id"))
 	private List<Equipment> equipments;
 
-	
-
-	
 	@ManyToMany
 	@JoinTable(name = "user_friend", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "friend_id"))
 	private List<User> friends;
+
+	@ManyToMany
+	@JoinTable(name = "blocked_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "blocked_user_id"))
+	private List<User> blocks;
 
 	@OneToMany(mappedBy = "endorsingUser")
 	private List<UserEndorsement> sentEndorsements;
@@ -258,6 +259,14 @@ public class User {
 
 	public void setFriends(List<User> friends) {
 		this.friends = friends;
+	}
+
+	public List<User> getBlocks() {
+		return blocks;
+	}
+
+	public void setBlocks(List<User> blocks) {
+		this.blocks = blocks;
 	}
 
 	public List<UserEndorsement> getSentEndorsements() {

@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.2"
-	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
 	<persistence-unit name="JPAGamingHub">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider
     </provider>
@@ -22,29 +19,25 @@
 		<class>com.skilldistillery.gaminghub.entities.Server</class>
 		<class>com.skilldistillery.gaminghub.entities.Timezone</class>
 		<class>com.skilldistillery.gaminghub.entities.User</class>
-		<class>com.skilldistillery.gaminghub.entities.UserEndorsement</class>
-		<class>com.skilldistillery.gaminghub.entities.UserEndorsementId</class>
 		<class>com.skilldistillery.gaminghub.entities.UserFriend</class>
 		<class>com.skilldistillery.gaminghub.entities.UserFriendId</class>
+		<class>com.skilldistillery.gaminghub.entities.BlockedUser</class>
+		<class>com.skilldistillery.gaminghub.entities.BlockedUserId</class>
+		<class>com.skilldistillery.gaminghub.entities.UserEndorsement</class>
+		<class>com.skilldistillery.gaminghub.entities.UserEndorsementId</class>
 
 		<!-- End Entities Here -->
 		<properties>
-			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://localhost:3306/gamingtaverndb?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=US/Mountain" />
-			<property name="javax.persistence.jdbc.user"
-				value="gamingtavernuser" />
-			<property name="javax.persistence.jdbc.password"
-				value="gamingtavernuser" />
-			<property name="javax.persistence.jdbc.driver"
-				value="com.mysql.cj.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gamingtaverndb?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=US/Mountain" />
+			<property name="javax.persistence.jdbc.user" value="gamingtavernuser" />
+			<property name="javax.persistence.jdbc.password" value="gamingtavernuser" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
 
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />
 
-			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.MySQLDialect" />
-			<property name="hibernate.connection.provider_class"
-				value="org.hibernate.connection.C3P0ConnectionProvider" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<property name="hibernate.connection.provider_class" value="org.hibernate.connection.C3P0ConnectionProvider" />
 
 			<property name="hibernate.c3p0.max_size" value="5" />
 			<property name="hibernate.c3p0.min_size" value="0" />

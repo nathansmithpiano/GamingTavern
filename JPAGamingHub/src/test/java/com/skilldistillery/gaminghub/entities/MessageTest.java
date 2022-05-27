@@ -2,6 +2,7 @@ package com.skilldistillery.gaminghub.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -55,7 +56,31 @@ class MessageTest {
 		assertNotNull(message);
 		assertNotNull(message.getContents());
 		assertEquals("Hello to User 2", message.getContents());
+	}
+	
+	@Test
+	@DisplayName("Message self-join")
+	void test_message_self_join() {
 		
+//		SELECT * FROM message WHERE replying_to_message_id = 7;
+//		+----+-------------------+-------------------+------------------------+--------------+---------------------+
+//		| id | chat_user_chat_id | chat_user_user_id | replying_to_message_id | contents     | created             |
+//		+----+-------------------+-------------------+------------------------+--------------+---------------------+
+//		|  8 |                 2 |                 8 |                      7 | User 8 here  | 2022-05-20 12:01:00 |
+//		|  9 |                 2 |                 9 |                      7 | User 9 here  | 2022-05-20 12:02:00 |
+//		| 10 |                 2 |                10 |                      7 | User 10 here | 2022-05-20 12:03:00 |
+//		| 11 |                 2 |                11 |                      7 | User 11 here | 2022-05-20 12:04:00 |
+//		| 12 |                 2 |                12 |                      7 | User 12 here | 2022-05-20 12:05:00 |
+//		+----+-------------------+-------------------+------------------------+--------------+---------------------+
+		
+		message = em.find(Message.class, 7);
+		assertNotNull(message);
+		assertNotNull(message.getReplies());
+		assertTrue(message.getReplies().size() > 0);
+		
+		for (Message reply : message.getReplies()) {
+			assertEquals(message.getContents(), reply.getReplyingToMessage().getContents());
+		}
 	}
 	
 

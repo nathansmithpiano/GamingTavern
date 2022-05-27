@@ -58,7 +58,6 @@ public class UserEndorsement {
 		this.endorsingUser = endorsingUser;
 	}
 
-
 	public UserEndorsement() {
 		super();
 	}

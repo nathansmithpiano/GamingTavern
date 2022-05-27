@@ -87,10 +87,12 @@ class UserTest {
 		user = em.find(User.class, 675);
 		assertNotNull(user);
 		assertNotNull(user.getFriends());
+		assertTrue(user.getFriends().size() > 0);
 		assertEquals(70, user.getFriends().size());
 
 		// user has each friend only one time
-		int matchCount = 0;
+		int matches = 0;
+		int expectedMatches = user.getFriends().size();
 		for (User usersFriend : user.getFriends()) {
 
 			// user's friend has friends
@@ -100,13 +102,13 @@ class UserTest {
 			// find match by usernames
 			for (User friendsFriend : usersFriend.getFriends()) {
 				if (friendsFriend.getUsername().equals(user.getUsername())) {
-					matchCount++;
+					matches++;
 				}
 			}
 		}
 
 		// number of times user's friends have this user as a friend
-		assertEquals(70, matchCount);
+		assertEquals(expectedMatches, matches);
 	}
 
 	@DisplayName("UserFriend ID")
@@ -134,6 +136,54 @@ class UserTest {
 
 		// toString puts "T" where there was a space in mysql
 		assertEquals("2019-01-20T19:37:35", userFriend.getCreated().toString());
+	}
+
+	@DisplayName("User Blocked mapping")
+	@Test
+	void test_user_blocked_mapping() {
+
+//		SELECT user_id, COUNT(blocked_user_id) FROM blocked_user GROUP BY user_id ORDER BY COUNT(*) DESC;
+//		+---------+------------------------+
+//		| user_id | COUNT(blocked_user_id) |
+//		+---------+------------------------+
+//		|     408 |                     16 |
+
+		user = em.find(User.class, 408);
+		assertNotNull(user);
+		assertNotNull(user.getBlocks());
+		assertTrue(user.getBlocks().size() > 0);
+		assertEquals(16, user.getBlocks().size());
+
+		for (User blockedUser : user.getBlocks()) {
+			// valid data test
+			assertNotNull(blockedUser.getUsername());
+		}
+	}
+
+	@DisplayName("User Blocked mapping")
+	@Test
+	void test_user_blocked_id() {
+
+//		SELECT * FROM blocked_user WHERE user_id = 408;
+//		+---------+-----------------+---------------------+--------+
+//		| user_id | blocked_user_id | created             | reason |
+//		+---------+-----------------+---------------------+--------+
+//		|     408 |              41 | 2022-05-29 08:13:17 |        |
+
+		user = em.find(User.class, 408);
+		assertNotNull(user);
+		assertNotNull(user.getBlocks());
+
+		// create new composite id as above
+		BlockedUserId id = new BlockedUserId();
+		id.setUserId(408);
+		id.setBlockedUserId(41);
+
+		// this works just like em.find(class, int id)
+		BlockedUser blockedUser = em.find(BlockedUser.class, id);
+		assertNotNull(blockedUser);
+
+		assertEquals("2022-05-29T08:13:17", blockedUser.getCreated().toString());
 	}
 
 	@DisplayName("User --> Chat Mapping")

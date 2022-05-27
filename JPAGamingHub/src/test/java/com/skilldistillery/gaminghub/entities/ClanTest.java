@@ -57,12 +57,6 @@ class ClanTest {
 	
 	}
 	
-//	SELECT clan_id, COUNT(*) FROM clan_game GROUP BY clan_id ORDER BY COUNT(*) DESC;
-//	+---------+----------+
-//	| clan_id | COUNT(*) |
-//	+---------+----------+
-//	|      15 |        1 |
-	
 	@Test
 	@DisplayName("Test Clan Game ")
 	void test_clan_game() {
