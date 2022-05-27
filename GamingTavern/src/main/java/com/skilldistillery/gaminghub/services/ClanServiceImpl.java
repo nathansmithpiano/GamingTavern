@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.skilldistillery.gaminghub.entities.Clan;
 import com.skilldistillery.gaminghub.repositories.ClanRepository;
 
-
 public class ClanServiceImpl implements ClanService {
-	
+
 	@Autowired
 	private ClanRepository clanRepo;
 
@@ -36,17 +35,17 @@ public class ClanServiceImpl implements ClanService {
 				clan.setId(clanId);
 				return clanRepo.saveAndFlush(clan);
 			}
-			}
+		}
 
-			return null;
+		return null;
 	}
 
 	@Override
 	public boolean deleteClan(String name, int clanId) {
 		Optional<Clan> op = clanRepo.findById(clanId);
-		if(op.isPresent()) {
+		if (op.isPresent()) {
 			Clan result = op.get();
-			if(result.getName().equals(name)) {
+			if (result.getName().equals(name)) {
 				clanRepo.deleteById(clanId);
 				op = clanRepo.findById(clanId);
 				return !op.isPresent();

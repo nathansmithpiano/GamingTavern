@@ -71,7 +71,7 @@ public class User {
 
 	@ManyToMany
 	@JoinTable(name = "blocked_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "blocked_user_id"))
-	private List<User> blocks;
+	private List<User> blockedUsers;
 
 	@OneToMany(mappedBy = "endorsingUser")
 	private List<UserEndorsement> sentEndorsements;
@@ -280,12 +280,12 @@ public class User {
 		this.friends = friends;
 	}
 
-	public List<User> getBlocks() {
-		return blocks;
+	public List<User> getBlockedUsers() {
+		return blockedUsers;
 	}
 
-	public void setBlocks(List<User> blocks) {
-		this.blocks = blocks;
+	public void setBlockedUsers(List<User> blocks) {
+		this.blockedUsers = blocks;
 	}
 
 	public List<UserEndorsement> getSentEndorsements() {
