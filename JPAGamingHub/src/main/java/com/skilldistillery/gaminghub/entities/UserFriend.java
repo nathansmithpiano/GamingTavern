@@ -38,7 +38,7 @@ public class UserFriend {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(created, id);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class UserFriend {
 		if (getClass() != obj.getClass())
 			return false;
 		UserFriend other = (UserFriend) obj;
-		return Objects.equals(created, other.created) && Objects.equals(id, other.id);
+		return Objects.equals(id, other.id);
 	}
 
 	@Override

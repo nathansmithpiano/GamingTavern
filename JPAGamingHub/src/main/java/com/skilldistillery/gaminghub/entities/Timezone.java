@@ -1,5 +1,6 @@
 package com.skilldistillery.gaminghub.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,22 +12,22 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Timezone {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String abbreviation;
-	
+
 	private Double offset;
-	
+
 	private String locale;
-	
+
 	private String description;
-	
+
 	@OneToMany(mappedBy = "timezone")
 	private List<Meetup> meetups;
-	
+
 	@OneToMany(mappedBy = "timezone")
 	private List<Location> locations;
 
@@ -82,6 +83,21 @@ public class Timezone {
 		this.meetups = meetups;
 	}
 
+	public void addMeetup(Meetup meetup) {
+		if (this.meetups == null) {
+			this.meetups = new ArrayList<>();
+		}
+		this.meetups.add(meetup);
+		meetup.setTimezone(this);
+	}
+
+	public void removeMeetup(Meetup meetup) {
+		if (meetup != null) {
+			this.meetups.remove(meetup);
+//			meetup.setTimezone(null);
+		}
+	}
+
 	public List<Location> getLocations() {
 		return locations;
 	}
@@ -90,11 +106,25 @@ public class Timezone {
 		this.locations = locations;
 	}
 
+	public void addLocation(Location location) {
+		if (this.locations == null) {
+			this.locations = new ArrayList<>();
+		}
+		this.locations.add(location);
+		location.setTimezone(this);
+	}
+
+	public void removeLocation(Location location) {
+		if (location != null) {
+			this.locations.remove(location);
+//			location.setTimezone(null);
+		}
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -110,13 +140,8 @@ public class Timezone {
 
 	@Override
 	public String toString() {
-		return "Timezone [id=" + id +
-				", abbreviation=" + abbreviation +
-				", offset=" + offset +
-				", locale=" + locale
+		return "Timezone [id=" + id + ", abbreviation=" + abbreviation + ", offset=" + offset + ", locale=" + locale
 				+ ", description=" + description;
 	}
-	
-	
 
 }

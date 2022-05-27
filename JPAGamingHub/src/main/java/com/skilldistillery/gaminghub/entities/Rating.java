@@ -1,23 +1,29 @@
 package com.skilldistillery.gaminghub.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "rating")
 public class Rating {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	 private String name;
-	 private String description;
-	 
+	private String name;
+	private String description;
+
+	@OneToMany(mappedBy = "rating")
+	private List<Game> games;
+
 	public Rating() {
 		super();
 	}
@@ -46,6 +52,29 @@ public class Rating {
 		this.description = description;
 	}
 
+	public List<Game> getGames() {
+		return games;
+	}
+
+	public void setGames(List<Game> games) {
+		this.games = games;
+	}
+
+	public void addGame(Game game) {
+		if (this.games == null) {
+			this.games = new ArrayList<>();
+		}
+		this.games.add(game);
+		game.setRating(this);
+	}
+
+	public void removeGame(Game game) {
+		if (game != null) {
+			this.games.remove(game);
+			game.setRating(null);
+		}
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(description, id, name);
@@ -68,5 +97,4 @@ public class Rating {
 		return "Rating [id=" + id + ", name=" + name + ", description=" + description + "]";
 	}
 
-	
 }

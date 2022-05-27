@@ -1,6 +1,7 @@
 package com.skilldistillery.gaminghub.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,9 +22,7 @@ public class Server {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@ManyToOne
-	@JoinColumn(name = "game_id")
-	private Game game;
+
 	private boolean enabled;
 	private String name;
 	private String type;
@@ -35,14 +34,17 @@ public class Server {
 	private LocalDateTime created;
 	private LocalDateTime updated;
 
+	@ManyToOne
+	@JoinColumn(name = "game_id")
+	private Game game;
+
 	@ManyToMany
 	@JoinTable(name = "alias_server", joinColumns = @JoinColumn(name = "server_id"), inverseJoinColumns = @JoinColumn(name = "alias_id"))
-	private List<Alias> alias;
+	private List<Alias> aliases;
 
 	@ManyToMany
 	@JoinTable(name = "clan_server", joinColumns = @JoinColumn(name = "server_id"), inverseJoinColumns = @JoinColumn(name = "clan_id"))
 	private List<Clan> clans;
-
 
 	public Server() {
 		super();
@@ -136,12 +138,35 @@ public class Server {
 		this.updated = updated;
 	}
 
-	public List<Alias> getAlias() {
-		return alias;
+	public Game getGame() {
+		return game;
 	}
 
-	public void setAlias(List<Alias> alias) {
-		this.alias = alias;
+	public void setGame(Game game) {
+		this.game = game;
+	}
+
+	public List<Alias> getAliases() {
+		return aliases;
+	}
+
+	public void setAliases(List<Alias> aliases) {
+		this.aliases = aliases;
+	}
+
+	public void addAlias(Alias alias) {
+		if (this.aliases == null) {
+			this.aliases = new ArrayList<>();
+		}
+		this.aliases.add(alias);
+		alias.addServer(this);
+	}
+
+	public void removeAlias(Alias alias) {
+		if (alias != null) {
+			this.aliases.remove(alias);
+			alias.removeServer(this);
+		}
 	}
 
 	public List<Clan> getClans() {
@@ -152,17 +177,24 @@ public class Server {
 		this.clans = clans;
 	}
 
-	public Game getGame() {
-		return game;
+	public void addClan(Clan clan) {
+		if (this.clans == null) {
+			this.clans = new ArrayList<>();
+		}
+		this.clans.add(clan);
+		clan.addServer(this);
 	}
 
-	public void setGame(Game game) {
-		this.game = game;
+	public void removeClan(Clan clan) {
+		if (clan != null) {
+			this.clans.remove(clan);
+			clan.removeServer(this);
+		}
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(alias, capacity, created, description, enabled, id, ip, name, password, type, updated, url);
+		return Objects.hash(ip);
 	}
 
 	@Override
@@ -174,19 +206,14 @@ public class Server {
 		if (getClass() != obj.getClass())
 			return false;
 		Server other = (Server) obj;
-		return Objects.equals(alias, other.alias) && capacity == other.capacity
-				&& Objects.equals(created, other.created) && Objects.equals(description, other.description)
-				&& enabled == other.enabled && id == other.id && Objects.equals(ip, other.ip)
-				&& Objects.equals(name, other.name) && Objects.equals(password, other.password)
-				&& Objects.equals(type, other.type) && Objects.equals(updated, other.updated)
-				&& Objects.equals(url, other.url);
+		return Objects.equals(ip, other.ip);
 	}
 
 	@Override
 	public String toString() {
 		return "Server [id=" + id + ", enabled=" + enabled + ", name=" + name + ", type=" + type + ", ip=" + ip
 				+ ", url=" + url + ", password=" + password + ", capacity=" + capacity + ", description=" + description
-				+ ", created=" + created + ", updated=" + updated + ", alias=" + alias + "]";
+				+ ", created=" + created + ", updated=" + updated + "]";
 	}
 
 }

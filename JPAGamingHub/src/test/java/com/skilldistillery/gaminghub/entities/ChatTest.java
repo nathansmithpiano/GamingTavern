@@ -55,8 +55,18 @@ class ChatTest {
 		assertNotNull(chat);
 		assertNotNull(chat.getTitle());
 		assertEquals("Hell's Angels Chat", chat.getTitle());
+	}
+	
+	@Test
+	@DisplayName("Chat User 1:1 mapping")
+	void test_chat_user_1_1_mapping() {
 		
 	}
 	
-
+	@Test
+	@DisplayName("Chat Message 1:m mapping")
+	void test_chat_message_1_m_mapping() {
+		
+	}
+	
 }

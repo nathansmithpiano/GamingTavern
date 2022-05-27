@@ -58,6 +58,13 @@ public class AliasTest {
 	@Test
 	@DisplayName("Test Alias m:m Game")
 	void test_alias_game_mapping() {
+		
+//		 SELECT alias_id, COUNT(*) FROM alias_game GROUP BY alias_id ORDER BY COUNT(*) DESC;
+//		 +----------+----------+
+//		 | alias_id | COUNT(*) |
+//		 +----------+----------+
+//		 |       15 |        1 |
+		
 		// find example with more than one in list
 		alias = em.find(Alias.class, 15);
 		assertNotNull(alias);
@@ -80,17 +87,18 @@ public class AliasTest {
 		}
 
 		assertEquals(expectedMatches, matches);
-
-//		 SELECT alias_id, COUNT(*) FROM alias_game GROUP BY alias_id ORDER BY COUNT(*) DESC;
-//		 +----------+----------+
-//		 | alias_id | COUNT(*) |
-//		 +----------+----------+
-//		 |       15 |        1 |
 	}
 
 	@Test
 	@DisplayName("Test Alias m:m Server")
 	void test_alias_server_mapping() {
+
+//		 SELECT alias_id, COUNT(*) FROM alias_server GROUP BY alias_id ORDER BY COUNT(*) DESC;
+//		 +----------+----------+
+//		 | alias_id | COUNT(*) |
+//		 +----------+----------+
+//		 |        1 |        4 |
+
 		// find example with more than one in list
 		alias = em.find(Alias.class, 1);
 		assertNotNull(alias);
@@ -101,58 +109,52 @@ public class AliasTest {
 		int expectedMatches = alias.getServers().size();
 		int matches = 0;
 
-		// each of server's clans
+		// each of the alias's servers
 		for (Server server : alias.getServers()) {
-			// each of the server's clan's servers
-			for (Alias aliasServer : server.getAlias()) {
+			// each of the alias's server's aliases
+			for (Alias serverAlias : server.getAliases()) {
 				// verify valid data
-				if (aliasServer.getName().equals(alias.getName())) {
+				if (serverAlias.getName().equals(alias.getName())) {
 					matches++;
 				}
 			}
 		}
 
 		assertEquals(expectedMatches, matches);
-
-//	 SELECT alias_id, COUNT(*) FROM alias_server GROUP BY alias_id ORDER BY COUNT(*) DESC;
-//	 +----------+----------+
-//	 | alias_id | COUNT(*) |
-//	 +----------+----------+
-//	 |        1 |        4 |
-
 	}
 
 	@Test
 	@DisplayName("Test Alias m:m Clan")
 	void test_alias_clan_mapping() {
+
+//		 SELECT alias_id, COUNT(*) FROM alias_clan GROUP BY alias_id ORDER BY COUNT(*) DESC;
+//		 +----------+----------+
+//		 | alias_id | COUNT(*) |
+//		 +----------+----------+
+//		 |     5507 |        8 |
+
 		// find example with more than one in list
 		alias = em.find(Alias.class, 5507);
 		assertNotNull(alias);
-		assertNotNull(alias.getClan());
-		assertTrue(alias.getClan().size() > 0);
+		assertNotNull(alias.getClans());
+		assertTrue(alias.getClans().size() > 0);
 
 		// test both sides and no duplicates
-		int expectedMatches = alias.getClan().size();
+		int expectedMatches = alias.getClans().size();
 		int matches = 0;
 
-		// each of server's clans
-		for (Clan clan : alias.getClan()) {
-			// each of the server's clan's servers
-			for (Alias aliasClan : clan.getAliases()) {
+		// each of the alias's clans
+		for (Clan clan : alias.getClans()) {
+			// each of the alias's clan's alises
+			for (Alias clanAlias : clan.getAliases()) {
 				// verify valid data
-				if (aliasClan.getName().equals(alias.getName())) {
+				if (clanAlias.getName().equals(alias.getName())) {
 					matches++;
 				}
 			}
 		}
 
 		assertEquals(expectedMatches, matches);
-
-//	 SELECT alias_id, COUNT(*) FROM alias_clan GROUP BY alias_id ORDER BY COUNT(*) DESC;
-//	 +----------+----------+
-//	 | alias_id | COUNT(*) |
-//	 +----------+----------+
-//	 |     5507 |        8 |
 
 	}
 
@@ -166,15 +168,15 @@ public class AliasTest {
 		assertTrue(alias.getPlatforms().size() > 0);
 
 		// test both sides and no duplicates
-		int expectedMatches = alias.getPlatforms().size();
 		int matches = 0;
+		int expectedMatches = alias.getPlatforms().size();
 
 		// each of server's clans
 		for (Platform platform : alias.getPlatforms()) {
 			// each of the server's clan's servers
-			for (Alias aliasPlatform : platform.getAliases()) {
+			for (Alias platformAlias : platform.getAliases()) {
 				// verify valid data
-				if (aliasPlatform.getName().equals(alias.getName())) {
+				if (platformAlias.getName().equals(alias.getName())) {
 					matches++;
 				}
 			}
