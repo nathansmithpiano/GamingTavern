@@ -15,8 +15,6 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepo;
 	
-	
-
 	@Override
 	public User getUserById(int userId) {
 		Optional<User> op = userRepo.findById(userId);
@@ -63,4 +61,6 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
+
 }
+
