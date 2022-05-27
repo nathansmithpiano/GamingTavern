@@ -20,15 +20,17 @@ public class Endorsement {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
+
 	@Column(name = "image_url")
 	private String imageUrl;
+
 	private LocalDateTime created;
 	private LocalDateTime updated;
 
-	@OneToMany(mappedBy="endorsedUser")
+	@OneToMany(mappedBy = "endorsedUser")
 	private List<UserEndorsement> endorsedUsers;
 
-	@OneToMany(mappedBy="endorsingUser")
+	@OneToMany(mappedBy = "endorsingUser")
 	private List<UserEndorsement> endorsingUsers;
 
 	public Endorsement() {
@@ -83,8 +85,6 @@ public class Endorsement {
 	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
 	}
-
-	
 
 	public List<UserEndorsement> getEndorsedUsers() {
 		return endorsedUsers;

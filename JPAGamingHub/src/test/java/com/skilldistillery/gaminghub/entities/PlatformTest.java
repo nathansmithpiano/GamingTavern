@@ -2,6 +2,7 @@ package com.skilldistillery.gaminghub.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -55,20 +56,36 @@ class PlatformTest {
 		//+----+---------+-------+---------+------------------------+-----------+---------------------+---------------------+
 
 	}
-	@Test
-	void test_alias_platform_mapping() {
-		assertNotNull(platform.getAliases());
-		assertEquals(10, platform.getAliases().size());
-		assertEquals("Baya", platform.getAliases().get(0).getName());
-		
-	}
 	
+	@DisplayName("Platform m:m Game")
 	@Test
 	void test_platform_game_mapping() {
-		assertNotNull(platform.getGames());
-		assertEquals(7, platform.getGames().size());
-		assertEquals("Counter-Strike: Global Offensive", platform.getGames().get(0).getName());
 		
+//		SELECT platform_id, COUNT(*) FROM platform_game GROUP BY platform_id ORDER BY COUNT(*) DESC;
+//		+-------------+----------+
+//		| platform_id | COUNT(*) |
+//		+-------------+----------+
+//		|           2 |       10 |
+		platform = em.find(Platform.class, 2);
+		assertNotNull(platform);
+		assertNotNull(platform.getGames());
+		assertTrue(platform.getGames().size() > 0);
+		
+		// test both sides and no duplicates
+		int matches = 0;
+		int expectedMatches = platform.getGames().size();
+		
+		// each of the platform's games
+		for (Game game : platform.getGames()) {
+			// each of the game's platforms
+			for (Platform gamePlatform : game.getPlatforms()) {
+				if (gamePlatform.getName().equals(platform.getName())) {
+					matches++;
+				}
+			}
+		}
+		
+		assertEquals(expectedMatches, matches);
 	}
 		
 }
