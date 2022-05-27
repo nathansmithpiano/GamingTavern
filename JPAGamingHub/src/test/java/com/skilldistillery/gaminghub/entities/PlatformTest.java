@@ -16,7 +16,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class PlatformTest {
-
 	private static EntityManagerFactory emf;
 	private EntityManager em;
 	private Platform platform;
@@ -46,8 +45,16 @@ class PlatformTest {
 	@DisplayName("Platform mapping")
 	void test_platform_mapping() {
 		assertNotNull(platform);
+		assertEquals("Steam", platform.getName());
+		assertEquals("Library", platform.getType());
+		
+		//+----+---------+-------+---------+------------------------+-----------+---------------------+---------------------+
+		//| id | enabled | name  | type    | description            | image_url | created             | updated             |
+		//+----+---------+-------+---------+------------------------+-----------+---------------------+---------------------+
+		//|  1 |       1 | Steam | Library | Game Store and Library |           | 2020-04-10 18:30:00 | 2020-04-11 18:30:00 |
+		//+----+---------+-------+---------+------------------------+-----------+---------------------+---------------------+
 	}
-
+	
 	@Test
 	@DisplayName("Platform MTM games mapping")
 	void test2() {
@@ -73,4 +80,20 @@ class PlatformTest {
 		assertEquals(expectedMatches, matches);
 	}
 
+	@Test
+	void test_alias_platform_mapping() {
+		assertNotNull(platform.getAliases());
+		assertEquals(10, platform.getAliases().size());
+		assertEquals("Baya", platform.getAliases().get(0).getName());
+		
+	}
+	
+	@Test
+	void test_platform_game_mapping() {
+		assertNotNull(platform.getGames());
+		assertEquals(7, platform.getGames().size());
+		assertEquals("Counter-Strike: Global Offensive", platform.getGames().get(0).getName());
+		
+	}
+		
 }

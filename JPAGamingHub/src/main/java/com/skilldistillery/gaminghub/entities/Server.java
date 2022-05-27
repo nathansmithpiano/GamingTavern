@@ -17,13 +17,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "server")
 public class Server {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	// Game id
-	
+	@ManyToOne
+	@JoinColumn(name = "game_id")
+	private Game game;
 	private boolean enabled;
 	private String name;
 	private String type;
@@ -34,27 +34,16 @@ public class Server {
 	private String description;
 	private LocalDateTime created;
 	private LocalDateTime updated;
-	
+
 	@ManyToMany
-	@JoinTable(
-	        name = "alias_server", 
-	        joinColumns = @JoinColumn(name = "server_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "alias_id") 
-	    )
+	@JoinTable(name = "alias_server", joinColumns = @JoinColumn(name = "server_id"), inverseJoinColumns = @JoinColumn(name = "alias_id"))
 	private List<Alias> alias;
-	
+
 	@ManyToMany
-	@JoinTable(
-	        name = "clan_server", 
-	        joinColumns = @JoinColumn(name = "server_id"), 
-	        inverseJoinColumns =  @JoinColumn(name = "clan_id") 
-	    )
+	@JoinTable(name = "clan_server", joinColumns = @JoinColumn(name = "server_id"), inverseJoinColumns = @JoinColumn(name = "clan_id"))
 	private List<Clan> clans;
-	
-	@ManyToOne
-	@JoinColumn(name="game_id")
-	private Game game;
-	
+
+
 	public Server() {
 		super();
 	}
@@ -199,7 +188,5 @@ public class Server {
 				+ ", url=" + url + ", password=" + password + ", capacity=" + capacity + ", description=" + description
 				+ ", created=" + created + ", updated=" + updated + ", alias=" + alias + "]";
 	}
-	
-	
-	
+
 }

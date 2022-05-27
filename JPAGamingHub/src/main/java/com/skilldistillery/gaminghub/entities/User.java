@@ -1,9 +1,7 @@
 package com.skilldistillery.gaminghub.entities;
 
 import java.time.LocalDateTime;
-
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -12,11 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -60,7 +56,7 @@ public class User {
 	@ManyToMany
 	@JoinTable(name = "user_location", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
 	private List<Location> locations;
-	
+
 	@ManyToMany
 	@JoinTable(name = "chat_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "chat_id"))
 	private List<Chat> chats;
@@ -69,10 +65,19 @@ public class User {
 	@JoinTable(name = "user_equipment", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "equipment_id"))
 	private List<Equipment> equipments;
 
-	
 	@ManyToMany
 	@JoinTable(name = "user_friend", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "friend_id"))
 	private List<User> friends;
+
+	@ManyToMany
+	@JoinTable(name = "blocked_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "blocked_user_id"))
+	private List<User> blocks;
+
+	@OneToMany(mappedBy = "endorsingUser")
+	private List<UserEndorsement> sentEndorsements;
+
+	@OneToMany(mappedBy = "endorsedUser")
+	private List<UserEndorsement> receivedEndorsements;
 
 	public User() {
 		super();
@@ -254,6 +259,30 @@ public class User {
 
 	public void setFriends(List<User> friends) {
 		this.friends = friends;
+	}
+
+	public List<User> getBlocks() {
+		return blocks;
+	}
+
+	public void setBlocks(List<User> blocks) {
+		this.blocks = blocks;
+	}
+
+	public List<UserEndorsement> getSentEndorsements() {
+		return sentEndorsements;
+	}
+
+	public void setSentEndorsements(List<UserEndorsement> sentEndorsements) {
+		this.sentEndorsements = sentEndorsements;
+	}
+
+	public List<UserEndorsement> getReceivedEndorsements() {
+		return receivedEndorsements;
+	}
+
+	public void setReceivedEndorsements(List<UserEndorsement> receivedEndorsements) {
+		this.receivedEndorsements = receivedEndorsements;
 	}
 
 	@Override

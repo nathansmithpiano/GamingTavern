@@ -25,39 +25,30 @@ public class Chat {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	@ManyToOne
 	@JoinColumn(name = "created_by_user_id")
 	private User user;
+	
 	private boolean enabled;
 	private String title;
 	private String description;
+	
 	@Column(name = "image_url")
 	private String imageUrl;
+	
 	private LocalDateTime created;
 	private LocalDateTime updated;
+	
 	@ManyToMany
 	@JoinTable(name = "chat_user", joinColumns = @JoinColumn(name = "chat_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> users;
 
-//	@JsonIgnore
 //	@OneToMany(mappedBy = "chat")
 //	private List<Message> messages;
 
 	public Chat() {
 		super();
-	}
-
-	public Chat(int id, User user, boolean enabled, String title, String description, String imageUrl,
-			LocalDateTime created, LocalDateTime updated) {
-		super();
-		this.id = id;
-		this.user = user;
-		this.enabled = enabled;
-		this.title = title;
-		this.description = description;
-		this.imageUrl = imageUrl;
-		this.created = created;
-		this.updated = updated;
 	}
 
 	public int getId() {

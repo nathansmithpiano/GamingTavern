@@ -1,6 +1,7 @@
 package com.skilldistillery.gaminghub.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -28,6 +30,9 @@ public class Message {
 	@OneToOne
 	@JoinColumn(name = "replying_to_message_id")
 	private Message replyingToMessage;
+
+	@OneToMany(mappedBy = "replyingToMessage")
+	private List<Message> replies;
 
 	public Message() {
 		super();
@@ -65,9 +70,17 @@ public class Message {
 		this.replyingToMessage = replyingToMessage;
 	}
 
+	public List<Message> getReplies() {
+		return replies;
+	}
+
+	public void setReplies(List<Message> replies) {
+		this.replies = replies;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(contents, created, id, replyingToMessage);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -79,8 +92,7 @@ public class Message {
 		if (getClass() != obj.getClass())
 			return false;
 		Message other = (Message) obj;
-		return Objects.equals(contents, other.contents) && Objects.equals(created, other.created) && id == other.id
-				&& Objects.equals(replyingToMessage, other.replyingToMessage);
+		return id == other.id;
 	}
 
 	@Override
@@ -88,7 +100,5 @@ public class Message {
 		return "Message [id=" + id + ", contents=" + contents + ", created=" + created + ", replyingToMessage="
 				+ replyingToMessage + "]";
 	}
-
-	
 
 }
