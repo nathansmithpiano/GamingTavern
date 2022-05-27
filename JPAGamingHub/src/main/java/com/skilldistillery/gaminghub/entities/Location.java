@@ -122,23 +122,60 @@ public class Location {
 		this.updated = updated;
 	}
 
+	public Timezone getTimezone() {
+		return timezone;
+	}
+
+	public void setTimezone(Timezone timezone) {
+		this.timezone = timezone;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
 	public void addUser(User user) {
-		if (users == null) {
-			users = new ArrayList<User>();
+		if (this.users == null) {
+			this.users = new ArrayList<>();
 		}
-		if (user != null) {
-			users.add(user);
-			user.addLocation(this);
-		}
+		this.users.add(user);
+		user.addLocation(this);
 	}
 
 	public void removeUser(User user) {
 		if (user != null) {
-			users.remove(user);
+			this.users.remove(user);
 			user.removeLocation(this);
 		}
-
 	}
+
+	public List<Meetup> getMeetups() {
+		return meetups;
+	}
+
+	public void setMeetups(List<Meetup> meetups) {
+		this.meetups = meetups;
+	}
+
+	public void addMeetup(Meetup meetup) {
+		if (this.meetups == null) {
+			this.meetups = new ArrayList<>();
+		}
+		this.meetups.add(meetup);
+		meetup.addLocation(this);
+	}
+
+	public void removeMeetup(Meetup meetup) {
+		if (meetup != null) {
+			this.meetups.remove(meetup);
+			meetup.removeLocation(this);
+		}
+	}
+
 
 	@Override
 	public int hashCode() {

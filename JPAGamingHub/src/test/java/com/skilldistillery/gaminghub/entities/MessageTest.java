@@ -80,6 +80,7 @@ class MessageTest {
 		
 		for (Message reply : message.getReplies()) {
 			assertEquals(message.getContents(), reply.getReplyingToMessage().getContents());
+//			assertEquals(reply.getToUser().getUsername(), message.getFromUser().getUsername());
 		}
 	}
 	

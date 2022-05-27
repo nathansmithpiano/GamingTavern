@@ -18,21 +18,41 @@ public class UserEndorsement {
 	private UserEndorsementId id;
 
 	private LocalDateTime created;
-	
+
 	@ManyToOne
-	@JoinColumn(name="endorsement_id")
+	@JoinColumn(name = "endorsement_id")
 	@MapsId("endorsementId")
 	private Endorsement endorsement;
-	
+
 	@ManyToOne
-	@JoinColumn(name="endorsed_user_id")
+	@JoinColumn(name = "endorsed_user_id")
 	@MapsId("endorsedUserId")
 	private User endorsedUser;
-	
+
 	@ManyToOne
-	@JoinColumn(name="user_id")
-	@MapsId("endorsingUserId")
+	@JoinColumn(name = "user_id")
+	@MapsId("userId")
 	private User endorsingUser;
+
+	public UserEndorsement() {
+		super();
+	}
+
+	public UserEndorsementId getId() {
+		return id;
+	}
+
+	public void setId(UserEndorsementId id) {
+		this.id = id;
+	}
+
+	public LocalDateTime getCreated() {
+		return created;
+	}
+
+	public void setCreated(LocalDateTime created) {
+		this.created = created;
+	}
 
 	public Endorsement getEndorsement() {
 		return endorsement;
@@ -56,26 +76,6 @@ public class UserEndorsement {
 
 	public void setEndorsingUser(User endorsingUser) {
 		this.endorsingUser = endorsingUser;
-	}
-
-	public UserEndorsement() {
-		super();
-	}
-
-	public UserEndorsementId getId() {
-		return id;
-	}
-
-	public void setId(UserEndorsementId id) {
-		this.id = id;
-	}
-
-	public LocalDateTime getCreated() {
-		return created;
-	}
-
-	public void setCreated(LocalDateTime created) {
-		this.created = created;
 	}
 
 	@Override

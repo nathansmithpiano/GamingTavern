@@ -48,34 +48,36 @@ public class ServerTest {
 //	+--------------+
 //	| The Gauntlet |
 //	+--------------+
-	
+
 	@Test
 	@DisplayName("Server mapping")
 	void test_user_mapping() {
 		assertNotNull(server);
 		assertEquals("The Gauntlet", server.getName());
-		
+
 	}
-	
+
 	@Test
 	void test_alias_server() {
-		assertNotNull(server.getAlias());
-		assertEquals("Baya", server.getAlias().get(0).getName());
-		assertEquals(1619, server.getAlias().get(0).getUser().getId());
-		
+
 //		+----------+-----------+ 
 //		| alias_id | server_id |
 //		+----------+-----------+
 //		|        1 |         1 |
 //		+----------+-----------+
-		
+
 //		+----+---------+---------+------+-------------+------------------------------------------------------------------------------------+---------------------+---------------------+
 //		| id | user_id | enabled | name | description | image_url                                                                          | created             | updated             |
 //		+----+---------+---------+------+-------------+------------------------------------------------------------------------------------+---------------------+---------------------+
 //		|  1 |    1619 |       1 | Baya |             | https://skilldistillery.com/wp-content/uploads/2016/02/skilldistillery_website.png | 2022-05-24 18:30:00 | 2022-05-24 18:30:00 |
 //		+----+---------+---------+------+-------------+------------------------------------------------------------------------------------+---------------------+---------------------+
-		
+
+		assertNotNull(server.getAliases());
+		assertEquals("Baya", server.getAliases().get(0).getName());
+		assertEquals(1619, server.getAliases().get(0).getUser().getId());
+
 	}
+
 	@Test
 	@DisplayName("Test clan server")
 	void test_clan_server() {
@@ -84,33 +86,30 @@ public class ServerTest {
 		assertNotNull(server);
 		assertNotNull(server.getClans());
 		assertTrue(server.getClans().size() > 0);
-	
+
 		// test both sides and no duplicates
 		int expectedMatches = server.getClans().size();
 		int matches = 0;
-	
+
 		// each of server's clans
-		for(Clan clan : server.getClans()) {
+		for (Clan clan : server.getClans()) {
 			// each of the server's clan's servers
-			for(Server clanServer : clan.getServers()) {
+			for (Server clanServer : clan.getServers()) {
 				// verify valid data
-				if(clanServer.getName().equals(server.getName())) {
+				if (clanServer.getName().equals(server.getName())) {
 					matches++;
 				}
 			}
 		}
-		
+
 		assertEquals(expectedMatches, matches);
-	
-		
-		
-		
+
 //		 SELECT server_id, COUNT(*) FROM clan_server GROUP BY server_id ORDER BY COUNT(*) DESC;
 //		 +-----------+----------+
 //		 | server_id | COUNT(*) |
 //		 +-----------+----------+
 //		 |        15 |        1 |
-		
+
 //		+---------+-----------+
 //		| clan_id | server_id |
 //		+---------+-----------+
@@ -122,15 +121,12 @@ public class ServerTest {
 //		|  1 |          1 |       0 | Axon | Chads and Chaddettes || 2022-05-25 18:30:00 | 2022-05-25 18:30:00 |
 //		+----+------------+---------+------+----------------------+---------------------+----
 	}
-	
+
 	@Test
-		void test_server_game_mapping() {
+	void test_server_game_mapping() {
 		assertNotNull(server.getGame());
 		assertEquals("Stellaris", server.getGame().getName());
-		assertEquals(3, server.getGame().getRatingId());
-		
-		
-		
+
 //		+----+-----------+---------+-----------+----------------------------+----------------------------------------------------------------------------------+----------------------------------------------------------+---------------------+---------------------+----+---------+---------+--------------+------+---------------+------+----------+----------+------------------+---------------------+---------------------+
 //		| id | rating_id | enabled | name      | studio                     | image_url                                                                        | url                                                      | created             | updated             | id | game_id | enabled | name         | type | ip            | url  | password | capacity | description      | created             | updated             |
 //		+----+-----------+---------+-----------+----------------------------+----------------------------------------------------------------------------------+----------------------------------------------------------+---------------------+---------------------+----+---------+---------+--------------+------+---------------+------+----------+----------+------------------+---------------------+---------------------+
@@ -139,5 +135,4 @@ public class ServerTest {
 //	
 	}
 
-	
 }

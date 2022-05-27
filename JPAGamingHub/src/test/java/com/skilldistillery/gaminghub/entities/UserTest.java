@@ -45,6 +45,14 @@ class UserTest {
 	@Test
 	@DisplayName("User mapping")
 	void test_user_mapping() {
+
+//		SELECT id, username FROM user WHERE id = 1;
+//		+----+----------+
+//		| id | username |
+//		+----+----------+
+//		|  1 | admin    |
+//		+----+----------+
+
 		assertNotNull(user);
 		assertEquals("admin", user.getUsername());
 	}
@@ -53,24 +61,31 @@ class UserTest {
 	@Test
 	void test_user_alias_mapping() {
 
-//		SELECT * FROM user JOIN alias ON alias.user_id = user.id WHERE user.id = 2;
-//		+----+---------+-----------+---------------+--------------------------------------------------------------+---------------------------+------------+-------------+-----------+-------------+------------------------------------------------------------------------------------+---------------------+---------------------+------+---------+---------+---------+-------------+------------------------------------------------------------------------------------+---------------------+---------------------+
-//		| id | enabled | role      | username      | password                                                     | email                     | first_name | middle_name | last_name | description | image_url                                                                          | created             | updated             | id   | user_id | enabled | name    | description | image_url                                                                          | created             | updated             |
-//		+----+---------+-----------+---------------+--------------------------------------------------------------+---------------------------+------------+-------------+-----------+-------------+------------------------------------------------------------------------------------+---------------------+---------------------+------+---------+---------+---------+-------------+------------------------------------------------------------------------------------+---------------------+---------------------+
-//		|  2 |       1 | ROLE_USER | bamboogateway | $2a$10$LNtqBOXd./fZWzfKaAj40uqdwZ2FX0KI2JUKSDLBVs3efyTCBvf6a | coleman.burrows@gmail.com | Coleman    |             | Burrows   |             | https://skilldistillery.com/wp-content/uploads/2016/02/skilldistillery_website.png | 2022-05-24 18:30:00 | 2022-05-24 18:30:00 | 1955 |       2 |       1 | Timothy |             | https://skilldistillery.com/wp-content/uploads/2016/02/skilldistillery_website.png | 2022-05-24 18:30:00 | 2022-05-24 18:30:00 |
-//		|  2 |       1 | ROLE_USER | bamboogateway | $2a$10$LNtqBOXd./fZWzfKaAj40uqdwZ2FX0KI2JUKSDLBVs3efyTCBvf6a | coleman.burrows@gmail.com | Coleman    |             | Burrows   |             | https://skilldistillery.com/wp-content/uploads/2016/02/skilldistillery_website.png | 2022-05-24 18:30:00 | 2022-05-24 18:30:00 | 2150 |       2 |       1 | Greyson |             | https://skilldistillery.com/wp-content/uploads/2016/02/skilldistillery_website.png | 2022-05-24 18:30:00 | 2022-05-24 18:30:00 |
-//		|  2 |       1 | ROLE_USER | bamboogateway | $2a$10$LNtqBOXd./fZWzfKaAj40uqdwZ2FX0KI2JUKSDLBVs3efyTCBvf6a | coleman.burrows@gmail.com | Coleman    |             | Burrows   |             | https://skilldistillery.com/wp-content/uploads/2016/02/skilldistillery_website.png | 2022-05-24 18:30:00 | 2022-05-24 18:30:00 | 3988 |       2 |       1 | Wigglz  |             | https://skilldistillery.com/wp-content/uploads/2016/02/skilldistillery_website.png | 2022-05-24 18:30:00 | 2022-05-24 18:30:00 |
-//		+----+---------+-----------+---------------+--------------------------------------------------------------+---------------------------+------------+-------------+-----------+-------------+------------------------------------------------------------------------------------+---------------------+---------------------+------+---------+---------+---------+-------------+------------------------------------------------------------------------------------+---------------------+---------------------+
+//		SELECT COUNT(*) FROM alias WHERE user_id = 2;
+//		+----------+
+//		| COUNT(*) |
+//		+----------+
+//		|        3 |
+//		+----------+
 
 		user = em.find(User.class, 2);
 		assertNotNull(user);
-		assertEquals("bamboogateway", user.getUsername());
 		assertNotNull(user.getAliases());
-		assertEquals(3, user.getAliases().size());
+		assertTrue(user.getAliases().size() > 0);
 
+		// test both sides and no duplicates
+		int matches = 0;
+		int expectedMatches = user.getAliases().size();
+
+		// each of the user's meetups
 		for (Alias alias : user.getAliases()) {
-			assertEquals("bamboogateway", alias.getUser().getUsername());
+			// verify valid data
+			if (alias.getUser().getUsername().equals(user.getUsername())) {
+				matches++;
+			}
 		}
+
+		assertEquals(expectedMatches, matches);
 	}
 
 	@DisplayName("User Friend mapping")
@@ -116,7 +131,7 @@ class UserTest {
 	void test_user_friend_id() {
 
 		// find user with only 1 friend via user_friend table
-		// composite key is basically user.friend.id ( user.user.{id1, id2} )
+		// composite id is basically user.friend.id ( user.user.{id1, id2} )
 
 //		SELECT * FROM user_friend WHERE user_id = 2;
 //		+---------+-----------+---------------------+
@@ -125,7 +140,7 @@ class UserTest {
 //		|       2 |      1957 | 2019-01-20 19:37:35 |
 //		+---------+-----------+---------------------+
 
-		// create new composite id as above
+		// create new composite id
 		UserFriendId id = new UserFriendId();
 		id.setUserId(2);
 		id.setFriendId(1957);
@@ -150,12 +165,14 @@ class UserTest {
 
 		user = em.find(User.class, 408);
 		assertNotNull(user);
-		assertNotNull(user.getBlocks());
-		assertTrue(user.getBlocks().size() > 0);
-		assertEquals(16, user.getBlocks().size());
+		assertNotNull(user.getBlockedUsers());
+		assertTrue(user.getBlockedUsers().size() > 0);
+		assertEquals(16, user.getBlockedUsers().size());
 
-		for (User blockedUser : user.getBlocks()) {
-			// valid data test
+		// note: this is not a bidirectional relationship, so blockedUser knows nothing
+		// about user
+		for (User blockedUser : user.getBlockedUsers()) {
+			// verify valid data
 			assertNotNull(blockedUser.getUsername());
 		}
 	}
@@ -172,9 +189,10 @@ class UserTest {
 
 		user = em.find(User.class, 408);
 		assertNotNull(user);
-		assertNotNull(user.getBlocks());
+		assertNotNull(user.getBlockedUsers());
+		assertTrue(user.getBlockedUsers().size() > 0);
 
-		// create new composite id as above
+		// create new composite id
 		BlockedUserId id = new BlockedUserId();
 		id.setUserId(408);
 		id.setBlockedUserId(41);
@@ -183,6 +201,7 @@ class UserTest {
 		BlockedUser blockedUser = em.find(BlockedUser.class, id);
 		assertNotNull(blockedUser);
 
+		// verify valid data
 		assertEquals("2022-05-29T08:13:17", blockedUser.getCreated().toString());
 	}
 
@@ -197,26 +216,36 @@ class UserTest {
 //		|  1 |                  1 |       1 | Hell's Angels Chat | Guild Chat for Hell's Angels |
 //		|  2 |                  7 |       1 | Hell's Angels Chat | Guild Chat for Hell's Angels |
 //		+----+--------------------+---------+--------------------+------------------------------+
+
 		user = em.find(User.class, 1);
 		assertNotNull(user);
 		assertNotNull(user.getChats());
+
+		// test both sides and no duplicates
 		int matches = 0;
 		int expectedMatches = user.getChats().size();
+
+		// each of the user's chats
 		for (Chat chat : user.getChats()) {
-			assertNotNull(chat.getUsers());
-			assertTrue(chat.getUsers().size() > 0);
-			for (User chatUser : chat.getUsers()) {
+			assertNotNull(chat.getAllUsers());
+			assertTrue(chat.getAllUsers().size() > 0);
+			// each of the user's chat's users
+			for (User chatUser : chat.getAllUsers()) {
 				if (chatUser.getUsername().equals(user.getUsername())) {
 					matches++;
 				}
 			}
 		}
+		
+		// TODO: chat single user (creatingUser) mapping
+
 		assertEquals(expectedMatches, matches);
 	}
 
 	@DisplayName("User --> Location ManyToMany Mapping")
 	@Test
 	void test_user_to_location_mapping() {
+
 //		SELECT user_id, COUNT(*) FROM user_location GROUP BY user_id ORDER BY COUNT(*) DESC;
 //		+---------+----------+
 //		| user_id | COUNT(*) |
@@ -227,22 +256,30 @@ class UserTest {
 		assertNotNull(user);
 		assertNotNull(user.getLocations());
 		assertTrue(user.getLocations().size() > 0);
+
+		// test both sides and no duplicates
 		int matches = 0;
+		int expectedMatches = user.getLocations().size();
+
+		// each of the user's locations
 		for (Location location : user.getLocations()) {
 			assertNotNull(location.getUsers());
 			assertTrue(location.getUsers().size() > 0);
+			// each of the user's location's users
 			for (User locationUser : location.getUsers()) {
 				if (locationUser.getUsername().equals(user.getUsername())) {
 					matches++;
 				}
 			}
 		}
-		assertEquals(2, matches);
+
+		assertEquals(expectedMatches, matches);
 	}
 
 	@DisplayName("User --> Equipment ManyToMany Mapping")
 	@Test
 	void test_user_to_equipment_mapping() {
+
 //		SELECT user_id, count(*) FROM user_equipment GROUP BY user_id ORDER BY count(*) desc;
 //		+---------+----------+
 //		| user_id | count(*) |
@@ -253,62 +290,84 @@ class UserTest {
 		assertNotNull(user);
 		assertNotNull(user.getEquipments());
 		assertTrue(user.getEquipments().size() > 0);
+
+		// test both sides and no duplicates
 		int matches = 0;
+		int expectedMatches = user.getEquipments().size();
+
+		// each of the user's equipements
 		for (Equipment equipment : user.getEquipments()) {
 			assertNotNull(equipment.getUsers());
 			assertTrue(equipment.getUsers().size() > 0);
+			// each of the user's equipment's users
 			for (User equipmentUser : equipment.getUsers()) {
 				if (equipmentUser.getFirstName().equals(user.getFirstName())) {
 					matches++;
 				}
 			}
 		}
-		assertEquals(3, matches);
+		assertEquals(expectedMatches, matches);
 	}
 
 	@DisplayName("User --> Meetup OneToMany Mapping")
 	@Test
 	void test_user_to_meetup_mapping() {
+
 //		SELECT * from meetup WHERE user_id=398;
 //		+----+-------------+---------+--------------+---------------------+----------+-------------+---------------------+---------------------+
 //		| id | timezone_id | user_id | name         | date                | capacity | description | created             | updated             |
 //		+----+-------------+---------+--------------+---------------------+----------+-------------+---------------------+---------------------+
 //		|  1 |           8 |     398 | Free for all | 2022-05-03 20:00:00 |       36 |             | 2022-05-24 18:30:00 | 2022-05-24 18:30:00 |
 //		+----+-------------+---------+--------------+---------------------+----------+-------------+---------------------+---------------------+
+
 		user = em.find(User.class, 398);
 		assertNotNull(user);
 		assertNotNull(user.getMeetups());
 		assertTrue(user.getMeetups().size() > 0);
+
+		// test both sides and no duplicates
 		int matches = 0;
 		int expectedMatches = user.getMeetups().size();
+
+		// each of the user's meetups
 		for (Meetup meetup : user.getMeetups()) {
+			// verify valid data
 			if (meetup.getUser().getUsername().equals(user.getUsername())) {
 				matches++;
 			}
 		}
+
 		assertEquals(expectedMatches, matches);
 	}
 
 	@DisplayName("User --> UserEndorsement 1:m Mapping")
 	@Test
 	void test_userendorsement_to_endorsement_mapping() {
+
 //		SELECT user_id, COUNT(*) FROM user_endorsement GROUP BY user_id ORDER BY COUNT(*) DESC;
 //		+---------+----------+
 //		| user_id | COUNT(*) |
 //		+---------+----------+
 //		|     485 |       11 |
+
 		user = em.find(User.class, 485);
 		assertNotNull(user);
-		assertNotNull(user.getSentEndorsements());
-		assertTrue(user.getSentEndorsements().size() > 0);
-		int matches = 0;
-		int expectedMatches = user.getSentEndorsements().size();
+		assertNotNull(user.getSentUserEndorsements());
+		assertTrue(user.getSentUserEndorsements().size() > 0);
+
+//		int matches = 0;
+//		int expectedMatches = user.getSentEndorsements().size();
+
+		// create new composite id
 		UserEndorsementId id = new UserEndorsementId();
 		id.setUserId(485);
 		id.setEndorsedUserId(137);
 		id.setEndorsementId(5);
+
 		UserEndorsement userEndorsement = em.find(UserEndorsement.class, id);
 		assertNotNull(userEndorsement);
+
+		// verify valid data
 		assertEquals("2022-05-24T18:30", userEndorsement.getCreated().toString());
 
 	}
@@ -318,11 +377,11 @@ class UserTest {
 	void test_user_to_endorsement_mapping() {
 		user = em.find(User.class, 485);
 		assertNotNull(user);
-		assertNotNull(user.getSentEndorsements());
-		assertTrue(user.getSentEndorsements().size() > 0);
-		assertEquals(11, user.getSentEndorsements().size());
+		assertNotNull(user.getSentUserEndorsements());
+		assertTrue(user.getSentUserEndorsements().size() > 0);
+		assertEquals(11, user.getSentUserEndorsements().size());
 		int matches = 0;
-		int expectedMatches = user.getSentEndorsements().size();
+		int expectedMatches = user.getSentUserEndorsements().size();
 //		for(UserEndorsement userEndorsement: user.getSentEndorsements()) {
 //			Endorsement endorsement = userEndorsement.getEndorsement();
 //			assertNotNull(endorsement);

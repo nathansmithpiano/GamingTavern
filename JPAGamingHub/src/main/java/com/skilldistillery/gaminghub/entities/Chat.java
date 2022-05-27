@@ -1,6 +1,7 @@
 package com.skilldistillery.gaminghub.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,8 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "chat")
 public class Chat {
@@ -25,27 +24,28 @@ public class Chat {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "created_by_user_id")
-	private User user;
-	
+	private User creatingUser;
+
 	private boolean enabled;
 	private String title;
 	private String description;
-	
+
 	@Column(name = "image_url")
 	private String imageUrl;
-	
+
 	private LocalDateTime created;
 	private LocalDateTime updated;
-	
+
 	@ManyToMany
 	@JoinTable(name = "chat_user", joinColumns = @JoinColumn(name = "chat_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private List<User> users;
+	private List<User> allUsers;
 
-//	@OneToMany(mappedBy = "chat")
-//	private List<Message> messages;
+	@OneToMany
+	@JoinTable(name = "chat_user", joinColumns = @JoinColumn(name = "chat_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private List<Message> messages;
 
 	public Chat() {
 		super();
@@ -59,12 +59,12 @@ public class Chat {
 		this.id = id;
 	}
 
-	public User getUser() {
-		return user;
+	public User getCreatingUser() {
+		return creatingUser;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setCreatingUser(User creatingUser) {
+		this.creatingUser = creatingUser;
 	}
 
 	public boolean isEnabled() {
@@ -115,12 +115,58 @@ public class Chat {
 		this.updated = updated;
 	}
 
-	public List<User> getUsers() {
-		return users;
+	public List<User> getAllUsers() {
+		return allUsers;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setAllUsers(List<User> allUsers) {
+		this.allUsers = allUsers;
+	}
+	
+	public void addUser(User user) {
+		if (this.allUsers == null) {
+			this.allUsers = new ArrayList<>();
+		}
+		this.allUsers.add(user);
+		if (!user.getChats().contains(this)) {
+			user.addChat(this);
+		}
+	}
+	
+	public void removeUser(User user) {
+		if (user != null) {
+			this.allUsers.remove(user);
+			if (user.getChats().contains(this)) {
+				user.removeChat(this);
+			}
+		}
+	}
+
+	public List<Message> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
+	}
+
+	public void addMessage(Message message) {
+		if (this.messages == null) {
+			this.messages = new ArrayList<>();
+		}
+		this.messages.add(message);
+		if (message.getChat() == null) {
+			message.setChat(this);
+		}
+	}
+
+	public void removeMessage(Message message) {
+		if (this.messages != null) {
+			this.messages.remove(message);
+			if (message.getChat().creatingUser.getUsername().equals(this.creatingUser.getUsername())) {
+				message.setChat(null);
+			}
+		}
 	}
 
 	@Override
@@ -142,8 +188,8 @@ public class Chat {
 
 	@Override
 	public String toString() {
-		return "Chat [id=" + id + ", user=" + user + ", enabled=" + enabled + ", title=" + title + ", description="
-				+ description + ", imageUrl=" + imageUrl + ", created=" + created + ", updated=" + updated + "]";
+		return "Chat [id=" + id + ", enabled=" + enabled + ", title=" + title + ", description=" + description
+				+ ", imageUrl=" + imageUrl + ", created=" + created + ", updated=" + updated + "]";
 	}
 
 }
