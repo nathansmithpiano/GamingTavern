@@ -134,6 +134,7 @@ class MeetupTest {
 				}
 			}
 		}
+		
 		assertEquals(expectedMatches, matches);
 	}
 	

@@ -161,6 +161,5 @@ public class GameTest {
 	}
 	
 	//one to many rating - game
-	
 		
 	}
