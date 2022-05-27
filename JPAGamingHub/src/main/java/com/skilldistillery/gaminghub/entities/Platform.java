@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Platform {
@@ -25,11 +24,17 @@ public class Platform {
 	private String description;
 	private LocalDateTime created;
 	private LocalDateTime updated;
+	
 	@ManyToMany
-	@JoinTable(name = "alias_platform", joinColumns = @JoinColumn(name = "alias_id"), inverseJoinColumns = @JoinColumn(name = "platform_id"))
+	@JoinTable(name = "alias_platform",
+	joinColumns = @JoinColumn(name = "alias_id"), 
+	inverseJoinColumns = @JoinColumn(name = "platform_id"))
 	private List<Alias> alias;
+	
 	@ManyToMany
-	@JoinTable(name = "platform_game", joinColumns = @JoinColumn(name = "platform_id"), inverseJoinColumns = @JoinColumn(name = "game_id"))
+	@JoinTable(name = "platform_game",
+	joinColumns = @JoinColumn(name = "platform_id"),
+	inverseJoinColumns = @JoinColumn(name = "game_id"))
 	private List<Game> games;
 
 	public Platform() {
