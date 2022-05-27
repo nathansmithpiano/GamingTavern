@@ -31,7 +31,7 @@ public class UserEndorsement {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	@MapsId("endorsingUserId")
+	@MapsId("userId")
 	private User endorsingUser;
 
 	public UserEndorsement() {
