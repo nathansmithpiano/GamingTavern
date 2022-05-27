@@ -1,6 +1,6 @@
 {
-  "name": "mdb-angular-free",
-  "version": "13.0.0",
+  "name": "ng-gaming-tavern",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
