@@ -1,6 +1,7 @@
 package com.skilldistillery.gaminghub.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,48 +16,39 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Meetup {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
 	private LocalDateTime date;
 	private int capacity;
 	private String description;
 	private LocalDateTime created;
 	private LocalDateTime updated;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+
+	@ManyToOne
+	@JoinColumn(name = "timezone_id")
+	private Timezone timezone;
+
 	@ManyToMany
-	@JoinTable(name = "meetup_location",
-	joinColumns =  @JoinColumn(name = "meetup_id"),
-	inverseJoinColumns =  @JoinColumn(name = "location_id") 
-							)
+	@JoinTable(name = "meetup_location", joinColumns = @JoinColumn(name = "meetup_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
 	private List<Location> locations;
-	
+
 	// Alias
 	@ManyToMany
-	@JoinTable(name = "meetup_alias",
-	joinColumns =  @JoinColumn(name = "alias_id"),
-	inverseJoinColumns =  @JoinColumn(name = "meetup_id") 
-							)
+	@JoinTable(name = "meetup_alias", joinColumns = @JoinColumn(name = "alias_id"), inverseJoinColumns = @JoinColumn(name = "meetup_id"))
 	private List<Alias> aliases;
-	
-	//Game
+
+	// Game
 	@ManyToMany
-	@JoinTable(name = "meetup_game",
-	joinColumns =  @JoinColumn(name = "game_id"),
-	inverseJoinColumns =  @JoinColumn(name = "meetup_id") 
-							)
+	@JoinTable(name = "meetup_game", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "meetup_id"))
 	private List<Game> games;
-	
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	private User user;
-	
-	@ManyToOne
-	@JoinColumn(name="timezone_id")
-	private Timezone timezone;
 
 	public Meetup() {
 		super();
@@ -85,7 +77,6 @@ public class Meetup {
 	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
-
 
 	public int getCapacity() {
 		return capacity;
@@ -119,14 +110,6 @@ public class Meetup {
 		this.updated = updated;
 	}
 
-	public List<Location> getLocations() {
-		return locations;
-	}
-
-	public void setLocations(List<Location> locations) {
-		this.locations = locations;
-	}
-
 	public User getUser() {
 		return user;
 	}
@@ -143,6 +126,29 @@ public class Meetup {
 		this.timezone = timezone;
 	}
 
+	public List<Location> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(List<Location> locations) {
+		this.locations = locations;
+	}
+
+	public void addLocation(Location location) {
+		if (this.locations == null) {
+			this.locations = new ArrayList<>();
+		}
+		this.locations.add(location);
+		location.addMeetup(this);
+	}
+
+	public void removeLocation(Location location) {
+		if (location != null) {
+			this.locations.remove(location);
+			location.removeMeetup(this);
+		}
+	}
+
 	public List<Alias> getAliases() {
 		return aliases;
 	}
@@ -151,12 +157,41 @@ public class Meetup {
 		this.aliases = aliases;
 	}
 
+	public void addAlias(Alias alias) {
+		if (this.aliases == null) {
+			this.aliases = new ArrayList<>();
+		}
+		this.aliases.add(alias);
+	}
+
+	public void removeAlias(Alias alias) {
+		if (alias != null) {
+			this.aliases.remove(alias);
+			alias.removeMeetup(this);
+		}
+	}
+
 	public List<Game> getGames() {
 		return games;
 	}
 
 	public void setGames(List<Game> games) {
 		this.games = games;
+	}
+
+	public void addGame(Game game) {
+		if (this.games == null) {
+			this.games = new ArrayList<>();
+		}
+		this.games.add(game);
+		game.addMeetup(this);
+	}
+
+	public void removeGame(Game game) {
+		if (game != null) {
+			this.games.remove(game);
+			game.removeMeetup(this);
+		}
 	}
 
 	@Override
@@ -179,10 +214,7 @@ public class Meetup {
 	@Override
 	public String toString() {
 		return "Meetup [id=" + id + ", name=" + name + ", date=" + date + ", capacity=" + capacity + ", description="
-				+ description + ", created=" + created + ", updated=" + updated + ", locations=" + locations + "]";
+				+ description + ", created=" + created + ", updated=" + updated + ", timezone=" + timezone + "]";
 	}
 
-	
-	
-	
 }

@@ -19,6 +19,7 @@ public class UserEndorsementId implements Serializable {
 
 	@Column(name = "endorsement_id")
 	private int endorsementId;
+	
 
 	public UserEndorsementId() {
 		super();
