@@ -28,9 +28,6 @@ public class Endorsement {
 	@OneToMany(mappedBy="endorsedUser")
 	private List<UserEndorsement> endorsedUsers;
 
-	@OneToMany(mappedBy="endorsingUser")
-	private List<UserEndorsement> endorsingUsers;
-
 	public Endorsement() {
 		super();
 	}
@@ -94,13 +91,6 @@ public class Endorsement {
 		this.endorsedUsers = endorsedUsers;
 	}
 
-	public List<UserEndorsement> getEndorsingUsers() {
-		return endorsingUsers;
-	}
-
-	public void setEndorsingUsers(List<UserEndorsement> endorsingUsers) {
-		this.endorsingUsers = endorsingUsers;
-	}
 
 	@Override
 	public int hashCode() {

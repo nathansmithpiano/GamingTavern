@@ -140,6 +140,30 @@ public class Location {
 
 	}
 
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	public List<Meetup> getMeetups() {
+		return meetups;
+	}
+
+	public void setMeetups(List<Meetup> meetups) {
+		this.meetups = meetups;
+	}
+
+	public Timezone getTimezone() {
+		return timezone;
+	}
+
+	public void setTimezone(Timezone timezone) {
+		this.timezone = timezone;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

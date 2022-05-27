@@ -29,10 +29,6 @@ public class UserEndorsement {
 	@MapsId("endorsedUserId")
 	private User endorsedUser;
 	
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	@MapsId("endorsingUserId")
-	private User endorsingUser;
 
 	public Endorsement getEndorsement() {
 		return endorsement;
