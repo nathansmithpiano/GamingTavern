@@ -56,5 +56,7 @@ class RatingTest {
 		assertEquals("Everybody", rating.getDescription());
 	}
 	
+	
+	
 
 }
