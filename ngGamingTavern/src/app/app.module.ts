@@ -43,7 +43,7 @@ import { NavComponent } from "./components/page/nav/nav.component";
     MdbScrollspyModule,
     MdbTabsModule,
     MdbTooltipModule,
-    MdbValidationModule,
+    MdbValidationModule
   ],
   providers: [],
   bootstrap: [AppComponent],
