@@ -61,17 +61,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean deleteUser(String username, int userId) {
-		Optional<User> op = userRepo.findById(userId);
-		if (op.isPresent()) {
-			User result = op.get();
-			if (result.getUsername().equals(username)) {
-				userRepo.deleteById(userId);
-				op = userRepo.findById(userId);
-				return !op.isPresent();
-			}
+	public boolean deleteUser(int userId) {
+		boolean deleted = false;
+		if(userRepo.existsById(userId)) {
+			userRepo.deleteById(userId);
+			deleted = true;
 		}
-		return false;
-	}
-
+		return deleted;	}
 }

@@ -62,7 +62,7 @@ public class UserController {
 
 	@DeleteMapping("users/{userId}")
 	public void destroy(HttpServletResponse resp, @PathVariable int userId, Principal principal) {
-		if (userSvc.deleteUser(principal.getName(), userId)) {
+		if (userSvc.deleteUser(userId)) {
 			resp.setStatus(204);
 		} else {
 			resp.setStatus(404);
