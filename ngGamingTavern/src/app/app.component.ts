@@ -7,5 +7,5 @@ import { Component } from "@angular/core";
 })
 export class AppComponent {
   // title = 'mdb-angular-ui-kit-free';
-  title = "Gaming Tavern";
+  title = 'Gaming Tavern';
 }
