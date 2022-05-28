@@ -48,12 +48,15 @@ public class User {
 
 	private LocalDateTime created;
 	private LocalDateTime updated;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Alias> aliases;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Meetup> meetups;
+	
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "user_location", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
@@ -69,21 +72,26 @@ public class User {
 	@JsonIgnore
 	@OneToMany(mappedBy = "creatingUser")
 	private List<Chat> createdChats;
+	
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "user_equipment", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "equipment_id"))
 	private List<Equipment> equipments;
+	
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "user_friend", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "friend_id"))
 	private List<User> friends;
+	
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "blocked_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "blocked_user_id"))
 	private List<User> blockedUsers;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "endorsingUser")
 	private List<UserEndorsement> sentUserEndorsements;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "endorsedUser")
 	private List<UserEndorsement> userReceivedEndorsements;
