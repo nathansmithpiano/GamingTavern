@@ -28,6 +28,7 @@ public class User {
 
 	private String username;
 	private String password;
+	private String email;
 	private boolean enabled;
 	private String role;
 
@@ -39,6 +40,8 @@ public class User {
 
 	@Column(name = "last_name")
 	private String lastName;
+	
+	private String description;
 
 	@Column(name = "image_url")
 	private String imageUrl;
@@ -112,6 +115,14 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public boolean isEnabled() {
 		return enabled;
@@ -151,6 +162,14 @@ public class User {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getImageUrl() {

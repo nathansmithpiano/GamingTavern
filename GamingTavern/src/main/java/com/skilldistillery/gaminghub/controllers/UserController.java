@@ -57,7 +57,7 @@ public class UserController {
 
 	@PutMapping("users/{userId}")
 	public User update(@RequestBody User user, @PathVariable int userId, Principal principal) {
-		return userSvc.updateUser(principal.getName(), user, userId);
+		return userSvc.updateUser(user, userId);
 	}
 
 	@DeleteMapping("users/{userId}")
