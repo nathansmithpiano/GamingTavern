@@ -5,6 +5,8 @@ import java.util.List;
 import com.skilldistillery.gaminghub.entities.User;
 
 public interface UserService {
+	
+	List<User> index ();
 
 	User getUserById(int userId);
 	

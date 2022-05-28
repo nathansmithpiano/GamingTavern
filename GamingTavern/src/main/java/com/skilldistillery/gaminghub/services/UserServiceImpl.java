@@ -1,5 +1,6 @@
 package com.skilldistillery.gaminghub.services;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +15,13 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepo;
-	
+
+	@Override
+
+	public List<User> index() {
+		return userRepo.findAll();
+	}
+
 	@Override
 	public User getUserById(int userId) {
 		Optional<User> op = userRepo.findById(userId);
@@ -29,8 +36,6 @@ public class UserServiceImpl implements UserService {
 	public User createUser(User user) {
 		return userRepo.saveAndFlush(user);
 	}
-
-	
 
 	@Override
 	public User updateUser(String username, User user, int userId) {
@@ -50,9 +55,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean deleteUser(String username, int userId) {
 		Optional<User> op = userRepo.findById(userId);
-		if(op.isPresent()) {
+		if (op.isPresent()) {
 			User result = op.get();
-			if(result.getUsername().equals(username)) {
+			if (result.getUsername().equals(username)) {
 				userRepo.deleteById(userId);
 				op = userRepo.findById(userId);
 				return !op.isPresent();
@@ -61,6 +66,4 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
-
 }
-

@@ -1,7 +1,7 @@
 package com.skilldistillery.gaminghub.controllers;
 
 import java.security.Principal;
-import java.util.Set;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,12 +35,13 @@ public class UserController {
 		return user;
 	}
 
-//	@GetMapping("users")
-//	public Set<Users> index(Principal principal) {
-//		return userSvc.index(principal.getName());
-//	}
+	@GetMapping("users")
+	public List<User> index(Principal principal) {
+		List<User> users = userSvc.index();
+		return users;
+	}
 
-	@GetMapping("users/{tid}")
+	@GetMapping("users/{userId}")
 	public User show(Principal principal, HttpServletResponse resp, @PathVariable int userId) {
 		User user = userSvc.getUserById(userId);
 		if (user == null) {
@@ -54,12 +55,12 @@ public class UserController {
 		return userSvc.createUser(user);
 	}
 
-	@PutMapping("users/{tid}")
+	@PutMapping("users/{userId}")
 	public User update(@RequestBody User user, @PathVariable int userId, Principal principal) {
 		return userSvc.updateUser(principal.getName(), user, userId);
 	}
 
-	@DeleteMapping("users/{tid}")
+	@DeleteMapping("users/{userId}")
 	public void destroy(HttpServletResponse resp, @PathVariable int userId, Principal principal) {
 		if (userSvc.deleteUser(principal.getName(), userId)) {
 			resp.setStatus(204);
