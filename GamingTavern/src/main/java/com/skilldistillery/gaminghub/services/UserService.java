@@ -5,12 +5,14 @@ import java.util.List;
 import com.skilldistillery.gaminghub.entities.User;
 
 public interface UserService {
+	
+	List<User> index ();
 
 	User getUserById(int userId);
 	
 	User createUser(User user);
 	
-	User updateUser(String username, User user, int userId);
+	User updateUser(User user, int userId);
 	
 	boolean deleteUser(String username, int userId );
 	

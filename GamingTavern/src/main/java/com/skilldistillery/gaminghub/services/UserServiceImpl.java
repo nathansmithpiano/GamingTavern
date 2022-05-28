@@ -1,5 +1,6 @@
 package com.skilldistillery.gaminghub.services;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +15,13 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepo;
-	
+
+	@Override
+
+	public List<User> index() {
+		return userRepo.findAll();
+	}
+
 	@Override
 	public User getUserById(int userId) {
 		Optional<User> op = userRepo.findById(userId);
@@ -30,29 +37,35 @@ public class UserServiceImpl implements UserService {
 		return userRepo.saveAndFlush(user);
 	}
 
-	
-
 	@Override
-	public User updateUser(String username, User user, int userId) {
+	public User updateUser(User user, int userId) {
 		Optional<User> op = userRepo.findById(userId);
+		User users = null;
 		if (op.isPresent()) {
-			User result = op.get();
-			if (result.getUsername().equals(username)) {
-				user.setId(userId);
-				return userRepo.saveAndFlush(user);
-
-			}
+			users = op.get();
+			users.setEnabled(user.isEnabled());
+			users.setRole(user.getRole());
+			users.setUsername(user.getUsername());
+			users.setPassword(user.getPassword());
+			users.setEmail(user.getEmail());
+			users.setFirstName(user.getFirstName());
+			users.setMiddleName(user.getMiddleName());
+			users.setLastName(user.getLastName());
+			users.setDescription(user.getDescription());
+			users.setImageUrl(user.getImageUrl());
+			users.setCreated(user.getCreated());		
+			users.setUpdated(user.getUpdated());		
+			userRepo.saveAndFlush(users);
 		}
-
-		return null;
+		return users;
 	}
 
 	@Override
 	public boolean deleteUser(String username, int userId) {
 		Optional<User> op = userRepo.findById(userId);
-		if(op.isPresent()) {
+		if (op.isPresent()) {
 			User result = op.get();
-			if(result.getUsername().equals(username)) {
+			if (result.getUsername().equals(username)) {
 				userRepo.deleteById(userId);
 				op = userRepo.findById(userId);
 				return !op.isPresent();
@@ -61,6 +74,4 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
-
 }
-

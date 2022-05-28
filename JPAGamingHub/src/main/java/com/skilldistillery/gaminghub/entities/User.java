@@ -16,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "user")
 public class User {
@@ -26,6 +28,7 @@ public class User {
 
 	private String username;
 	private String password;
+	private String email;
 	private boolean enabled;
 	private String role;
 
@@ -37,47 +40,51 @@ public class User {
 
 	@Column(name = "last_name")
 	private String lastName;
+	
+	private String description;
 
 	@Column(name = "image_url")
 	private String imageUrl;
 
 	private LocalDateTime created;
 	private LocalDateTime updated;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Alias> aliases;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Meetup> meetups;
-
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "user_location", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
 	private List<Location> locations;
 
 	// all chats a User is in
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "chat_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "chat_id"))
 	private List<Chat> chats;
 
 	// all the chats a User has created
+	@JsonIgnore
 	@OneToMany(mappedBy = "creatingUser")
 	private List<Chat> createdChats;
-
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "user_equipment", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "equipment_id"))
 	private List<Equipment> equipments;
-
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "user_friend", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "friend_id"))
 	private List<User> friends;
-
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "blocked_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "blocked_user_id"))
 	private List<User> blockedUsers;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "endorsingUser")
 	private List<UserEndorsement> sentUserEndorsements;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "endorsedUser")
 	private List<UserEndorsement> userReceivedEndorsements;
 
@@ -107,6 +114,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public boolean isEnabled() {
@@ -147,6 +162,14 @@ public class User {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getImageUrl() {
