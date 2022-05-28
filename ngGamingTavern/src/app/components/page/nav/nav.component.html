@@ -1,0 +1,209 @@
+<!-- Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-glass">
+  <div class="container justify-content-between">
+    <!-- Left elements -->
+    <div class="d-flex">
+      <!-- Brand -->
+      <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#">
+        <img
+          src="assets/art/logo2_190_26.png"
+          height="26"
+          alt=""
+          loading="lazy"
+          style="margin-top: 2px; margin-bottom: 0px"
+        />
+      </a>
+
+
+      <!-- <div class="input-group">
+        <div class="form-outline">
+          <input type="search" id="form1" class="form-control" />
+          <label class="form-label" for="form1">Search</label>
+        </div>
+        <button type="button" class="btn btn-info">
+          <i class="fas fa-search"></i>
+        </button>
+      </div> -->
+      <!-- Search form -->
+      <form class="input-group w-auto my-auto d-none d-sm-flex">
+        <!-- <select class="">
+          <option value="" disabled selected>Filter</option>
+          <option value="0">All</option>
+          <option value="1">User</option>
+          <option value="2">Alias</option>
+          <option value="3">Equipment</option>
+          <option value="4">Game</option>
+          <option value="5">Platform</option>
+          <option value="6">Clan</option>
+          <option value="7">Server</option>
+        </select> -->
+        <input
+          autocomplete="off"
+          type="search"
+          class="form-control rounded"
+          placeholder="Search"
+          style="min-width: 125px"
+        />
+        <span class="input-group-text text-white border-0 d-none d-lg-flex"
+          ><i class="fas fa-search"></i
+        ></span>
+         <!-- <button type="button" class="btn btn-info">
+          <i class="fas fa-search"></i>
+        </button> -->
+      </form>
+    </div>
+    <!-- Left elements -->
+
+    <!-- Center elements -->
+    <ul class="navbar-nav flex-row d-none d-md-flex">
+      <li class="nav-item me-3 me-lg-1 active">
+        <a class="nav-link" href="#">
+          <span><i class="fas fa-home fa-lg"></i></span>
+          <span class="badge rounded-pill badge-notification bg-danger">1</span>
+        </a>
+      </li>
+
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link" href="#">
+          <span><i class="fas fa-flag fa-lg"></i></span>
+        </a>
+      </li>
+
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link" href="#">
+          <span><i class="fas fa-video fa-lg"></i></span>
+        </a>
+      </li>
+
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link" href="#">
+          <span><i class="fas fa-shopping-bag fa-lg"></i></span>
+        </a>
+      </li>
+
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link" href="#">
+          <span><i class="fas fa-users fa-lg"></i></span>
+          <span class="badge rounded-pill badge-notification bg-danger">2</span>
+        </a>
+      </li>
+    </ul>
+    <!-- Center elements -->
+
+    <!-- Right elements -->
+    <ul class="navbar-nav flex-row">
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link d-sm-flex align-items-sm-center" href="#">
+          <img
+            src="https://mdbootstrap.com/img/new/avatars/1.webp"
+            class="rounded-circle"
+            height="22"
+            alt=""
+            loading="lazy"
+          />
+          <strong class="d-none d-sm-block ms-1">John</strong>
+        </a>
+      </li>
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link" href="#">
+          <span><i class="fas fa-plus-circle fa-lg"></i></span>
+        </a>
+      </li>
+      <li mdbDropdown class="nav-item dropdown me-3 me-lg-1">
+        <a
+          class="nav-link dropdown-toggle hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          mdbDropdownToggle
+          aria-expanded="false"
+        >
+          <i class="fas fa-comments fa-lg"></i>
+
+          <span class="badge rounded-pill badge-notification bg-danger">6</span>
+        </a>
+        <ul
+          mdbDropdownMenu
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
+          <li>
+            <a class="dropdown-item" href="#">Some news</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Another news</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </li>
+        </ul>
+      </li>
+      <li mdbDropdown class="nav-item dropdown me-3 me-lg-1">
+        <a
+          class="nav-link dropdown-toggle hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          mdbDropdownToggle
+          aria-expanded="false"
+        >
+          <i class="fas fa-bell fa-lg"></i>
+          <span class="badge rounded-pill badge-notification bg-danger"
+            >12</span
+          >
+        </a>
+        <ul
+          mdbDropdownMenu
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
+          <li>
+            <a class="dropdown-item" href="#">Some news</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Another news</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </li>
+        </ul>
+      </li>
+      <li mdbDropdown class="nav-item dropdown me-3 me-lg-1">
+        <a
+          class="nav-link dropdown-toggle hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          mdbDropdownToggle
+          aria-expanded="false"
+        >
+          <i class="fas fa-chevron-circle-down fa-lg"></i>
+        </a>
+        <ul
+          mdbDropdownMenu
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
+          <li>
+            <a class="dropdown-item" href="#">Some news</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Another news</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <!-- Right elements -->
+  </div>
+</nav>
+<!-- Navbar -->
+
+<script>
+  // Material Select Initialization
+  $(document).ready(function () {
+    $(".mdb-select").materialSelect();
+  });
+</script>

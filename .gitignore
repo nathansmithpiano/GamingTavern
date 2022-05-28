@@ -3,8 +3,14 @@ Servers
 target
 build
 bin
+Backups
 .metadata
 .settings
 .gradle
 *.war
 *.bak
+
+ngoldzackGamingTavern
+
+
+node_modules/
