@@ -25,10 +25,10 @@ public class Clan {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@JsonIgnore
+	
 	@ManyToOne
 	@JoinColumn(name = "creator_id")
-	private Alias alias;
+	private Alias creatorAlias;
 
 	private boolean enabled;
 	private String name;
@@ -63,12 +63,12 @@ public class Clan {
 		this.id = id;
 	}
 
-	public Alias getAlias() {
-		return alias;
+	public Alias getCreatorAlias() {
+		return creatorAlias;
 	}
 
-	public void setAlias(Alias alias) {
-		this.alias = alias;
+	public void setCreatorAlias(Alias alias) {
+		this.creatorAlias = alias;
 	}
 
 	public boolean isEnabled() {
@@ -207,7 +207,7 @@ public class Clan {
 
 	@Override
 	public String toString() {
-		return "Clan [id=" + id + ", alias=" + alias + ", enabled=" + enabled + ", name=" + name + ", description="
+		return "Clan [id=" + id + ", alias=" + creatorAlias + ", enabled=" + enabled + ", name=" + name + ", description="
 				+ description + ", imageUrl=" + imageUrl + ", created=" + created + ", updated=" + updated
 				+ ", aliases=" + aliases + ", servers=" + servers + ", games=" + games + "]";
 	}

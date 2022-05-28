@@ -14,8 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //public void addTaco(Taco taco) {
 //if (this.tacos == null) {
@@ -39,7 +40,7 @@ public class Alias {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -53,22 +54,27 @@ public class Alias {
 
 	private LocalDateTime created;
 	private LocalDateTime updated;
-
+	
+	@JsonIgnore
 	@ManyToMany(mappedBy = "aliases")
 	private List<Clan> clans;
-
+	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "alias_platform", joinColumns = @JoinColumn(name = "alias_id"), inverseJoinColumns = @JoinColumn(name = "platform_id"))
 	private List<Platform> platforms;
 
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "alias_game", joinColumns = @JoinColumn(name = "alias_id"), inverseJoinColumns = @JoinColumn(name = "game_id"))
 	private List<Game> games;
 
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "alias_server", joinColumns = @JoinColumn(name = "alias_id"), inverseJoinColumns = @JoinColumn(name = "server_id"))
 	private List<Server> servers;
 
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "meetup_alias", joinColumns = @JoinColumn(name = "meetup_id"), inverseJoinColumns = @JoinColumn(name = "alias_id"))
 	private List<Meetup> meetups;

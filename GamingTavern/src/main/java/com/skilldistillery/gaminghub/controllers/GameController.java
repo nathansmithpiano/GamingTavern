@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.gaminghub.entities.Game;
+import com.skilldistillery.gaminghub.entities.Server;
 import com.skilldistillery.gaminghub.services.GameService;
 
 
@@ -53,6 +54,15 @@ public class GameController {
 
 	@DeleteMapping("games/{gameId}")
 	public void destroy(HttpServletResponse resp, @PathVariable int gameId, Principal principal) {
+		Game game = gameSvc.getGameById(gameId);
+		if(game != null && game.getServers()!= null && game.getServers().size()>0) {
+			for(Server server: game.getServers()) {
+				if(server.getGame()!= null && server.getGame().getId()== gameId) {
+					server.setGame(null);
+					game.removeServer(server);
+				}
+			}
+		}
 		if (gameSvc.deleteGame(gameId)) {
 			resp.setStatus(204);
 		} else {

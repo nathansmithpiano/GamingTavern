@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.gaminghub.entities.Alias;
 import com.skilldistillery.gaminghub.entities.Clan;
+import com.skilldistillery.gaminghub.services.AliasService;
 import com.skilldistillery.gaminghub.services.ClanService;
-
-
-
 
 @RestController
 @CrossOrigin({ "*", "http://localhost" })
@@ -27,6 +26,9 @@ public class ClanController {
 
 	@Autowired
 	private ClanService clanSvc;
+
+	@Autowired
+	private AliasService aliasSvc;
 
 	@GetMapping("clans")
 	public List<Clan> index(Principal principal) {
@@ -44,8 +46,16 @@ public class ClanController {
 	}
 
 	@PostMapping("clans")
-	public Clan create(@RequestBody Clan clan, Principal principal) {
+	public Clan create(@RequestBody Clan clan, Principal principal, 
+			HttpServletResponse resp) {
+		Alias alias = aliasSvc.getAliasById(clan.getCreatorAlias().getId());
+		if (alias == null) {
+			resp.setStatus(404);
+			return null;
+		}
+		clan.setCreatorAlias(alias);
 		return clanSvc.createClan(clan);
+
 	}
 
 	@PutMapping("clans/{clanId}")
