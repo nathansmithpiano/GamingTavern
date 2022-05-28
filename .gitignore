@@ -9,3 +9,5 @@ ngOldHenryGamingTavern
 .gradle
 *.war
 *.bak
+node_modules/
+ngGamingTavern/node_modules
