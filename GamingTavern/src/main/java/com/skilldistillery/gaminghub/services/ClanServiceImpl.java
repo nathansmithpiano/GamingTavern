@@ -1,15 +1,24 @@
 package com.skilldistillery.gaminghub.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.skilldistillery.gaminghub.entities.Clan;
 import com.skilldistillery.gaminghub.repositories.ClanRepository;
 
+@Service
 public class ClanServiceImpl implements ClanService {
 
 	@Autowired
 	private ClanRepository clanRepo;
+
+	@Override
+	public List<Clan> index() {
+		return clanRepo.findAll();
+	}
 
 	@Override
 	public Clan getClanById(int clanId) {
@@ -27,31 +36,30 @@ public class ClanServiceImpl implements ClanService {
 	}
 
 	@Override
-	public Clan updateClan(String name, Clan clan, int clanId) {
+	public Clan updateClan(Clan clan, int clanId) {
 		Optional<Clan> op = clanRepo.findById(clanId);
+		Clan clans = null;
 		if (op.isPresent()) {
-			Clan result = op.get();
-			if (result.getName().equals(name)) {
-				clan.setId(clanId);
-				return clanRepo.saveAndFlush(clan);
-			}
+			clans = op.get();
+			clans.setEnabled(clan.isEnabled());
+			clans.setName(clan.getName());
+			clans.setDescription(clans.getDescription());
+			clans.setImageUrl(clan.getImageUrl());
+			clans.setCreated(clan.getCreated());
+			clans.setUpdated(clan.getUpdated());
+			clanRepo.saveAndFlush(clans);
 		}
-
-		return null;
+		return clans;
 	}
 
 	@Override
-	public boolean deleteClan(String name, int clanId) {
-		Optional<Clan> op = clanRepo.findById(clanId);
-		if (op.isPresent()) {
-			Clan result = op.get();
-			if (result.getName().equals(name)) {
-				clanRepo.deleteById(clanId);
-				op = clanRepo.findById(clanId);
-				return !op.isPresent();
-			}
+	public boolean deleteClan(int clanId) {
+		boolean deleted = false;
+		if (clanRepo.existsById(clanId)) {
+			clanRepo.deleteById(clanId);
+			deleted = true;
 		}
-		return false;
+		return deleted;
 	}
 
 }

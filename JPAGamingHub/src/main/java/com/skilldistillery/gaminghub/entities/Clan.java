@@ -16,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "clan")
 public class Clan {
@@ -23,7 +25,7 @@ public class Clan {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "creator_id")
 	private Alias alias;
@@ -36,15 +38,15 @@ public class Clan {
 	private String imageUrl;
 	private LocalDateTime created;
 	private LocalDateTime updated;
-
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "alias_clan", joinColumns = @JoinColumn(name = "clan_id"), inverseJoinColumns = @JoinColumn(name = "alias_id"))
 	private List<Alias> aliases;
-
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "clan_server", joinColumns = @JoinColumn(name = "clan_id"), inverseJoinColumns = @JoinColumn(name = "server_id"))
 	private List<Server> servers;
-
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "clan_game", joinColumns = @JoinColumn(name = "clan_id"), inverseJoinColumns = @JoinColumn(name = "game_id"))
 	private List<Game> games;
@@ -205,8 +207,9 @@ public class Clan {
 
 	@Override
 	public String toString() {
-		return "Clan [id=" + id + ", enabled=" + enabled + ", name=" + name + ", description=" + description
-				+ ", imageUrl=" + imageUrl + ", created=" + created + ", updated=" + updated + "]";
+		return "Clan [id=" + id + ", alias=" + alias + ", enabled=" + enabled + ", name=" + name + ", description="
+				+ description + ", imageUrl=" + imageUrl + ", created=" + created + ", updated=" + updated
+				+ ", aliases=" + aliases + ", servers=" + servers + ", games=" + games + "]";
 	}
 
 }
