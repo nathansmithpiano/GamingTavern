@@ -3,6 +3,7 @@ Servers
 target
 build
 bin
+Backups
 .metadata
 .settings
 .gradle
