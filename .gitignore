@@ -15,10 +15,7 @@ Backups
 *.bak
 
 node_modules/
-ngGamingTavern/node_modules
+ngGamingTavern/node_modules/
 
 
 ngoldzackGamingTavern
-
-
-node_modules/
