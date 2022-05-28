@@ -9,8 +9,6 @@ Backups
 .gradle
 *.war
 *.bak
-
 ngoldzackGamingTavern
-
-
+ngGamingTavern/node_modules
 node_modules/
