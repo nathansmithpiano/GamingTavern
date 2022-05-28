@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "node_modules/ng-gaming-tavern",
+            "outputPath": "dist/mdb-angular-ui-kit-free",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -66,31 +66,24 @@
               "namedChunks": true
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-
-          "options": {
-            "browserTarget": "nggamingtavern:build"
-          },
           "configurations": {
             "production": {
-              "browserTarget": "nggamingtavern:build"
-
+              "browserTarget": "mdb-angular-ui-kit-free:build:production"
             },
-              "development":{
-                "browserTarget": "nggamingtavern:build"
-              }
+            "development": {
+              "browserTarget": "mdb-angular-ui-kit-free:build:development"
+            }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-
-            "browserTarget": "ng-gaming-tavern:build"
-
+            "browserTarget": "mdb-angular-ui-kit-free:build"
           }
         },
         "test": {
@@ -114,6 +107,5 @@
       }
     }
   },
-  "defaultProject": "ng-gaming-tavern"
+  "defaultProject": "mdb-angular-ui-kit-free"
 }
-  
