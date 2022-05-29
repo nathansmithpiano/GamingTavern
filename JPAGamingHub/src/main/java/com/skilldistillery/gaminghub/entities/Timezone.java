@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Timezone {
 
@@ -24,10 +26,12 @@ public class Timezone {
 	private String locale;
 
 	private String description;
-
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "timezone")
 	private List<Meetup> meetups;
-
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "timezone")
 	private List<Location> locations;
 
