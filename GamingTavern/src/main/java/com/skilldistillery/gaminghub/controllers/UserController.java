@@ -50,6 +50,15 @@ public class UserController {
 		return user;
 	}
 
+	@GetMapping("username/{username}")
+	public User getUserByUsername(Principal principal, HttpServletResponse resp, @PathVariable String username) {
+		User user = userSvc.getUserByUsername(username);
+		if (user == null) {
+			resp.setStatus(404);
+		}
+		return user;
+	}
+
 	@PostMapping("users")
 	public User create(@RequestBody User user, Principal principal) {
 		return userSvc.createUser(user);
