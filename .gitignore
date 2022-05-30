@@ -8,11 +8,7 @@ bin
 .gradle
 *.war
 *.bak
-<<<<<<< HEAD
 ngGamingTavern/node_modules
-=======
-
->>>>>>> aed4aedf9f45dbe2577fd3f1c8eb60e9f20038a4
 ngGamingTavern/node_modules/
 /ngGamingTavern/node_modules
 ngGamingTavern/node_modules/
