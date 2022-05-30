@@ -1,4 +1,4 @@
-import { RegisterComponent } from './components/auth/register/register.component';
+import { RegisterComponent } from "./components/auth/register/register.component";
 import { UserService } from "./services/user/user.service";
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
@@ -27,11 +27,11 @@ import { NavComponent } from "./components/page/nav/nav.component";
 import { LoginComponent } from "./components/auth/login/login.component";
 import { UserProfileComponent } from "./components/user/profile/user-profile/user-profile.component";
 import { DatePipe } from "@angular/common";
-import { UsersTableComponent } from './components/user/users-table/users-table.component';
-import { HomeComponent } from './components/home/home.component';
-import { LogoutComponent } from './components/auth/logout/logout.component';
-import { LoginModalComponent } from './components/auth/login/login-modal/login-modal.component';
-import { FormsModule } from '@angular/forms';
+import { UsersTableComponent } from "./components/user/users-table/users-table.component";
+import { HomeComponent } from "./components/home/home.component";
+import { LogoutComponent } from "./components/auth/logout/logout.component";
+import { LoginModalComponent } from "./components/auth/login/login-modal/login-modal.component";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -43,7 +43,7 @@ import { FormsModule } from '@angular/forms';
     UsersTableComponent,
     HomeComponent,
     LogoutComponent,
-    LoginModalComponent
+    LoginModalComponent,
   ],
   imports: [
     BrowserModule,
