@@ -32,6 +32,7 @@ import { HomeComponent } from "./components/home/home.component";
 import { LogoutComponent } from "./components/auth/logout/logout.component";
 import { LoginModalComponent } from "./components/auth/login/login-modal/login-modal.component";
 import { FormsModule } from "@angular/forms";
+import { GameComponent } from './components/game/game.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { FormsModule } from "@angular/forms";
     HomeComponent,
     LogoutComponent,
     LoginModalComponent,
+    GameComponent,
   ],
   imports: [
     BrowserModule,
