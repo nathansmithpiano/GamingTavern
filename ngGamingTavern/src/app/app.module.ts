@@ -1,4 +1,4 @@
-import { RegisterComponent } from './components/auth/register/register.component';
+import { RegisterComponent } from "./components/auth/register/register.component";
 import { UserService } from "./services/user/user.service";
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
@@ -7,9 +7,6 @@ import { AppRoutingModule } from "src/app/app-routing-module";
 import { AppComponent } from "./app.component";
 
 // MDB Modules
-
-
-
 import { MdbAccordionModule } from "mdb-angular-ui-kit/accordion";
 import { MdbCarouselModule } from "mdb-angular-ui-kit/carousel";
 import { MdbCheckboxModule } from "mdb-angular-ui-kit/checkbox";
@@ -30,12 +27,12 @@ import { NavComponent } from "./components/page/nav/nav.component";
 import { LoginComponent } from "./components/auth/login/login.component";
 import { UserProfileComponent } from "./components/user/profile/user-profile/user-profile.component";
 import { DatePipe } from "@angular/common";
-import { UsersTableComponent } from './components/user/users-table/users-table.component';
-import { HomeComponent } from './components/home/home.component';
-import { LogoutComponent } from './components/auth/logout/logout.component';
-import { LoginModalComponent } from './components/auth/login/login-modal/login-modal.component';
-import { FormsModule } from '@angular/forms';
-import { SplashComponent } from './components/splash/splash.component';
+import { UsersTableComponent } from "./components/user/users-table/users-table.component";
+import { HomeComponent } from "./components/home/home.component";
+import { LogoutComponent } from "./components/auth/logout/logout.component";
+import { LoginModalComponent } from "./components/auth/login/login-modal/login-modal.component";
+import { FormsModule } from "@angular/forms";
+import { SplashComponent } from "./components/splash/splash.component";
 
 @NgModule({
   declarations: [
@@ -48,8 +45,7 @@ import { SplashComponent } from './components/splash/splash.component';
     HomeComponent,
     LogoutComponent,
     LoginModalComponent,
-    SplashComponent
-
+    SplashComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +69,7 @@ import { SplashComponent } from './components/splash/splash.component';
     MdbTooltipModule,
     MdbValidationModule,
   ],
+
   providers: [UserService, DatePipe],
   bootstrap: [AppComponent],
 })
