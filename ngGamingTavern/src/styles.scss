@@ -14,24 +14,33 @@
 
 @import "~mdb-angular-ui-kit/assets/scss/mdb.scss";
 
+// global variables
+:root {
+  --backgroundColor: hsl(218, 41%, 25%);
+  --bodyBackgroundColor: hsl(218, 41%, 15%);
+  --bgGlassBackground: hsla(0, 0%, 100%, 0.15);
+  --bgGlassBackdropFilter: blur(30px);
+  --backgroundImage: radial-gradient(
+    650px circle at 0% 0%,
+    hsl(218, 41%, 35%) 15%,
+    hsl(218, 41%, 30%) 35%,
+    hsl(218, 41%, 20%) 75%,
+    hsl(218, 41%, 19%) 80%,
+    transparent 100%
+  ),
+  radial-gradient(
+    1250px circle at 100% 100%,
+    hsl(218, 41%, 45%) 15%,
+    hsl(218, 41%, 30%) 35%,
+    hsl(218, 41%, 20%) 75%,
+    hsl(218, 41%, 19%) 80%,
+    transparent 100%
+  );
+}
+
 body {
-  background-color: hsl(218, 41%, 15%);
-  background-image: radial-gradient(
-      650px circle at 0% 0%,
-      hsl(218, 41%, 35%) 15%,
-      hsl(218, 41%, 30%) 35%,
-      hsl(218, 41%, 20%) 75%,
-      hsl(218, 41%, 19%) 80%,
-      transparent 100%
-    ),
-    radial-gradient(
-      1250px circle at 100% 100%,
-      hsl(218, 41%, 45%) 15%,
-      hsl(218, 41%, 30%) 35%,
-      hsl(218, 41%, 20%) 75%,
-      hsl(218, 41%, 19%) 80%,
-      transparent 100%
-    );
+  background-color: var(--bodyBackgroundColor);
+  background-image: var(--backgroundImage);
   height: 100vh;
   padding-left: 0px;
   overflow-x: hidden;
@@ -43,11 +52,11 @@ body {
   }
 }
 .bg-glass {
-  background: hsla(0, 0%, 100%, 0.15);
-  backdrop-filter: blur(30px);
+  background: var(--bgGlassBackground);
+  backdrop-filter: var(--bgGlassBackdropFilter);
 }
 .bg-theme {
-  background-color: hsl(218, 41%, 25%);
+  background-color: var(--backgroundColor);
 }
 .text-muted {
   color: hsl(0, 0%, 80%) !important;

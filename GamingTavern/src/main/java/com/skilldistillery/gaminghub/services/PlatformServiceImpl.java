@@ -1,5 +1,6 @@
 package com.skilldistillery.gaminghub.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,12 @@ public class PlatformServiceImpl implements PlatformService {
 
 		@Autowired
 		private UserRepository userRepo;
+
+		
+		@Override
+		public List<Platform> index() {
+			return platRepo.findAll();
+		}
 
 		@Override
 		public Platform getPlatformById(int platformId) {
@@ -61,6 +68,7 @@ public class PlatformServiceImpl implements PlatformService {
 			}
 			return false;
 		}
+
 
 	}
 
