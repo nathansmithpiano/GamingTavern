@@ -1,0 +1,122 @@
+<!-- Body -->
+<div class="container py-3">
+    <h1 *ngIf="isLoading">LOADING</h1>
+    <h1 *ngIf="!isLoading">{{users.length}} USERS LOADED FROM DB</h1>
+  <!-- top padding before container -->
+  <section class="mb-5">
+    <div class="table-responsive bg-glass shadow-4-strong rounded-6">
+      <table
+        class="table table-borderless table-hover align-middle mb-0 text-white"
+      >
+        <thead class="">
+          <tr>
+            <th>Name</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Position</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody class="">
+          <tr class="text-white">
+            <td>
+              <div class="d-flex align-items-center">
+                <img
+                  src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                  alt=""
+                  style="width: 45px; height: 45px"
+                  class="rounded-circle"
+                />
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">John Doe</p>
+                  <p class="text-muted mb-0">john.doe@gmail.com</p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="fw-bold mb-1">Software engineer</p>
+              <p class="text-muted mb-0">IT department</p>
+            </td>
+            <td>
+              <span class="badge badge-success rounded-pill">Active</span>
+            </td>
+            <td>Senior</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-outline-white btn-sm btn-rounded"
+              >
+                Edit
+              </button>
+            </td>
+          </tr>
+          <tr class="text-white">
+            <td>
+              <div class="d-flex align-items-center">
+                <img
+                  src="https://mdbootstrap.com/img/new/avatars/6.jpg"
+                  class="rounded-circle"
+                  alt=""
+                  style="width: 45px; height: 45px"
+                />
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">Alex Ray</p>
+                  <p class="text-muted mb-0">alex.ray@gmail.com</p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="fw-normal mb-1">Consultant</p>
+              <p class="text-muted mb-0">Finance</p>
+            </td>
+            <td>
+              <span class="badge badge-primary rounded-pill">Onboarding</span>
+            </td>
+            <td>Junior</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-outline-white btn-rounded btn-sm fw-bold"
+              >
+                Edit
+              </button>
+            </td>
+          </tr>
+          <tr class="text-white">
+            <td>
+              <div class="d-flex align-items-center">
+                <img
+                  src="https://mdbootstrap.com/img/new/avatars/7.jpg"
+                  class="rounded-circle"
+                  alt=""
+                  style="width: 45px; height: 45px"
+                />
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">Kate Hunington</p>
+                  <p class="text-muted mb-0">kate.hunington@gmail.com</p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="fw-normal mb-1">Designer</p>
+              <p class="text-muted mb-0">UI/UX</p>
+            </td>
+            <td>
+              <span class="badge badge-warning rounded-pill">Awaiting</span>
+            </td>
+            <td>Senior</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-outline-white btn-rounded btn-sm fw-bold"
+              >
+                Edit
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <!-- Section: Table -->
+</div>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.gaminghub.entities.User;
@@ -20,6 +21,7 @@ import com.skilldistillery.gaminghub.services.UserService;
 
 @RestController
 @CrossOrigin({ "*", "http://localhost" })
+@RequestMapping("api")
 public class UserController {
 
 	@Autowired
@@ -48,6 +50,15 @@ public class UserController {
 			resp.setStatus(404);
 		}
 		return user;
+	}
+	
+	@GetMapping("username/{username}")
+	public String getUserByUsername(Principal principal, HttpServletResponse resp, @PathVariable String username) {
+		User user = userSvc.getUserByUsername(username);
+		if (user == null) {
+			resp.setStatus(404);
+		}
+		return user.getUsername();
 	}
 
 	@PostMapping("users")
