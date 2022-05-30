@@ -22,11 +22,13 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './components/page/nav/nav.component';
+import { SplashComponent } from './components/splash/splash.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent
+    NavComponent,
+    SplashComponent
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.gaminghub.entities.Alias;
@@ -16,6 +17,7 @@ import com.skilldistillery.gaminghub.services.AliasService;
 
 @RestController
 @CrossOrigin({ "*", "http://localhost" })
+@RequestMapping("api")
 public class AliasController {
 
 	@Autowired
