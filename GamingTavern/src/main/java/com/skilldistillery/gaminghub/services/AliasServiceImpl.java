@@ -1,5 +1,6 @@
 package com.skilldistillery.gaminghub.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,11 @@ public class AliasServiceImpl implements AliasService {
 		
 		@Autowired
 		private UserRepository userRepo;
+
+		@Override
+		public List<Alias> index() {
+			return aliasRepo.findAll();
+		}
 		
 		@Override
 		public Alias getAliasById(int aliasId) {
@@ -64,6 +70,7 @@ public class AliasServiceImpl implements AliasService {
 			}
 			return false;
 		}
+
 
 
 	}
