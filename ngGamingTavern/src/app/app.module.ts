@@ -37,6 +37,7 @@ import { LoginModalComponent } from './components/auth/login/login-modal/login-m
 import { FormsModule } from '@angular/forms';
 import { SplashComponent } from './components/splash/splash.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
