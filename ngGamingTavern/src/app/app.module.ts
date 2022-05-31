@@ -49,7 +49,7 @@ import { SplashComponent } from './components/splash/splash.component';
     HomeComponent,
     LogoutComponent,
     LoginModalComponent,
-    SplashComponent
+    SplashComponent,
 
   ],
   imports: [
