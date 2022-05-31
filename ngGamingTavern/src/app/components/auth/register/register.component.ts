@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './../../../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user/user';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -14,6 +15,8 @@ export class RegisterComponent implements OnInit {
     private auth: AuthService,
     private router: Router
   ) { }
+
+  newUser: User = new User();
 
   ngOnInit(): void {
   }
@@ -39,5 +42,18 @@ export class RegisterComponent implements OnInit {
       }
     });
   }
+
+  // getUserByUsername(username: string): Observable<User> {
+  //   return this.http
+  //     .get<User>(this.url2 + username, {
+  //       headers: { Authorization: "Basic " + this.auth.getCredentials() },
+  //     })
+  //     .pipe(
+  //       catchError((err: any) => {
+  //         console.log(err);
+  //         return throwError("KABOOM");
+  //       })
+  //     );
+  // }
 
 }
