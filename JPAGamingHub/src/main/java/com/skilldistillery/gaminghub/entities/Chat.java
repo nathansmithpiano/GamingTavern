@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "chat")
 public class Chat {
@@ -24,7 +26,7 @@ public class Chat {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "created_by_user_id")
 	private User creatingUser;
@@ -38,7 +40,7 @@ public class Chat {
 
 	private LocalDateTime created;
 	private LocalDateTime updated;
-
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "chat_user", joinColumns = @JoinColumn(name = "chat_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> allUsers;

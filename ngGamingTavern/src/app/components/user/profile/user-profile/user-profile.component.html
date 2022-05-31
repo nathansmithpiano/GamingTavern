@@ -1,33 +1,32 @@
-<section>
+<section *ngIf="isLoaded()">
+
   <div class="container py-{{ topPadding }}">
-    <!-- <div class="row">
-      <div class="col">
-        <nav aria-label="breadcrumb" class="bg-glass shadow-4-strong rounded-5 p-3 mb-4">
+    <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 310, "gutter": 15 }'>
+
+      <!-- Breadcrumb -->
+      <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item four">
+        <nav aria-label="breadcrumb" class="bg-glass shadow-4-strong rounded-{{rounding}} p-3">
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item"><a href="#">User</a></li>
-            <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+            <li class="breadcrumb-item active">{{user.username}}</li>
           </ol>
         </nav>
       </div>
-    </div> -->
+      <!-- End Breadcrumb -->
 
-    <div class="row" *ngIf="!isLoading">
-      <div class="col-lg-{{ leftCardWidth }}">
-        <div class="card bg-glass mb-{{ topPadding }}">
+      <!-- First Card -->
+      <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">
+        <div class="card bg-glass">
           <div class="card-body">
             <div class="{{ leftSummaryClass }}">
-              <img
-                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
-                alt="avatar"
-                class="rounded-circle img-fluid"
-                [ngStyle]="{'width': profileImageWidth}"
-              />
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                class="rounded-circle img-fluid" [ngStyle]="{'width': profileImageWidth}" />
               <h5 class="mt-{{ headerMarginTop }} {{ textClass }}">
-                {{ userHeader }}
+                {{ user.username }}
               </h5>
               <p class="mt-{{ descriptionMarginTop }}">
-                {{ userDescription }}
+                {{ user.description }}
               </p>
 
               <!-- Buttons Group 2 -->
@@ -69,19 +68,15 @@
               <!-- Created -->
               <div class="row">
                 <span class="{{ textClass }}">
-                  <i
-                    class="fas fa-calendar-plus me-{{ leftIconMarginEnd }}"
-                  ></i>
-                  {{ userCreated }}
+                  <i class="fas fa-calendar-plus me-{{ leftIconMarginEnd }}"></i>
+                  {{ user.created | date:'short' }}
                 </span>
               </div>
               <!-- Updated -->
               <div class="row">
                 <span class="{{ textClass }}">
-                  <i
-                    class="fas fa-calendar-check me-{{ leftIconMarginEnd }}"
-                  ></i>
-                  {{ userUpdated }}
+                  <i class="fas fa-calendar-check me-{{ leftIconMarginEnd }}"></i>
+                  {{ user.updated | date:'short' }}
                 </span>
               </div>
             </div>
@@ -90,40 +85,54 @@
 
             <!-- User Summary -->
             <!-- Row 1 -->
-            <div
-              class="row {{ leftSummaryClass }} mb-{{ leftSummaryRowMargin }}"
-            >
-              <!-- Row 1 Column 1-->
+            <div class="row {{ leftSummaryClass }} mb-{{ leftSummaryRowMargin }}">
+              <!-- Friends-->
               <div class="col-sm-{{ leftSummaryCol1Width }}">
-                <strong>{{ leftSummaryRow1Col1Header }}</strong>
+                <strong>Friends</strong>
                 <br />
-                {{ leftSummaryRow1Col1Value }}
+                {{ friends.length }}
               </div>
-              <!-- Row 1 Column 2-->
+              <!-- Blocked Users-->
               <div class="col-sm-{{ leftSummaryCol2Width }}">
-                <strong>{{ leftSummaryRow1Col2Header }}</strong>
+                <strong>Blocked Users</strong>
                 <br />
-                {{ leftSummaryRow1Col2Value }}
+                {{ blockedUsers.length }}
               </div>
             </div>
             <!-- End Row 1 -->
 
             <!-- Row 2 -->
             <div class="row {{ leftSummaryClass }}">
-              <!-- Row 2 Column 1-->
+              <!-- Aliases-->
               <div class="col-sm-{{ leftSummaryCol1Width }}">
-                <strong>{{ leftSummaryRow2Col1Header }}</strong>
+                <strong>Aliases</strong>
                 <br />
-                {{ leftSummaryRow2Col1Value }}
+                {{ aliases.length }}
               </div>
-              <!-- Row 2 Column 2-->
+              <!-- Games-->
               <div class="col-sm-{{ leftSummaryCol2Width }}">
-                <strong>{{ leftSummaryRow2Col2Header }}</strong>
+                <strong>Games</strong>
                 <br />
-                {{ leftSummaryRow2Col2Value }}
+                {{ games.length }}
               </div>
             </div>
-            <!-- End Row 2 -->
+
+            <!-- Row 3 -->
+            <div class="row {{ leftSummaryClass }}">
+              <!-- Locations-->
+              <div class="col-sm-{{ leftSummaryCol1Width }}">
+                <strong>Locations</strong>
+                <br />
+                {{ locations.length }}
+              </div>
+              <!-- Row 3 Column 3-->
+              <div class="col-sm-{{ leftSummaryCol2Width }}">
+                <strong>Meetups</strong>
+                <br />
+                {{ meetups.length }}
+              </div>
+            </div>
+            <!-- End Row 3 -->
             <hr />
             <!-- End User Summary -->
 
@@ -145,241 +154,100 @@
                     {{ blockButtonLabel }}
                   </span>
                 </button>
-              </div>
-              <!-- End Button Group -->
-            </div>
-            <!-- End Card Body -->
-          </div>
-          <!-- End Card -->
+              </div> <!-- End Button Group -->
+            </div> <!-- End Row 3 -->
+          </div> <!-- End Card Body -->
+        </div> <!-- End Card -->
+      </div> <!-- End First Card -->
+
+      <!-- Image / Card 2 -->
+      <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item two full-image {{gridItemClass}}">
+        <div class="card bg-glass">
+          <img src="assets/art/tavern_table.jpeg" class="rounded-{{rounding}} " style="width: 100%" />
         </div>
+      </div> <!-- End Image / Card 2 -->
 
-        <!-- End Left Column -->
-      </div>
-
-      <!-- Right Column -->
-      <div class="col-lg-{{ rightColumnWidth }}">
-        <div class="row">
-          <div class="col-md-{{ rightColumn1Card1Width }}">
-            <div class="card bg-glass mb-4 mb-md-0">
-              <div class="card-body">
-                <h4>Card</h4>
+      <!-- Card 3 -->
+      <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">
+        <div class="card bg-glass">
+          <div class="card-body {{ leftSummaryClass }}">
+            <h4>{{friends.length}} Friends</h4>
+            <hr>
+            <div class="row my-0">
+              <table class="table table-sm table-borderless table-hover table-striped">
+                <tbody>
+                  <tr *ngFor="let friend of friendsDisp[friendsPage]">
+                    <td class="text-white">{{friend.username}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div *ngIf="friends.length > 5" class="d-grid gap-0 px-0 d-sm-flex justify-content-sm-center">
+                <button (click)="friendsPage = tPrev(friendsDisp, friendsPage)"
+                  class="btn btn-outline-light btn-sm me-md-2" type="button">
+                  <span><i class="fas fa-angles-left fa-sm me-1"></i>Prev</span>
+                </button>
+                <button (click)="friendsPage = tNext(friendsDisp, friendsPage)" class="btn btn-outline-light btn-sm "
+                  type="button">
+                  <span>Next<i class="fas fa-angles-right fa-sm ms-1"></i></span>
+                </button>
               </div>
-            </div>
-          </div>
-          <div class="col-md-{{ rightColumn1Card2Width }}">
-            <div class="card bg-glass mb-4 mb-md-0">
-              <div class="card-body">
-                <h4>Card</h4>
+              <div class="text-center text-muted">
+                <small>Page {{friendsPage + 1}} of {{friendsDisp.length - 1}}</small>
               </div>
             </div>
           </div>
         </div>
+      </div> <!-- End Card 3 -->
 
-        <!-- <div class="card bg-glass mb-4">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Full Name</p>
+      <!-- Card 4 -->
+      <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">
+        <div class="card bg-glass">
+          <div class="card-body {{ leftSummaryClass }}">
+            <h4>{{aliases.length}} Aliases</h4>
+            <hr>
+            <div class="row my-0">
+              <table class="table table-sm table-borderless table-hover table-striped">
+                <tbody>
+                  <tr *ngFor="let alias of aliasesDisp[aliasesPage]">
+                    <td class="text-white">{{alias.name}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div *ngIf="aliases.length > 5" class="d-grid gap-0 px-0 d-sm-flex justify-content-sm-center">
+                <button (click)="aliasesPage = tPrev(aliasesDisp, aliasesPage)"
+                  class="btn btn-outline-light btn-sm me-md-2" type="button">
+                  <span><i class="fas fa-angles-left fa-sm me-1"></i>Prev</span>
+                </button>
+                <button (click)="aliasesPage = tNext(aliasesDisp, aliasesPage)" class="btn btn-outline-light btn-sm "
+                  type="button">
+                  <span>Next<i class="fas fa-angles-right fa-sm ms-1"></i></span>
+                </button>
               </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ getFullName() }}</p>
-              </div>
-            </div>
-            <hr />
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Email</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">example@example.com</p>
-              </div>
-            </div>
-            <hr />
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Image</p>
-              </div>
-              <div class="col-sm-9">
-                <p
-                  *ngIf="!user.imageUrl || user.imageUrl == ''"
-                  class="text-muted mb-0"
-                >
-                  (no image)
-                </p>
-                <img *ngIf="user.imageUrl" src="{{ user.imageUrl }}" />
-              </div>
-            </div>
-            <hr />
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Mobile</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">(098) 765-4321</p>
-              </div>
-            </div>
-            <hr />
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Created</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ user.created | date }}</p>
-              </div>
-            </div>
-            <hr />
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Updated</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ user.updated | date }}</p>
+              <div class="text-center text-muted">
+                <small>Page {{aliasesPage + 1}} of {{aliasesDisp.length - 1}}</small>
               </div>
             </div>
           </div>
-        </div> -->
-        <!-- <div class="row">
-          <div class="col-md-6">
-            <div class="card bg-glass mb-4 mb-md-0">
-              <div class="card-body">
-                <p class="mb-4">
-                  <span class="text-primary font-italic me-1">assigment</span>
-                  Project Status
-                </p>
-                <p class="mb-1" style="font-size: 0.77rem">Web Design</p>
-                <div class="progress rounded" style="height: 5px">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 80%"
-                    aria-valuenow="80"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-                <p class="mt-4 mb-1" style="font-size: 0.77rem">
-                  Website Markup
-                </p>
-                <div class="progress rounded" style="height: 5px">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 72%"
-                    aria-valuenow="72"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-                <p class="mt-4 mb-1" style="font-size: 0.77rem">One Page</p>
-                <div class="progress rounded" style="height: 5px">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 89%"
-                    aria-valuenow="89"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-                <p class="mt-4 mb-1" style="font-size: 0.77rem">
-                  Mobile Template
-                </p>
-                <div class="progress rounded" style="height: 5px">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 55%"
-                    aria-valuenow="55"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-                <p class="mt-4 mb-1" style="font-size: 0.77rem">Backend API</p>
-                <div class="progress rounded mb-2" style="height: 5px">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 66%"
-                    aria-valuenow="66"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-              </div>
-            </div>
+        </div>
+      </div> <!-- End Card 4 -->
+
+      <!-- Card 4 -->
+      <div *ngIf="!isLoading">
+        <div *ngFor="let game of games" mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">
+          <div class="card bg-glass">
+            <img src="{{game.imageUrl}}" class="rounded-{{rounding}} " style="width: 100%" />
           </div>
-          <div class="col-md-6">
-            <div class="card bg-glass mb-4 mb-md-0">
-              <div class="card-body">
-                <p class="mb-4">
-                  <span class="text-primary font-italic me-1">assigment</span>
-                  Project Status
-                </p>
-                <p class="mb-1" style="font-size: 0.77rem">Web Design</p>
-                <div class="progress rounded" style="height: 5px">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 80%"
-                    aria-valuenow="80"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-                <p class="mt-4 mb-1" style="font-size: 0.77rem">
-                  Website Markup
-                </p>
-                <div class="progress rounded" style="height: 5px">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 72%"
-                    aria-valuenow="72"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-                <p class="mt-4 mb-1" style="font-size: 0.77rem">One Page</p>
-                <div class="progress rounded" style="height: 5px">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 89%"
-                    aria-valuenow="89"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-                <p class="mt-4 mb-1" style="font-size: 0.77rem">
-                  Mobile Template
-                </p>
-                <div class="progress rounded" style="height: 5px">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 55%"
-                    aria-valuenow="55"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-                <p class="mt-4 mb-1" style="font-size: 0.77rem">Backend API</p>
-                <div class="progress rounded mb-2" style="height: 5px">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 66%"
-                    aria-valuenow="66"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-              </div>
-            </div>
+        </div>
+        <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">
+          <div class="card bg-glass">
+            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg?t=1641233427"
+              class="rounded-{{rounding}} " style="width: 100%" />
           </div>
-        </div> -->
-      </div>
-      <!-- End Right Column -->
+        </div>
+      </div> <!-- End Card 4 -->
+
+      <!-- End Grid -->
     </div>
+
   </div>
 </section>
