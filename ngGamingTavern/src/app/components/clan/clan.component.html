@@ -1,0 +1,109 @@
+<section>
+    <div class="container py-{{topPadding}}">
+        <div class="row">
+            <!-- Left Column -->
+            <div class="col-lg-{{leftColumnWidth}}">
+                <div class="card bg-glass mb-0">
+                    <div class="card-body">
+                        <!-- Row 1 -->
+                        <div class="row">
+                            <h3>{{leftHeader}}</h3>
+                            <ul>
+                                <li *ngFor="let data of clanData" ><a (click) = "showClan(data.id)">{{data.name}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Column -->
+            <div class="col-lg-{{rightColumnWidth}}">
+                <!-- Primary Card -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card bg-glass mb-2">
+                            <div class="card-body">
+                                <div class="text-center text-muted">
+                                    <!-- Row 1 -->
+                                    <div class="row">
+                                        <img src={{clanImageUrl}} />
+                                        <h3>{{clanName}}</h3>
+                                        <p>{{clanDescription}}</p>
+                                        <p>Created: {{clanCreated | date: 'short'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Subcard Row 1 -->
+                <div class="row">
+                    <!-- Sub card 1 -->
+                    <div class="col-6">
+                        <div class="card bg-glass mb-2">
+                            <div class="card-body">
+                                <div class="row">
+                                    <h3>Create</h3>
+                                    <form>
+                                        <input type="text" name="name" [(ngModel)]="newClan.name" /><br />
+                                        <input type="text" name="price" [(ngModel)]="newClan.description" /><br />
+                                        <input type="text" name="imageUrl" [(ngModel)]="newClan.imageUrl" /><br />
+                                        <input type="date" name="created" [(ngModel)]="newClan.created" /><br />
+                                        <input type="submit" (click)="onSubmit()" />
+                                      </form>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sub card 2 -->
+                    <div class="col-6">
+                        <div class="card bg-glass mb-2">
+                            <div class="card-body">
+                                <div class="row">
+                                    <h3>Card 2</h3>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <h6>Contents</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Subcard Row 2 -->
+                <div class="row">
+                    <!-- Sub card 3 -->
+                    <div class="col-6">
+                        <div class="card bg-glass mb-2">
+                            <div class="card-body">
+                                <div class="row">
+                                    <h3>Card 3</h3>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <h6>Contents</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sub card 4 -->
+                    <div class="col-6">
+                        <div class="card bg-glass mb-2">
+                            <div class="card-body">
+                                <div class="row">
+                                    <h3>Card 4</h3>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <h6></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

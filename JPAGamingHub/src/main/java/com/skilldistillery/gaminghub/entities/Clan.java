@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "clan")
@@ -26,30 +27,39 @@ public class Clan {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "creator_id")
 	private Alias creatorAlias;
 
 	private boolean enabled;
+	
 	private String name;
+	
 	private String description;
 
 	@Column(name = "image_url")
 	private String imageUrl;
+	
 	private LocalDateTime created;
+	
 	private LocalDateTime updated;
+	
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "alias_clan", joinColumns = @JoinColumn(name = "clan_id"), inverseJoinColumns = @JoinColumn(name = "alias_id"))
 	private List<Alias> aliases;
+	
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "clan_server", joinColumns = @JoinColumn(name = "clan_id"), inverseJoinColumns = @JoinColumn(name = "server_id"))
 	private List<Server> servers;
+	
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "clan_game", joinColumns = @JoinColumn(name = "clan_id"), inverseJoinColumns = @JoinColumn(name = "game_id"))
 	private List<Game> games;
+	
 
 	public Clan() {
 		super();

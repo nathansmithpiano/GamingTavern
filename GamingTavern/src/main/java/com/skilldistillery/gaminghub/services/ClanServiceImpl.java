@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.gaminghub.entities.Clan;
+import com.skilldistillery.gaminghub.repositories.ClanInformationDTO;
 import com.skilldistillery.gaminghub.repositories.ClanRepository;
 
 @Service
@@ -28,6 +29,11 @@ public class ClanServiceImpl implements ClanService {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public Clan getClanByName(String name) {
+		return clanRepo.findByName(name);
 	}
 
 	@Override
@@ -60,6 +66,11 @@ public class ClanServiceImpl implements ClanService {
 			deleted = true;
 		}
 		return deleted;
+	}
+
+	@Override
+	public List<ClanInformationDTO> getClanData() {
+		return clanRepo.getClanData();
 	}
 
 }
