@@ -67,7 +67,7 @@ import { GameComponent } from './components/game/game.component';
     MdbScrollspyModule,
     MdbTabsModule,
     MdbTooltipModule,
-    MdbValidationModule,
+    MdbValidationModule
   ],
   providers: [UserService, DatePipe],
   bootstrap: [AppComponent],

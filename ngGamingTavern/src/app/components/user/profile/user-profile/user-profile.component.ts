@@ -25,9 +25,10 @@ export class UserProfileComponent implements OnInit {
   ) {}
 
   title = "User Profile";
-  isLoading: boolean = true;
   user: User = new User();
   aliases: Alias[] = [];
+  aliasesDisp: any[][] = new Array<Array<any>>();
+  aliasesPage: number = 0;
   friends: User[] = [];
   friendsDisp: any[][] = new Array<Array<any>>();
   friendsPage: number = 0;
@@ -36,8 +37,35 @@ export class UserProfileComponent implements OnInit {
   meetups: Meetup[] = [];
   blockedUsers: User[] = [];
 
+  // loaders
+  isLoading: boolean = false;
+  isUserLoaded: boolean = false;
+  isAliasesLoaded: boolean = false;
+  isFriendsLoaded: boolean = false;
+  isBlockedUsersLoaded: boolean = false;
+  isGamesLoaded: boolean = false;
+  isLocationsLoaded: boolean = false;
+  isMeetupsLoaded: boolean = false;
+
+  isLoaded = ():boolean => {
+    if (this.isUserLoaded 
+      && this.isAliasesLoaded 
+      && this.isFriendsLoaded
+      && this.isBlockedUsersLoaded
+      && this.isGamesLoaded
+      && this.isLocationsLoaded
+      && this.isMeetupsLoaded) {
+        return true;
+      } else {
+        return false;
+      }
+  }
+
   // html settings
   topPadding = 3;
+
+  rounding: number = 5;
+  gridItemClass: string = "shadow-4-strong rounded-5";
 
   // left card
   leftCardWidth = 3;
@@ -107,10 +135,6 @@ export class UserProfileComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    // this.currentUsername = this.auth.getCurrentUsername();
-    // console.log(this.currentUsername);
-    // this.getUserByUsername(this.currentUsername);
-
     // if username provided as param
     if (this.route.snapshot.paramMap.get("username")) {
       let username = this.route.snapshot.paramMap.get("username");
@@ -152,18 +176,7 @@ export class UserProfileComponent implements OnInit {
   };
 
   reload = () => {
-    // this.aliasService.showByUsername(this.currentUsername).subscribe(
-    this.aliasService.showByUsername(this.user.username).subscribe(
-      (data) => {
-        this.aliases = data;
-      },
-      (err) => {
-        console.log(
-          "UserProfileComponent reload().aliasService.showByUsername(): Observable got an error " +
-            err
-        );
-      }
-    );
+    this.getAliasesByUsername(this.user.username);
     this.getFriendsByUsername(this.user.username);
     this.getBlockedUsersByUsername(this.user.username);
     this.getGamesByUsername(this.user.username);
@@ -172,13 +185,11 @@ export class UserProfileComponent implements OnInit {
   };
 
   getUserByUsername(username: string) {
-    // console.log('show() about to look for id=' + id);
     this.userService.getUserByUsername(username).subscribe(
       (data) => {
         this.user = data;
-        // console.log('show() found data, data=' + data);
+        this.isUserLoaded = true;
         this.reload();
-        this.isLoading = false;
         if (!this.user) {
           this.router.navigateByUrl("/notFound");
         }
@@ -190,6 +201,24 @@ export class UserProfileComponent implements OnInit {
         console.log(
           "UserProfileComponent show(): Observable got an error " + err
         );
+        this.isUserLoaded = true;
+      }
+    );
+  }
+
+  getAliasesByUsername(username: string) {
+    this.aliasService.showByUsername(this.user.username).subscribe(
+      (data) => {
+        this.aliases = data;
+        this.tabler(this.aliases, this.aliasesDisp, 5);
+        this.isAliasesLoaded = true;
+      },
+      (err) => {
+        console.log(
+          "UserProfileComponent reload().aliasService.showByUsername(): Observable got an error " +
+            err
+        );
+        this.isAliasesLoaded = true;
       }
     );
   }
@@ -198,14 +227,15 @@ export class UserProfileComponent implements OnInit {
     this.userService.getFriendsByUsername(username).subscribe(
       (data) => {
         this.friends = data;
-        this.isLoading = false;
         this.tabler(this.friends, this.friendsDisp, 5);
+        this.isFriendsLoaded = true;
       },
       (err) => {
         console.log(
           "UserProfileComponent getFriendsByUsername(): Observable got an error " +
             err
         );
+        this.isFriendsLoaded = true;
       }
     );
   }
@@ -214,13 +244,14 @@ export class UserProfileComponent implements OnInit {
     this.userService.getBlockedUsersByUsername(username).subscribe(
       (data) => {
         this.blockedUsers = data;
-        this.isLoading = false;
+        this.isBlockedUsersLoaded = true;
       },
       (err) => {
         console.log(
           "UserProfileComponent getBlockedUsersByUsername(): Observable got an error " +
             err
         );
+        this.isBlockedUsersLoaded = true;
       }
     );
   }
@@ -229,13 +260,14 @@ export class UserProfileComponent implements OnInit {
     this.userService.getGamesByUsername(username).subscribe(
       (data) => {
         this.games = data;
-        this.isLoading = false;
+        this.isGamesLoaded = true;
       },
       (err) => {
         console.log(
           "UserProfileComponent getGamesByUsername(): Observable got an error " +
             err
         );
+        this.isGamesLoaded = true;
       }
     );
   }
@@ -244,13 +276,14 @@ export class UserProfileComponent implements OnInit {
     this.userService.getLocationsByUsername(username).subscribe(
       (data) => {
         this.locations = data;
-        this.isLoading = false;
+        this.isLocationsLoaded = true;
       },
       (err) => {
         console.log(
           "UserProfileComponent getGamesByUsername(): Observable got an error " +
             err
         );
+        this.isLocationsLoaded = true;
       }
     );
   }
@@ -259,13 +292,14 @@ export class UserProfileComponent implements OnInit {
     this.userService.getMeetupsByUsername(username).subscribe(
       (data) => {
         this.meetups = data;
-        this.isLoading = false;
+        this.isMeetupsLoaded = true;
       },
       (err) => {
         console.log(
           "UserProfileComponent getMeetupsByUsername(): Observable got an error " +
             err
         );
+        this.isMeetupsLoaded = true;
       }
     );
   }
