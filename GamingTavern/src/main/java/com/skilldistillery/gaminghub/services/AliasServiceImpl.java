@@ -12,52 +12,17 @@ import com.skilldistillery.gaminghub.repositories.UserRepository;
 
 @Service
 public class AliasServiceImpl implements AliasService {
-<<<<<<< HEAD
-	
-		@Autowired
-		private AliasRepository aliasRepo;
-		
-		@Autowired
-		private UserRepository userRepo;
-
-		@Override
-		public List<Alias> index() {
-			return aliasRepo.findAll();
-		}
-		
-		@Override
-		public Alias getAliasById(int aliasId) {
-			Optional<Alias> op = aliasRepo.findById(aliasId);
-			if (op.isPresent()) {
-				return op.get();
-			} else {
-				return null;
-			}
-		}
-		
-		@Override
-		public Alias createAlias(Alias alias) {
-			return aliasRepo.saveAndFlush(alias);
-		}
-=======
->>>>>>> ac5768c592865b39d9a76f056b99d8afbc521c3a
 
 	@Autowired
 	private AliasRepository aliasRepo;
 
-	@Autowired
-	private UserRepository userRepo;
+
 
 	@Override
 	public List<Alias> index() {
 		return aliasRepo.findAll();
 	}
 
-	@Override
-	public List<Alias> getAliasesByUsername(String username) {
-		return aliasRepo.findByUserUsername(username);
-	}
-	
 	@Override
 	public Alias getAliasById(int aliasId) {
 		Optional<Alias> op = aliasRepo.findById(aliasId);
@@ -71,6 +36,11 @@ public class AliasServiceImpl implements AliasService {
 	@Override
 	public Alias createAlias(Alias alias) {
 		return aliasRepo.saveAndFlush(alias);
+	}
+
+	@Override
+	public List<Alias> getAliasesByUsername(String username) {
+		return aliasRepo.findByUserUsername(username);
 	}
 
 	@Override
@@ -88,9 +58,6 @@ public class AliasServiceImpl implements AliasService {
 		return null;
 	}
 
-<<<<<<< HEAD
-
-=======
 	@Override
 	public boolean deleteAlias(String username, int aliasId) {
 		Optional<Alias> op = aliasRepo.findById(aliasId);
@@ -103,7 +70,7 @@ public class AliasServiceImpl implements AliasService {
 			}
 		}
 		return false;
->>>>>>> ac5768c592865b39d9a76f056b99d8afbc521c3a
+
 	}
 
 }

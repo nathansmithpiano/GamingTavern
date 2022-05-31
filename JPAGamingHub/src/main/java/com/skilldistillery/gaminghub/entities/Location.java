@@ -33,16 +33,12 @@ public class Location {
 	private String country;
 	private LocalDateTime created;
 	private LocalDateTime updated;
-	
+
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "user_location", joinColumns = @JoinColumn(name = "location_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> users;
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> ac5768c592865b39d9a76f056b99d8afbc521c3a
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "meetup_location", joinColumns = @JoinColumn(name = "location_id"), inverseJoinColumns = @JoinColumn(name = "meetup_id"))
@@ -181,7 +177,6 @@ public class Location {
 			meetup.removeLocation(this);
 		}
 	}
-
 
 	@Override
 	public int hashCode() {

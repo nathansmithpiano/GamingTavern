@@ -7,11 +7,9 @@ import com.skilldistillery.gaminghub.entities.Alias;
 public interface AliasService {
 
 	List<Alias> index();
-	
+
 	Alias getAliasById(int aliasId);
-	
-	List<Alias> index();
-	
+
 	List<Alias> getAliasesByUsername(String username);
 
 	Alias updateAlias(String user, Alias alias, int aliasId);
