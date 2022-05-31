@@ -39,6 +39,7 @@ public class Game {
 	private String imageUrl;
 
 	private String url;
+<<<<<<< HEAD
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "game")
@@ -49,21 +50,44 @@ public class Game {
 	@JoinColumn(name = "rating_id")
 	private Rating rating;
 
+=======
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "game")
+	private List<Server> servers;
+	
+	@ManyToOne
+	@JoinColumn(name = "rating_id")
+	private Rating rating;
+	
+>>>>>>> ac5768c592865b39d9a76f056b99d8afbc521c3a
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "meetup_game", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "meetup_id"))
 	private List<Meetup> meetups;
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> ac5768c592865b39d9a76f056b99d8afbc521c3a
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "alias_game", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "alias_id"))
 	private List<Alias> aliases;
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> ac5768c592865b39d9a76f056b99d8afbc521c3a
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "clan_game", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "clan_id"))
 	private List<Clan> clans;
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> ac5768c592865b39d9a76f056b99d8afbc521c3a
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "platform_game", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "platform_id"))

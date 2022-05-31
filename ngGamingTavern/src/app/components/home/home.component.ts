@@ -14,5 +14,8 @@ export class HomeComponent implements OnInit {
     private auth: AuthService
   ) {}
 
+  // add extra class styling here (i.e. mb-5, me-2, text-muted, bootstrap classes, etc)
+  gridItemClass: string = "";
+
   ngOnInit(): void {}
 }

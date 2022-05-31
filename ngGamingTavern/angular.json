@@ -31,9 +31,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/masonry-style.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/masonry-layout/dist/masonry.pkgd.min.js"
+            ]
           },
           "configurations": {
             "production": {

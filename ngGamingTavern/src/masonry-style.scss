@@ -1,0 +1,110 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+/* ---- grid ---- */
+
+.grid {
+  //   background: #EEE;
+  max-width: 1320px;
+  min-width: 635px;
+}
+
+/* clearfix */
+.grid:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* ---- grid-item ---- */
+
+.grid-item {
+  width: 310px;
+  // height: 50px;
+  float: left;
+  // background: var(--bgGlassBackground);
+  // backdrop-filter: var(--bgGlassBackdropFilter);
+  // border: 2px solid rgba(255,255,255,.1);
+  // border-color: var(--bodyBackgroundColor);
+  border: 0px;
+  // border-radius: 8px;
+  margin-bottom: 15px; // should match gutter in html div class="grid"
+}
+
+.grid-item.two {
+  width: 635px;
+  // height: 400px;
+}
+
+.grid-item.three {
+  width: 960px;
+}
+
+.grid-item.four {
+  width: 1285px;
+}
+
+.grid-item.game-image {
+  width: 150px;
+}
+
+// resize four-width when screen too small
+@media screen and (max-width: 1399px) { 
+  .grid-item.four {
+    width: 960px;
+  }
+}
+
+// resize three- and four-width when screen too small
+@media screen and (max-width: 1010px) { 
+  .grid-item.three {
+    width: 635px;
+  }
+  .grid-item.four {
+    width: 635px;
+  }
+}
+
+// fill 100% width for mobile devices (under 500 pixels wide)
+@media screen and (max-width: 500px) {
+  .grid {
+    min-width: 100%;
+  }
+  .grid-item {
+    width: 100%;
+  }
+  .grid-item.two {
+    width: 100%;
+  }
+  .grid-item.three {
+    width: 100%;
+  }
+  .grid-item.four {
+    width: 100%;
+  }
+}
+
+.grid-item--width2 {
+  width: 320px;
+}
+.grid-item--width3 {
+  width: 480px;
+}
+.grid-item--width4 {
+  width: 640px;
+}
+
+.grid-item--height2 {
+  height: 200px;
+}
+.grid-item--height3 {
+  height: 260px;
+}
+.grid-item--height4 {
+  height: 360px;
+}

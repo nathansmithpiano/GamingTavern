@@ -38,11 +38,13 @@ body {
   overflow-x: hidden;
   color: #fff;
 }
+// resize on smaller screens
 @media only screen and (max-width: 991.98px) {
   body {
     height: 100%;
   }
 }
+
 .bg-glass {
   background: var(--bgGlassBackground);
   backdrop-filter: var(--bgGlassBackdropFilter);
@@ -65,3 +67,4 @@ body {
 .badge {
   padding: 5px 10px;
 }
+
