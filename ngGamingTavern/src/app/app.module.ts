@@ -36,6 +36,10 @@ import { LogoutComponent } from './components/auth/logout/logout.component';
 import { LoginModalComponent } from './components/auth/login/login-modal/login-modal.component';
 import { FormsModule } from '@angular/forms';
 import { SplashComponent } from './components/splash/splash.component';
+import { EquipmentComponent } from './components/equipment/equipment.component';
+import { ServerComponent } from './components/server/server.component';
+import { MeetupComponent } from './components/meetup/meetup.component';
+import { GameComponent } from './components/game/game.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +52,11 @@ import { SplashComponent } from './components/splash/splash.component';
     HomeComponent,
     LogoutComponent,
     LoginModalComponent,
-    SplashComponent
+    SplashComponent,
+    EquipmentComponent,
+    ServerComponent,
+    MeetupComponent,
+    GameComponent
 
   ],
   imports: [
