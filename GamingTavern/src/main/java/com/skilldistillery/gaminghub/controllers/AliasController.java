@@ -38,4 +38,15 @@ public class AliasController {
 		return alias;
 	}
 
+	
+	@GetMapping("aliases/user/{username}")
+	public List<Alias> getbyUsername(Principal principal, HttpServletResponse resp, @PathVariable String username) {
+		List<Alias> aliases = aliasSvc.getAliasesByUsername(username);
+		if (aliases == null) {
+			resp.setStatus(404);
+		}
+		return aliases;
+	}
+
 }
+

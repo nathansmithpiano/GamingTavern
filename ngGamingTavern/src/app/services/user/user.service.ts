@@ -1,3 +1,4 @@
+import { Meetup } from './../../models/meetup/meetup';
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { User } from "src/app/models/user/user";
@@ -5,6 +6,7 @@ import { DatePipe } from "@angular/common";
 import { environment } from "src/environments/environment";
 import { catchError, Observable, throwError } from "rxjs";
 import { AuthService } from "../auth/auth.service";
+import { Game } from "src/app/models/game/game";
 
 @Injectable({
   providedIn: "root",
@@ -16,8 +18,8 @@ export class UserService {
     private auth: AuthService
   ) {}
 
-  private url = environment.baseUrl + "api/users";
-  private url2 = this.url + "/";
+  private url = environment.baseUrl + "api/";
+  private url2 = this.url + "users/";
   private users: User[] = [];
 
   getHttpOptions() {
@@ -31,16 +33,16 @@ export class UserService {
   }
 
   public index() {
-    return this.http.get<User[]>(this.url, this.getHttpOptions()).pipe(
+    return this.http.get<User[]>(this.url2, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         return throwError("KABOOM");
       })
     );
   }
 
-  show(id: number): Observable<User> {
+  getUserByUsername(username: string): Observable<User> {
     return this.http
-      .get<User>(this.url2 + id, {
+      .get<User>(this.url2 + username, {
         headers: { Authorization: "Basic " + this.auth.getCredentials() },
       })
       .pipe(
@@ -51,9 +53,61 @@ export class UserService {
       );
   }
 
-  showByUsername(username: string): Observable<User> {
+  getFriendsByUsername(username: string): Observable<User[]> {
     return this.http
-      .get<User>(environment.baseUrl + username + '/' + username, {
+      .get<User[]>(this.url2 + username + '/friends', {
+        headers: { Authorization: "Basic " + this.auth.getCredentials() },
+      })
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError("KABOOM");
+        })
+      );
+  }
+
+  getBlockedUsersByUsername(username: string): Observable<User[]> {
+    return this.http
+      .get<User[]>(this.url2 + username + '/blockedusers', {
+        headers: { Authorization: "Basic " + this.auth.getCredentials() },
+      })
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError("KABOOM");
+        })
+      );
+  }
+
+  getGamesByUsername(username: string): Observable<Game[]> {
+    return this.http
+      .get<Game[]>(this.url2 + username + '/games', {
+        headers: { Authorization: "Basic " + this.auth.getCredentials() },
+      })
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError("KABOOM");
+        })
+      );
+  }
+
+  getLocationsByUsername(username: string): Observable<Location[]> {
+    return this.http
+      .get<Location[]>(this.url2 + username + '/locations', {
+        headers: { Authorization: "Basic " + this.auth.getCredentials() },
+      })
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError("KABOOM");
+        })
+      );
+  }
+
+  getMeetupsByUsername(username: string): Observable<Meetup[]> {
+    return this.http
+      .get<Meetup[]>(this.url2 + username + '/meetups', {
         headers: { Authorization: "Basic " + this.auth.getCredentials() },
       })
       .pipe(

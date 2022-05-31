@@ -1,3 +1,5 @@
+import { DatePipe } from "@angular/common";
+
 export class User {
   id: number;
   enabled: boolean;

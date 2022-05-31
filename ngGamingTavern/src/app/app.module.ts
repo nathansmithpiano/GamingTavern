@@ -1,4 +1,4 @@
-import { RegisterComponent } from './components/auth/register/register.component';
+import { RegisterComponent } from "./components/auth/register/register.component";
 import { UserService } from "./services/user/user.service";
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
@@ -7,8 +7,6 @@ import { AppRoutingModule } from "src/app/app-routing-module";
 import { AppComponent } from "./app.component";
 
 // MDB Modules
-
-
 
 import { MdbAccordionModule } from "mdb-angular-ui-kit/accordion";
 import { MdbCarouselModule } from "mdb-angular-ui-kit/carousel";
@@ -30,13 +28,18 @@ import { NavComponent } from "./components/page/nav/nav.component";
 import { LoginComponent } from "./components/auth/login/login.component";
 import { UserProfileComponent } from "./components/user/profile/user-profile/user-profile.component";
 import { DatePipe } from "@angular/common";
-import { UsersTableComponent } from './components/user/users-table/users-table.component';
-import { HomeComponent } from './components/home/home.component';
-import { LogoutComponent } from './components/auth/logout/logout.component';
-import { LoginModalComponent } from './components/auth/login/login-modal/login-modal.component';
-import { FormsModule } from '@angular/forms';
-import { SplashComponent } from './components/splash/splash.component';
-import { ClanComponent } from './components/clan/clan.component';
+
+import { UsersTableComponent } from "./components/user/users-table/users-table.component";
+import { HomeComponent } from "./components/home/home.component";
+import { LogoutComponent } from "./components/auth/logout/logout.component";
+import { LoginModalComponent } from "./components/auth/login/login-modal/login-modal.component";
+import { FormsModule } from "@angular/forms";
+import { SplashComponent } from "./components/splash/splash.component";
+import { ClanComponent } from "./components/clan/clan.component";
+import { EquipmentComponent } from "./components/equipment/equipment.component";
+import { ServerComponent } from "./components/server/server.component";
+import { MeetupComponent } from "./components/meetup/meetup.component";
+import { GameComponent } from "./components/game/game.component";
 
 @NgModule({
   declarations: [
@@ -50,8 +53,11 @@ import { ClanComponent } from './components/clan/clan.component';
     LogoutComponent,
     LoginModalComponent,
     SplashComponent,
-    ClanComponent
-
+    ClanComponent,
+    EquipmentComponent,
+    ServerComponent,
+    MeetupComponent,
+    GameComponent,
   ],
 
   imports: [

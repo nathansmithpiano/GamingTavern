@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Meetup {
 
@@ -27,7 +29,8 @@ public class Meetup {
 	private String description;
 	private LocalDateTime created;
 	private LocalDateTime updated;
-
+	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -35,17 +38,18 @@ public class Meetup {
 	@ManyToOne
 	@JoinColumn(name = "timezone_id")
 	private Timezone timezone;
-
+	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "meetup_location", joinColumns = @JoinColumn(name = "meetup_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
 	private List<Location> locations;
 
-	// Alias
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "meetup_alias", joinColumns = @JoinColumn(name = "alias_id"), inverseJoinColumns = @JoinColumn(name = "meetup_id"))
 	private List<Alias> aliases;
 
-	// Game
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "meetup_game", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "meetup_id"))
 	private List<Game> games;

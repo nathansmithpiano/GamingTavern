@@ -26,11 +26,11 @@ public class Timezone {
 	private String locale;
 
 	private String description;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "timezone")
 	private List<Meetup> meetups;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "timezone")
 	private List<Location> locations;
