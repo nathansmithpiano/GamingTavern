@@ -1,94 +1,91 @@
-import { DatePipe } from '@angular/common';
-import { AuthService } from './../../../../services/auth/auth.service';
-import { UserService } from './../../../../services/user/user.service';
-import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user/user';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Meetup } from "./../../../../models/meetup/meetup";
+import { AliasService } from "./../../../../services/alias/alias.service";
+import { DatePipe } from "@angular/common";
+import { AuthService } from "./../../../../services/auth/auth.service";
+import { UserService } from "./../../../../services/user/user.service";
+import { Component, OnInit } from "@angular/core";
+import { User } from "src/app/models/user/user";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Alias } from "src/app/models/alias/alias";
+import { Game } from "src/app/models/game/game";
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss'],
+  selector: "app-user-profile",
+  templateUrl: "./user-profile.component.html",
+  styleUrls: ["./user-profile.component.scss"],
 })
 export class UserProfileComponent implements OnInit {
   constructor(
     private userService: UserService,
+    private aliasService: AliasService,
     private route: ActivatedRoute,
     private router: Router,
     private auth: AuthService,
     private datePipe: DatePipe
   ) {}
 
-  title = 'User Profile';
+  title = "User Profile";
   isLoading: boolean = true;
-  currentUserId: number;
   user: User = new User();
-  selectedUser: User | null;
-  loginUser: User = new User();
-
-  // used in loadUserInfo to display on page after user is loaded
-  userHeader: string = '';
-  userDescription: string = '';
-  userCreated: string = '';
-  userUpdated: string = '';
+  aliases: Alias[] = [];
+  friends: User[] = [];
+  games: Game[] = [];
+  locations: Location[] = [];
+  meetups: Meetup[] = [];
+  blockedUsers: User[] = [];
 
   // html settings
   topPadding = 3;
 
   // left card
   leftCardWidth = 3;
-  profileImageWidth = '175px';
+  profileImageWidth = "175px";
   headerMarginTop = 2;
   descriptionMarginTop = 0;
   leftIconMarginEnd = 3;
-  textClass = 'text-muted';
-  leftSummaryClass = 'text-center text-muted';
+  textClass = "text-muted";
+  leftSummaryClass = "text-center text-muted";
   leftSummaryCol1Width = 5;
   leftSummaryCol2Width = 7;
   leftSummaryRowMargin = 2;
-  leftSummaryRow1Col1Header = 'Friends';
-  leftSummaryRow1Col1Value = 134;
-  leftSummaryRow1Col2Header = 'Endorsements';
-  leftSummaryRow1Col2Value = 3471;
-  leftSummaryRow2Col1Header = 'Aliases';
-  leftSummaryRow2Col1Value = 47;
-  leftSummaryRow2Col2Header = 'Games';
-  leftSummaryRow2Col2Value = 21;
-  leftSummaryRow3Col1Header = 'Clans (Member)';
+  leftSummaryRow2Col2Header = "Games";
+  leftSummaryRow2Col2Value = 9999;
+  leftSummaryRow3Col1Header = "Clans (Member)";
   leftSummaryRow3Col1Value = 47;
-  leftSummaryRow3Col2Header = 'Clans (Owner/Admin)';
+  leftSummaryRow3Col2Header = "Clans (Owner/Admin)";
   leftSummaryRow3Col2Value = 21;
-  friendButtonLabel = 'Add Friend';
-  friendButtonType = 'success';
-  chatButtonLabel = 'Chat';
-  chatButtonType = 'info';
-  endorsementButtonLabel = 'Give Endorsement';
-  endorsementButtonType = 'primary';
-  blockButtonLabel = 'Block';
-  blockButtonType = 'danger';
+  friendButtonLabel = "Add Friend";
+  friendButtonType = "success";
+  chatButtonLabel = "Chat";
+  chatButtonType = "info";
+  endorsementButtonLabel = "Give Endorsement";
+  endorsementButtonType = "primary";
+  blockButtonLabel = "Block";
+  blockButtonType = "danger";
 
-  // right card
+  // right cards
   rightColumnWidth = 12 - this.leftCardWidth;
-  rightColumn1Card1Width = 5;
-  rightColumn1Card2Width = 12 - this.rightColumn1Card1Width;
-
-  loadUserInfo = (): void => {
-    this.userHeader = this.getFullName();
-    this.userDescription = this.user.description;
-    this.userCreated = this.datePipe.transform(this.user.created, 'short');
-    this.userUpdated = this.datePipe.transform(this.user.updated, 'short');
-  };
+  rightRow1Card1Width = 3;
+  rightRow1Card2Width = 3;
+  rightRow1Card3Width = 3;
+  rightRow1Card4Width = 3;
+  rightRow2Card1Width = 6;
+  rightRow2Card2Width = 6;
 
   ngOnInit(): void {
-    this.currentUserId = parseInt('' + this.auth.getCurrentUserId());
-    console.log(this.currentUserId);
-    this.show(this.currentUserId);
+    // this.currentUsername = this.auth.getCurrentUsername();
+    // console.log(this.currentUsername);
+    // this.getUserByUsername(this.currentUsername);
 
-    if (!this.selectedUser && this.route.snapshot.paramMap.get('id')) {
-      let id = this.route.snapshot.paramMap.get('id');
-      if (id) {
-        this.show(parseInt(id));
+    // if username provided as param
+    if (this.route.snapshot.paramMap.get("username")) {
+      let username = this.route.snapshot.paramMap.get("username");
+      if (username) {
+        this.getUserByUsername(username);
       }
+    } else {
+      // no param, show logged in user
+      this.getUserByUsername(this.auth.getCurrentUsername());
     }
   }
 
@@ -101,42 +98,139 @@ export class UserProfileComponent implements OnInit {
   };
 
   getFullName = (): string => {
-    let output: string = '';
+    let output: string = "";
     if (this.user.firstName) {
       output += this.user.firstName;
       if (this.user.middleName) {
-        output += ' ';
+        output += " ";
       }
     }
     if (this.user.middleName) {
       output += this.user.middleName;
       if (this.user.lastName) {
-        output += ' ';
+        output += " ";
       }
     }
     if (this.user.lastName) {
-      output += ' ' + this.user.lastName;
+      output += " " + this.user.lastName;
     }
     return output;
   };
 
-  show(id: number) {
-    console.log('show() about to look for id=' + id);
-    this.userService.show(id).subscribe(
+  reload = () => {
+    // this.aliasService.showByUsername(this.currentUsername).subscribe(
+    this.aliasService.showByUsername(this.user.username).subscribe(
+      (data) => {
+        this.aliases = data;
+      },
+      (err) => {
+        console.log(
+          "UserProfileComponent reload().aliasService.showByUsername(): Observable got an error " +
+            err
+        );
+      }
+    );
+    this.getFriendsByUsername(this.user.username);
+    this.getBlockedUsersByUsername(this.user.username);
+    this.getGamesByUsername(this.user.username);
+    this.getLocationsByUsername(this.user.username);
+    this.getMeetupsByUsername(this.user.username);
+  };
+
+  getUserByUsername(username: string) {
+    // console.log('show() about to look for id=' + id);
+    this.userService.getUserByUsername(username).subscribe(
       (data) => {
         this.user = data;
-        console.log('show() found data, data=' + data);
-        this.loadUserInfo();
+        // console.log('show() found data, data=' + data);
+        this.reload();
         this.isLoading = false;
         if (!this.user) {
-          this.router.navigateByUrl('/notFound');
+          this.router.navigateByUrl("/notFound");
         }
       },
       (err) => {
         if (!this.user) {
-          this.router.navigateByUrl('/notFound');
+          this.router.navigateByUrl("/notFound");
         }
-        console.log('TodoListCompoment show(): Observable got an error ' + err);
+        console.log(
+          "UserProfileComponent show(): Observable got an error " + err
+        );
+      }
+    );
+  }
+
+  getFriendsByUsername(username: string) {
+    this.userService.getFriendsByUsername(username).subscribe(
+      (data) => {
+        this.friends = data;
+        this.isLoading = false;
+      },
+      (err) => {
+        console.log(
+          "UserProfileComponent getFriendsByUsername(): Observable got an error " +
+            err
+        );
+      }
+    );
+  }
+
+  getBlockedUsersByUsername(username: string) {
+    this.userService.getBlockedUsersByUsername(username).subscribe(
+      (data) => {
+        this.blockedUsers = data;
+        this.isLoading = false;
+      },
+      (err) => {
+        console.log(
+          "UserProfileComponent getBlockedUsersByUsername(): Observable got an error " +
+            err
+        );
+      }
+    );
+  }
+
+  getGamesByUsername(username: string) {
+    this.userService.getGamesByUsername(username).subscribe(
+      (data) => {
+        this.games = data;
+        this.isLoading = false;
+      },
+      (err) => {
+        console.log(
+          "UserProfileComponent getGamesByUsername(): Observable got an error " +
+            err
+        );
+      }
+    );
+  }
+
+  getLocationsByUsername(username: string) {
+    this.userService.getLocationsByUsername(username).subscribe(
+      (data) => {
+        this.locations = data;
+        this.isLoading = false;
+      },
+      (err) => {
+        console.log(
+          "UserProfileComponent getGamesByUsername(): Observable got an error " +
+            err
+        );
+      }
+    );
+  }
+
+  getMeetupsByUsername(username: string) {
+    this.userService.getMeetupsByUsername(username).subscribe(
+      (data) => {
+        this.meetups = data;
+        this.isLoading = false;
+      },
+      (err) => {
+        console.log(
+          "UserProfileComponent getMeetupsByUsername(): Observable got an error " +
+            err
+        );
       }
     );
   }

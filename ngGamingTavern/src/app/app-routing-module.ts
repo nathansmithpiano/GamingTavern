@@ -9,8 +9,8 @@ import { UserProfileComponent } from "./components/user/profile/user-profile/use
 
 const routes: Routes = [
   { path: "", pathMatch: "full", component: HomeComponent },
-  { path: "user", pathMatch: "full", component: UserProfileComponent },
-  { path: "users", pathMatch: "full", component: UsersTableComponent },
+  { path: "users", pathMatch: "full", component: UserProfileComponent },
+  { path: "users/:username", pathMatch: "full", component: UserProfileComponent },
   { path: "login", pathMatch: "full", component: LoginComponent },
   { path: "logout", pathMatch: "full", component: LogoutComponent },
   { path: "profile", pathMatch: "full", component: UserProfileComponent },

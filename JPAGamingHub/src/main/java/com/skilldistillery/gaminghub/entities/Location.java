@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "location")
 public class Location {
@@ -26,18 +28,18 @@ public class Location {
 	private String name;
 	private String street;
 	private String city;
-
 	private String state;
-
 	private String zip;
 	private String country;
 	private LocalDateTime created;
 	private LocalDateTime updated;
-
+	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "user_location", joinColumns = @JoinColumn(name = "location_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> users;
 
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "meetup_location", joinColumns = @JoinColumn(name = "location_id"), inverseJoinColumns = @JoinColumn(name = "meetup_id"))
 	private List<Meetup> meetups;

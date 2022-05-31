@@ -20,10 +20,10 @@
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
                 class="rounded-circle img-fluid" [ngStyle]="{'width': profileImageWidth}" />
               <h5 class="mt-{{ headerMarginTop }} {{ textClass }}">
-                {{ userHeader }}
+                {{ user.username }}
               </h5>
               <p class="mt-{{ descriptionMarginTop }}">
-                {{ userDescription }}
+                {{ user.description }}
               </p>
 
               <!-- Buttons Group 2 -->
@@ -66,14 +66,14 @@
               <div class="row">
                 <span class="{{ textClass }}">
                   <i class="fas fa-calendar-plus me-{{ leftIconMarginEnd }}"></i>
-                  {{ userCreated }}
+                  {{ user.created | date:'short' }}
                 </span>
               </div>
               <!-- Updated -->
               <div class="row">
                 <span class="{{ textClass }}">
                   <i class="fas fa-calendar-check me-{{ leftIconMarginEnd }}"></i>
-                  {{ userUpdated }}
+                  {{ user.updated | date:'short' }}
                 </span>
               </div>
             </div>
@@ -83,37 +83,53 @@
             <!-- User Summary -->
             <!-- Row 1 -->
             <div class="row {{ leftSummaryClass }} mb-{{ leftSummaryRowMargin }}">
-              <!-- Row 1 Column 1-->
+              <!-- Friends-->
               <div class="col-sm-{{ leftSummaryCol1Width }}">
-                <strong>{{ leftSummaryRow1Col1Header }}</strong>
+                <strong>Friends</strong>
                 <br />
-                {{ leftSummaryRow1Col1Value }}
+                {{ friends.length }}
               </div>
-              <!-- Row 1 Column 2-->
+              <!-- Blocked Users-->
               <div class="col-sm-{{ leftSummaryCol2Width }}">
-                <strong>{{ leftSummaryRow1Col2Header }}</strong>
+                <strong>Blocked Users</strong>
                 <br />
-                {{ leftSummaryRow1Col2Value }}
+                {{ blockedUsers.length }}
               </div>
             </div>
             <!-- End Row 1 -->
 
             <!-- Row 2 -->
             <div class="row {{ leftSummaryClass }}">
-              <!-- Row 2 Column 1-->
+              <!-- Aliases-->
               <div class="col-sm-{{ leftSummaryCol1Width }}">
-                <strong>{{ leftSummaryRow2Col1Header }}</strong>
+                <strong>Aliases</strong>
                 <br />
-                {{ leftSummaryRow2Col1Value }}
+                {{ aliases.length }}
               </div>
-              <!-- Row 2 Column 2-->
+              <!-- Games-->
               <div class="col-sm-{{ leftSummaryCol2Width }}">
-                <strong>{{ leftSummaryRow2Col2Header }}</strong>
+                <strong>Games</strong>
                 <br />
-                {{ leftSummaryRow2Col2Value }}
+                {{ games.length }}
               </div>
             </div>
-            <!-- End Row 2 -->
+
+            <!-- Row 3 -->
+            <div class="row {{ leftSummaryClass }}">
+              <!-- Locations-->
+              <div class="col-sm-{{ leftSummaryCol1Width }}">
+                <strong>Locations</strong>
+                <br />
+                {{ locations.length }}
+              </div>
+              <!-- Row 3 Column 3-->
+              <div class="col-sm-{{ leftSummaryCol2Width }}">
+                <strong>Meetups</strong>
+                <br />
+                {{ meetups.length }}
+              </div>
+            </div>
+            <!-- End Row 3 -->
             <hr />
             <!-- End User Summary -->
 
@@ -148,23 +164,141 @@
 
       <!-- Right Column -->
       <div class="col-lg-{{ rightColumnWidth }}">
+        <!-- Right Column Row 1 -->
         <div class="row">
-          <div class="col-md-{{ rightColumn1Card1Width }}">
-            <div class="card bg-glass mb-4 mb-md-0">
+          <!-- Aliases -->
+          <div class="col-md-{{ rightRow1Card1Width }}">
+            <div class="card bg-glass mb-1 mb-md-0">
               <div class="card-body">
-                <h4>Card</h4>
-                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1644960/header.jpg?t=1653059048" alt="">
+                <div class="row">
+                  <h4>Aliases</h4>
+                </div>
+                <hr>
+                <div class="row">
+                  <ul *ngIf="aliases.length > 0">
+                    <li *ngFor="let alias of aliases">
+                      <a href="/aliases/{{alias.id}}">{{alias.name}}</a>
+                    </li>
+                  </ul>
+                  <h6 *ngIf="!aliases || aliases.length == 0">No aliases</h6>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-md-{{ rightColumn1Card2Width }}">
-            <div class="card bg-glass mb-4 mb-md-0">
+          <!-- Friends -->
+          <div class="col-md-{{ rightRow1Card2Width }}">
+            <div class="card bg-glass mb-1 mb-md-0">
               <div class="card-body">
-                <h4>Card</h4>
+                <div class="row">
+                  <h4>Friends</h4>
+                </div>
+                <hr>
+                <div class="row">
+                  <ul *ngIf="friends.length > 0">
+                    <li *ngFor="let friend of friends">
+                      <a href="users/{{friend.username}}">{{friend.username}}</a>
+                    </li>
+                  </ul>
+                  <h6 *ngIf="friends.length == 0">no friends</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Blocked Users -->
+          <div class="col-md-{{ rightRow1Card3Width }}">
+            <div class="card bg-glass mb-1 mb-md-0">
+              <div class="card-body">
+                <div class="row">
+                  <h4>Blocked Users</h4>
+                </div>
+                <hr>
+                <div class="row">
+                  <ul *ngIf="blockedUsers.length > 0">
+                    <li *ngFor="let blockedUser of blockedUsers">
+                      <a href="users/{{blockedUser.username}}">{{blockedUser.username}}</a>
+                    </li>
+                  </ul>
+                  <h6 *ngIf="blockedUsers.length == 0">no blocked users</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Games -->
+          <div class="col-md-{{ rightRow1Card4Width }}">
+            <div class="card bg-glass mb-1 mb-md-0">
+              <div class="card-body">
+                <div class="row">
+                  <h4>Games</h4>
+                </div>
+                <hr>
+                <div class="row">
+                  <ul *ngIf="games.length > 0">
+                    <li *ngFor="let game of games">
+                      <a href="games/{{game.id}}">{{game.name}} {{game.rating.name}}</a>
+                    </li>
+                  </ul>
+                  <h6 *ngIf="games.length == 0">no games</h6>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <!-- End Right Column Row 1 -->
+
+        <!-- Locations -->
+        <!-- Right Column Row 2 -->
+        <div class="row my-{{topPadding}}">
+          <!-- Locations -->
+          <div class="col-md-{{ rightRow2Card1Width }}">
+            <div class="card bg-glass mb-1 mb-md-0">
+              <div class="card-body">
+                <div class="row">
+                  <h4>Locations</h4>
+                </div>
+                <hr>
+                <div class="row">
+                  <ul *ngIf="locations.length > 0">
+                    <li *ngFor="let location of locations">
+                      {{location.name}}
+                      <br *ngIf="location.name"/>
+                      {{location.street}}
+                      <br>
+                      {{location.city}}, {{location.state}} {{location.zip}} ({{location.country}})
+                      <br>
+                      Timezone: {{location.timezone.abbreviation}} (UDT {{location.timezone.offset}})
+                    </li>
+                  </ul>
+                  <h6 *ngIf="locations.length == 0">No locations</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Meetup -->
+          <div class="col-md-{{ rightRow2Card2Width }}">
+            <div class="card bg-glass mb-1 mb-md-0">
+              <div class="card-body">
+                <div class="row">
+                  <h4>Meetups</h4>
+                </div>
+                <hr>
+                <div class="row">
+                  <ul *ngIf="meetups.length > 0">
+                    <li *ngFor="let meetup of meetups">
+                      <strong>{{meetup.name}}</strong>
+                      <br>
+                      {{meetup.date | date:'short'}} {{meetup.timezone.abbreviation}} (UDT {{meetup.timezone.offset}}) (Capacity: {{meetup.capacity}})
+                      <br>
+                      Created: {{meetup.created | date:'short'}} Updated: {{meetup.updated | date:'short'}}
+                      
+                    </li>
+                  </ul>
+                  <h6 *ngIf="meetups.length == 0">No meetups</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Right Column Row 2 -->
 
         <!-- <div class="card bg-glass mb-4">
           <div class="card-body">
