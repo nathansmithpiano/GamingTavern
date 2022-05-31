@@ -1,3 +1,4 @@
+import { ClanComponent } from './components/clan/clan.component';
 import { LogoutComponent } from "./components/auth/logout/logout.component";
 import { HomeComponent } from "./components/home/home.component";
 import { LoginComponent } from "./components/auth/login/login.component";
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: "login", pathMatch: "full", component: LoginComponent },
   { path: "logout", pathMatch: "full", component: LogoutComponent },
   { path: "profile", pathMatch: "full", component: UserProfileComponent },
+  { path: "clans", pathMatch: "full", component: ClanComponent}
 ];
 
 @NgModule({

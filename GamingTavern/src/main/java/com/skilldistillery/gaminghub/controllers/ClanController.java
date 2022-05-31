@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.gaminghub.entities.Alias;
 import com.skilldistillery.gaminghub.entities.Clan;
+import com.skilldistillery.gaminghub.repositories.ClanInformationDTO;
 import com.skilldistillery.gaminghub.services.AliasService;
 import com.skilldistillery.gaminghub.services.ClanService;
 
@@ -31,6 +32,11 @@ public class ClanController {
 
 	@Autowired
 	private AliasService aliasSvc;
+	
+	@GetMapping("clans/data")
+	public List<ClanInformationDTO> data(){
+		return clanSvc.getClanData();
+	}
 
 	@GetMapping("clans")
 	public List<Clan> index(Principal principal) {
@@ -45,6 +51,15 @@ public class ClanController {
 			resp.setStatus(404);
 		}
 		return clan;
+	}
+	
+	@GetMapping("name/{name}")
+	public String getClanByName(Principal principal, HttpServletResponse resp, @PathVariable String name) {
+		Clan clan = clanSvc.getClanByName(name);
+		if (clan == null) {
+			resp.setStatus(404);
+		}
+		return clan.getName();
 	}
 
 	@PostMapping("clans")

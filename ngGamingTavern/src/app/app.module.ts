@@ -36,6 +36,7 @@ import { LogoutComponent } from './components/auth/logout/logout.component';
 import { LoginModalComponent } from './components/auth/login/login-modal/login-modal.component';
 import { FormsModule } from '@angular/forms';
 import { SplashComponent } from './components/splash/splash.component';
+import { ClanComponent } from './components/clan/clan.component';
 
 @NgModule({
   declarations: [
@@ -48,9 +49,11 @@ import { SplashComponent } from './components/splash/splash.component';
     HomeComponent,
     LogoutComponent,
     LoginModalComponent,
-    SplashComponent
+    SplashComponent,
+    ClanComponent
 
   ],
+
   imports: [
     BrowserModule,
     FormsModule,
