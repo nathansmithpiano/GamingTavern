@@ -1,0 +1,61 @@
+<section>
+    <div class="container py-{{ topPadding }}">
+      <div class="row">
+        <!-- Left Column -->
+        <div class="col-lg-{{ leftColumnWidth }}">
+          <div class="card bg-glass mb-0">
+            <div class="card-body">
+              <!-- Row 1 -->
+              <div class="row">
+                <h3>{{ leftHeader }}</h3>
+                <div class="col">
+                  <ul>
+                    <li *ngFor="let data of meetups">
+                      <a
+                        (click)="
+                          selected = data;
+                          meetupName = data.name;
+                          meetupDate = data.date;
+                          meetupCapacity = data.capacity;
+                          meetupDescription = data.description;
+                          meetupCreated = data.created;
+                          meetupUpdated = data.updated;
+                          
+                        "
+                      >
+                        {{ data.name }} : {{ data.description }}</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Right Column -->
+        <div class="col-lg-{{ rightColumnWidth }}">
+          <!-- Primary Card -->
+          <div class="row">
+            <div class="col-12">
+              <div class="card bg-glass mb-2">
+                <div class="card-body">
+                  <div class="text-center text-muted">
+                    <!-- Row 1 -->
+                    <div class="row">
+                      <h3>{{ meetupName }}</h3>
+                      <p>{{ meetupDate | date:'short' }}</p>
+                      <p>Capacity: {{ meetupCapacity }}</p>
+                      <p>Description:{{ meetupDescription }}</p>
+                      <p>Created: {{ meetupCreated | date:'short'}}</p>
+                      <p>Updated: {{ meetupUpdated | date:'short'}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

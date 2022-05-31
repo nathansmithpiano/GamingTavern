@@ -37,6 +37,7 @@ public class AliasController {
 		}
 		return alias;
 	}
+
 	
 	@GetMapping("aliases/user/{username}")
 	public List<Alias> getbyUsername(Principal principal, HttpServletResponse resp, @PathVariable String username) {
@@ -48,3 +49,4 @@ public class AliasController {
 	}
 
 }
+

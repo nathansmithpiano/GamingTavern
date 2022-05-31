@@ -16,19 +16,13 @@ public class AliasServiceImpl implements AliasService {
 	@Autowired
 	private AliasRepository aliasRepo;
 
-	@Autowired
-	private UserRepository userRepo;
+
 
 	@Override
 	public List<Alias> index() {
 		return aliasRepo.findAll();
 	}
 
-	@Override
-	public List<Alias> getAliasesByUsername(String username) {
-		return aliasRepo.findByUserUsername(username);
-	}
-	
 	@Override
 	public Alias getAliasById(int aliasId) {
 		Optional<Alias> op = aliasRepo.findById(aliasId);
@@ -42,6 +36,11 @@ public class AliasServiceImpl implements AliasService {
 	@Override
 	public Alias createAlias(Alias alias) {
 		return aliasRepo.saveAndFlush(alias);
+	}
+
+	@Override
+	public List<Alias> getAliasesByUsername(String username) {
+		return aliasRepo.findByUserUsername(username);
 	}
 
 	@Override
@@ -71,6 +70,7 @@ public class AliasServiceImpl implements AliasService {
 			}
 		}
 		return false;
+
 	}
 
 }

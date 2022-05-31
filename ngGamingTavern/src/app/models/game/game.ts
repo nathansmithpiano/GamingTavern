@@ -1,3 +1,5 @@
+
+
 import { Rating } from "../rating/rating";
 
 export class Game {
@@ -30,4 +32,5 @@ export class Game {
     this.created = created;
     this.updated = updated;
   }
+
 }

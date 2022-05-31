@@ -1,6 +1,6 @@
 package com.skilldistillery.gaminghub.services;
 
-
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +12,14 @@ import com.skilldistillery.gaminghub.repositories.MeetupRepository;
 import com.skilldistillery.gaminghub.repositories.UserRepository;
 
 @Service
-public class MeetupServiceImpl implements MeetupService{
-	
+public class MeetupServiceImpl implements MeetupService {
+
 	@Autowired
 	private MeetupRepository meetRepo;
-	
+
 	@Autowired
 	private UserRepository userRepo;
-	
+
 	@Override
 	public Meetup getMeetupById(int meetupId) {
 		Optional<Meetup> op = meetRepo.findById(meetupId);
@@ -29,13 +29,11 @@ public class MeetupServiceImpl implements MeetupService{
 			return null;
 		}
 	}
-	
+
 	@Override
 	public Meetup createMeetup(Meetup meetup) {
 		return meetRepo.saveAndFlush(meetup);
 	}
-
-	
 
 	@Override
 	public Meetup updateMeetup(String location, Meetup meetup, int meetupId) {
@@ -45,7 +43,6 @@ public class MeetupServiceImpl implements MeetupService{
 			if (result.getLocations().equals(location)) {
 				meetup.setId(meetupId);
 				return meetRepo.saveAndFlush(meetup);
-
 			}
 		}
 
@@ -55,9 +52,9 @@ public class MeetupServiceImpl implements MeetupService{
 	@Override
 	public boolean deleteMeetup(String username, int meetupId) {
 		Optional<Meetup> op = meetRepo.findById(meetupId);
-		if(op.isPresent()) {
+		if (op.isPresent()) {
 			Meetup result = op.get();
-			if(result.getId() == (meetupId)) {
+			if (result.getId() == (meetupId)) {
 				meetRepo.deleteById(meetupId);
 				op = meetRepo.findById(meetupId);
 				return !op.isPresent();
@@ -66,5 +63,9 @@ public class MeetupServiceImpl implements MeetupService{
 		return false;
 	}
 
+	@Override
+	public List<Meetup> index() {
+		return meetRepo.findAll();
+	}
 
 }

@@ -1,15 +1,24 @@
 package com.skilldistillery.gaminghub.services;
 
+import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.skilldistillery.gaminghub.entities.Server;
 import com.skilldistillery.gaminghub.repositories.ServerRepository;
 
+@Service
 public class ServerServiceImpl implements ServerService {
-	
+
 	@Autowired
 	private ServerRepository serverRepo;
-	
+
+	@Override
+	public List<Server> index() {
+		return serverRepo.findAll();
+	}
 
 	@Override
 	public Server getServerById(int serverId) {
@@ -35,17 +44,17 @@ public class ServerServiceImpl implements ServerService {
 				server.setId(serverId);
 				return serverRepo.saveAndFlush(server);
 			}
-			}
+		}
 
-			return null;
+		return null;
 	}
 
 	@Override
 	public boolean deleteServer(String name, int serverId) {
 		Optional<Server> op = serverRepo.findById(serverId);
-		if(op.isPresent()) {
+		if (op.isPresent()) {
 			Server result = op.get();
-			if(result.getName().equals(name)) {
+			if (result.getName().equals(name)) {
 				serverRepo.deleteById(serverId);
 				op = serverRepo.findById(serverId);
 				return !op.isPresent();
@@ -54,6 +63,4 @@ public class ServerServiceImpl implements ServerService {
 		return false;
 	}
 
-	
-	
 }

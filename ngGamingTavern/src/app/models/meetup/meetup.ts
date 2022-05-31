@@ -1,6 +1,6 @@
 export class Meetup {
   id: number;
-  enabled: boolean;
+
   name: string;
   date: string;
   capacity: number;
@@ -10,16 +10,15 @@ export class Meetup {
 
   constructor(
     id: number = 0,
-    enabled: boolean,
     name: string = "",
     date: string = "",
     capacity: number = 0,
     description: string = "",
-    created: string,
-    updated: string
+    created: string = "",
+    updated: string = ""
   ) {
     this.id = id;
-    this.enabled = enabled;
+
     this.name = name;
     this.date = date;
     this.capacity = capacity;

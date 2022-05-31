@@ -39,30 +39,31 @@ public class Game {
 	private String imageUrl;
 
 	private String url;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "game")
 	private List<Server> servers;
-	
+
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "rating_id")
 	private Rating rating;
-	
+
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "meetup_game", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "meetup_id"))
 	private List<Meetup> meetups;
-	
+
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "alias_game", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "alias_id"))
 	private List<Alias> aliases;
-	
+
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "clan_game", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "clan_id"))
 	private List<Clan> clans;
-	
+
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "platform_game", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "platform_id"))
