@@ -12,6 +12,45 @@
       </div>
     </div> -->
 
+    <div class="row">
+      <div class="col-2">
+        <div class="card bg-glass mb-4">
+          <div class="card-body">
+            <h4>{{friends.length}} Friends</h4>
+            <hr>
+            <div class="row my-0">
+              <table class="table table-sm table-borderless table-hover table-striped">
+                <!-- <thead>
+                  <tr>
+                    <th>{{(friendsPage * 5) + 1}} - {{(friendsPage * 5) + 5}}</th>
+                  </tr>
+                </thead> -->
+                <tbody>
+                  <tr *ngFor="let friend of friendsDisp[friendsPage]">
+                    <td class="text-white">{{friend.username}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div *ngIf="friends.length > 5" class="d-grid gap-0 px-0 d-sm-flex justify-content-sm-center">
+                <button (click)="friendsPage = tPrev(friendsDisp, friendsPage)"
+                class="btn btn-outline-light btn-sm me-md-2" type="button">
+                <span><i class="fas fa-angles-left fa-sm me-1"></i>Prev</span>
+              </button>
+                <button (click)="friendsPage = tNext(friendsDisp, friendsPage)" class="btn btn-outline-light btn-sm "
+                type="button">
+                  <span>Next<i class="fas fa-angles-right fa-sm ms-1"></i></span>
+                </button>
+              </div>
+              <div class="text-center text-muted">
+                <small>Page {{friendsPage + 1}} of {{friendsDisp.length - 1}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <div class="row" *ngIf="!isLoading">
       <div class="col-lg-{{ leftCardWidth }}">
         <div class="card bg-glass mb-{{ topPadding }}">
@@ -260,7 +299,7 @@
                   <ul *ngIf="locations.length > 0">
                     <li *ngFor="let location of locations">
                       {{location.name}}
-                      <br *ngIf="location.name"/>
+                      <br *ngIf="location.name" />
                       {{location.street}}
                       <br>
                       {{location.city}}, {{location.state}} {{location.zip}} ({{location.country}})
@@ -286,10 +325,11 @@
                     <li *ngFor="let meetup of meetups">
                       <strong>{{meetup.name}}</strong>
                       <br>
-                      {{meetup.date | date:'short'}} {{meetup.timezone.abbreviation}} (UDT {{meetup.timezone.offset}}) (Capacity: {{meetup.capacity}})
+                      {{meetup.date | date:'short'}} {{meetup.timezone.abbreviation}} (UDT {{meetup.timezone.offset}})
+                      (Capacity: {{meetup.capacity}})
                       <br>
                       Created: {{meetup.created | date:'short'}} Updated: {{meetup.updated | date:'short'}}
-                      
+
                     </li>
                   </ul>
                   <h6 *ngIf="meetups.length == 0">No meetups</h6>
