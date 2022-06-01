@@ -1,30 +1,120 @@
-<div class="container py-3">
-  <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 310, "gutter": 15 }'>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item two">
-      <h6>Main</h6>
-    </div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">1</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">2</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">3</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">4</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">5</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">6</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">7</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item two {{gridItemClass}}">8</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">9</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">10</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">11</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item two {{gridItemClass}}">12</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item two {{gridItemClass}}">13</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item two {{gridItemClass}}">14</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item three {{gridItemClass}}">15</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">16</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">17</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item three {{gridItemClass}}">18</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item four {{gridItemClass}}">19</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">20</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">21</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">22</div>
-    <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">23</div>
-  </div>
-</div>
+<!-- Begin Section -->
+<section>
+  <!-- Begin Container -->
+  <div class="container py-3">
+
+    <!-- Begin Grid -->
+    <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 310, "gutter": 15 }'>
+
+      <!-- Breadcrumb -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item four {{gridItemClass}}">
+        <div class="card bg-glass">
+          <nav aria-label="breadcrumb" class="p-3">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item">Home</li>
+              <li class="breadcrumb-item">Chat</li>
+              <li class="breadcrumb-item active">end path in double braces</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <!-- End Breadcrumb -->
+
+      <!-- Begin Card -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item {{gridItemClass}}">
+        <div class="card bg-glass">
+          <div class="card-body">
+            <h4>ONE WIDE WITH BG</h4>
+            <hr>
+            <div>
+              contents
+            </div>
+          </div>
+        </div>
+      </div> <!-- End Card -->
+
+      <!-- Begin Card -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item two {{gridItemClass}}">
+        <div class="card bg-glass">
+          <div class="card-body">
+            <h4>TWO WIDE WITH BG</h4>
+            <hr>
+            <div>
+              contents
+            </div>
+          </div>
+        </div>
+      </div> <!-- End Card -->
+
+      <!-- Begin Card -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item three {{gridItemClass}}">
+        <div class="card bg-glass">
+          <div class="card-body">
+            <h4>THREE WIDE WITH BG</h4>
+            <hr>
+            <div>
+              contents
+            </div>
+          </div>
+        </div>
+      </div> <!-- End Card -->
+
+      <!-- Begin Card -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item four {{gridItemClass}}">
+        <div class="card bg-glass">
+          <div class="card-body">
+            <h4>FOUR WIDE WITH BG</h4>
+            <hr>
+            <div class="card bg-glass">
+
+            </div>
+          </div>
+        </div>
+      </div> <!-- End Card -->
+
+      <!-- Begin Card -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item {{gridItemClass}}">
+        <h4>ONE WIDE NO BG</h4>
+        <hr>
+        <div>
+          contents
+        </div>
+      </div> <!-- End Card -->
+
+      <!-- Begin Card -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item two {{gridItemClass}}">
+        <h4>TWO WIDE NO BG</h4>
+        <hr>
+        <div>
+          contents
+        </div>
+      </div> <!-- End Card -->
+
+      <!-- Begin Card -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item three {{gridItemClass}}">
+        <h4>THREE WIDE NO BG</h4>
+        <hr>
+        <div>
+          contents
+        </div>
+      </div> <!-- End Card -->
+
+      <!-- Begin Card -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item four {{gridItemClass}}">
+        <h4>FOUR WIDE NO BG</h4>
+        <hr>
+        <div>
+          contents
+        </div>
+      </div> <!-- End Card -->
+
+      <!-- Begin Image Card -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item {{gridItemClass}}">
+        <div class="card bg-glass">
+          <img class="{{customRounding}} "src="assets/art/tavern_room.png">
+        </div>
+      </div> <!-- End Image Card -->
+
+    </div> <!-- End Grid -->
+  </div> <!-- End Container -->
+</section> <!-- End Section -->
