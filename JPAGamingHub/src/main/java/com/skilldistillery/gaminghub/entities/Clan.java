@@ -1,5 +1,6 @@
 package com.skilldistillery.gaminghub.entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -27,7 +29,7 @@ public class Clan {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@JsonIgnore
+	@JsonIgnoreProperties({"User","clans","platforms", "games", "servers", "meetups"})
 	@ManyToOne
 	@JoinColumn(name = "creator_id")
 	private Alias creatorAlias;
@@ -41,9 +43,11 @@ public class Clan {
 	@Column(name = "image_url")
 	private String imageUrl;
 	
-	private LocalDateTime created;
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate created;
 	
-	private LocalDateTime updated;
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate updated;
 	
 	@JsonIgnore
 	@ManyToMany
@@ -113,19 +117,19 @@ public class Clan {
 		this.imageUrl = imageUrl;
 	}
 
-	public LocalDateTime getCreated() {
+	public LocalDate getCreated() {
 		return created;
 	}
 
-	public void setCreated(LocalDateTime created) {
+	public void setCreated(LocalDate created) {
 		this.created = created;
 	}
 
-	public LocalDateTime getUpdated() {
+	public LocalDate getUpdated() {
 		return updated;
 	}
 
-	public void setUpdated(LocalDateTime updated) {
+	public void setUpdated(LocalDate updated) {
 		this.updated = updated;
 	}
 

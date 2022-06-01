@@ -36,9 +36,16 @@ body {
   margin-bottom: 15px; // should match gutter in html div class="grid"
 }
 
+.grid-item.one-third {
+  width: 424px;
+}
+
+.grid-item.two-thirds {
+  width: 847px;
+}
+
 .grid-item.two {
   width: 635px;
-  // height: 400px;
 }
 
 .grid-item.three {

@@ -2,7 +2,6 @@ import { Meetup } from './../../models/meetup/meetup';
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { User } from "src/app/models/user/user";
-import { DatePipe } from "@angular/common";
 import { environment } from "src/environments/environment";
 import { catchError, Observable, throwError } from "rxjs";
 import { AuthService } from "../auth/auth.service";
@@ -14,7 +13,6 @@ import { Game } from "src/app/models/game/game";
 export class UserService {
   constructor(
     private http: HttpClient,
-    private datePipe: DatePipe,
     private auth: AuthService
   ) {}
 

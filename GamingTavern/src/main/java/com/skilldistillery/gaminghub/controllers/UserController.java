@@ -114,8 +114,14 @@ public class UserController {
 	}
 	
 	@PostMapping("users")
-	public User create(@RequestBody User user, Principal principal) {
-		return userSvc.createUser(user);
+	public User create(@RequestBody User user, HttpServletResponse resp, Principal principal) {
+		User newUser = userSvc.createUser(user);
+		if (newUser == null) {
+			resp.setStatus(409);
+			return null;
+		}
+		resp.setStatus(201);
+		return newUser;
 	}
 
 	@PutMapping("users/{userId}")

@@ -40,6 +40,7 @@ import { EquipmentComponent } from "./components/equipment/equipment.component";
 import { ServerComponent } from "./components/server/server.component";
 import { MeetupComponent } from "./components/meetup/meetup.component";
 import { GameComponent } from "./components/game/game.component";
+import { ChatComponent } from './components/chat/chat/chat.component';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { GameComponent } from "./components/game/game.component";
     ServerComponent,
     MeetupComponent,
     GameComponent,
+    ChatComponent,
   ],
 
   imports: [
