@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { GlobalComponent } from "src/app/global-component";
 import { AuthService } from "src/app/services/auth/auth.service";
 
 @Component({
@@ -15,7 +16,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   // add extra class styling here (i.e. mb-5, me-2, text-muted, bootstrap classes, etc)
-  gridItemClass: string = "";
+  gridItemClass = GlobalComponent.gridItemClass;
 
   ngOnInit(): void {}
 }
