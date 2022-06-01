@@ -1,3 +1,4 @@
+import { ChatComponent } from './components/chat/chat/chat.component';
 import { ClanComponent } from "./components/clan/clan.component";
 import { MeetupComponent } from "./components/meetup/meetup.component";
 import { ServerComponent } from "./components/server/server.component";
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: "server", pathMatch: "full", component: ServerComponent },
   { path: "meetup", pathMatch: "full", component: MeetupComponent },
   { path: "game", pathMatch: "full", component: GameComponent },
+  { path: "chat", pathMatch: "full", component: ChatComponent }
 ];
 
 @NgModule({

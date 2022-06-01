@@ -1,0 +1,21 @@
+.message-user {
+  background-color: #778295;
+}
+
+.message-other {
+  background-color: #304872;
+}
+
+.delete-icon {
+  color: rgb(136, 73, 73);
+}
+
+.delete-icon:hover {
+  color: red;
+}
+
+.user-message:hover {
+  .user-message > .delete-icon {
+    display: block;
+  }
+}
