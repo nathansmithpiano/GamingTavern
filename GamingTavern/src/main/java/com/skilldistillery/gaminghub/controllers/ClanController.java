@@ -23,7 +23,7 @@ import com.skilldistillery.gaminghub.services.AliasService;
 import com.skilldistillery.gaminghub.services.ClanService;
 
 @RestController
-@CrossOrigin({ "*", "http://localhost" })
+@CrossOrigin({ "*", "http://localhost:4200" })
 @RequestMapping("api")
 public class ClanController {
 

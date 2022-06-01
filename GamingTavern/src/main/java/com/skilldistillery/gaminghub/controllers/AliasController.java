@@ -16,7 +16,7 @@ import com.skilldistillery.gaminghub.entities.Alias;
 import com.skilldistillery.gaminghub.services.AliasService;
 
 @RestController
-@CrossOrigin({ "*", "http://localhost" })
+@CrossOrigin({ "*", "http://localhost:4200" })
 @RequestMapping("api")
 public class AliasController {
 

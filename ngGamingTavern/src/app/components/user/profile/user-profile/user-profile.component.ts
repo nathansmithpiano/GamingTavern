@@ -47,7 +47,6 @@ export class UserProfileComponent implements OnInit {
   isGamesLoaded: boolean = false;
   isLocationsLoaded: boolean = false;
   isMeetupsLoaded: boolean = false;
-  isUserUpdated: boolean = false;
 
   isLoaded = ():boolean => {
     if (this.isUserLoaded 
@@ -56,8 +55,7 @@ export class UserProfileComponent implements OnInit {
       && this.isBlockedUsersLoaded
       && this.isGamesLoaded
       && this.isLocationsLoaded
-      && this.isMeetupsLoaded
-      && this.isUserUpdated) {
+      && this.isMeetupsLoaded) {
         return true;
       } else {
         return false;
@@ -308,8 +306,8 @@ export class UserProfileComponent implements OnInit {
     }
 
     getUpdateUser(user: User) {
-      user.id = this.user.id;
-      this.userService.updateUser(this.user).subscribe(
+      // user.id = this.user.id;
+      this.userService.updateUser(user).subscribe(
         (data) => {
           console.log('user updated successfully');
           this.user = data;
@@ -317,7 +315,7 @@ export class UserProfileComponent implements OnInit {
         },
         (err)=> {
           console.log(
-            "UserProfileComponent getMeetupsByUsername(): Observable got an error " +
+            "UserProfileComponent getUpdateUser(): Observable got an error " +
               err
           );
         }
