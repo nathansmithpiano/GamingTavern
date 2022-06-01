@@ -1,0 +1,131 @@
+<section>
+  <!-- Container -->
+  <div class="container py-5">
+    <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 310, "gutter": 15 }'>
+
+      <!-- Breadcrumb -->
+      <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item four">
+        <nav aria-label="breadcrumb" class="bg-glass shadow-4-strong rounded-{{rounding}} p-3">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">Home</li>
+            <li class="breadcrumb-item">Chat</li>
+            <li class="breadcrumb-item active">{{user.username}}</li>
+          </ol>
+        </nav>
+      </div>
+      <!-- End Breadcrumb -->
+
+      <!-- First Card - clickable list of chats -->
+      <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item one-third {{gridItemClass}}">
+        <div class="card bg-glass">
+          <div class="card-body">
+            <h5 class="font-weight-bold mb-3 text-center text-lg-start">My Chats</h5>
+
+            <!-- Chat List -->
+            <ul class="list-unstyled mb-0">
+              <div *ngFor="let chat of chats">
+                <div [ngClass]="chat && selectedChat && chat.id === selectedChat.id ? 'border border-light' : ''">
+                  <li class="p-2 border-bottom chat-selected">
+                    <a (click)="selectChat(chat)" class="d-flex justify-content-between">
+                      <div class="d-flex flex-row">
+                        <img src="{{chat.imageUrl}}" alt="avatar"
+                          class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
+                        <div class="pt-1">
+                          <p class="fw-bold text-muted mb-0">{{chat.title}}</p>
+                          <p class="small text-muted">{{chat.description}}</p>
+                        </div>
+                      </div>
+                      <div class="pt-1">
+                        <p class="small text-muted mb-1">{{chat.updated | date: 'shortDate'}}</p>
+                        <p class="small text-muted mb-1">{{chat.allUsers.length}} users</p>
+                      </div>
+                    </a>
+                  </li>
+                </div>
+              </div>
+            </ul> <!-- End Chat List -->
+          </div>
+        </div>
+      </div> <!-- End First Card -->
+
+      <!-- Second Card - chat -->
+      <div *ngIf="selectedChat" class="grid-item two-thirds {{gridItemClass}}">
+        <div class="card bg-glass">
+          <div class="card-body" mdbRipple rippleColor="hsl(0, 0%, 75%)">
+            <!-- Header -->
+            <div class="{{ leftSummaryClass }}">
+              <h4>{{selectedChat.title}}</h4>
+              <p class="small text-muted mb-1">{{selectedChat.description}}</p>
+            </div>
+
+            <!-- Display each message -->
+            <div *ngFor="let message of selectedChat.messages">
+
+              <!-- From User -->
+              <div *ngIf="message.fromUser.username == user.username">
+                <div class="user-message d-flex flex-row justify-content-start">
+                  <!-- fromUser's image if imageUrl not empty -->
+                  <img *ngIf="message.fromUser.imageUrl != null" src="{{message.fromUser.imageUrl}}"
+                    class="rounded-circle d-flex align-self-start me-3 shadow-1-strong"
+                    style="width: 45px; height: 100%;">
+                  <!-- default image if imageUrl is empty -->
+                  <img *ngIf="message.fromUser.imageUrl === null" src="/assets/art/avatar.jpeg"
+                    class="rounded-circle d-flex align-self-start me-3 shadow-1-strong"
+                    style="width: 45px; height: 100%;">
+                  <!-- Message -->
+                  <div>
+                    <p class="small p-2 ms-3 mb-1 rounded-3 message-user">{{message.contents}}</p>
+                    <p class="small ms-3 mb-0 rounded-3 text-muted">{{message.created | date: 'short'}}</p>
+                    <p class="small ms-3 mb-0 rounded-3 text-center text-muted">{{message.fromUser.username}}</p>
+                  </div>
+                  <div class="delete-icon my-2 ms-1">
+                    <i (click)="deleteMessage(message)" class="fas fa-delete-left"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- From Other -->
+              <div *ngIf="message.fromUser.username !== user.username">
+                <div class="d-flex flex-row justify-content-end mb-4 pt-1">
+                  <!-- Message -->
+                  <div>
+                    <p class="small p-2 me-3 mb-1 text-white rounded-3 message-other">{{message.contents}}</p>
+                    <p class="small me-3 mb-0 rounded-3 text-muted d-flex justify-content-end">{{message.created | date:
+                      'short'}}</p>
+                    <p class="small me-3 mb-0 rounded-3 text-muted d-flex justify-content-end">
+                      {{message.fromUser.username}}</p>
+                  </div>
+                  <!-- fromUser's image if imageUrl not empty -->
+                  <img *ngIf="message.fromUser.imageUrl" src="{{message.fromUser.imageUrl}}"
+                    class="rounded-circle d-flex align-self-start me-3 shadow-1-strong"
+                    style="width: 45px; height: 100%;">
+                  <!-- default image if imageUrl is empty -->
+                  <img *ngIf="!message.fromUser.imageUrl" src="/src/assets/art/avatar.jpeg"
+                    class="rounded-circle d-flex align-self-start me-3 shadow-1-strong"
+                    style="width: 45px; height: 100%;">
+                </div>
+              </div> <!-- End From Other -->
+            </div> <!-- End Display each message -->
+            <hr>
+            <!-- New message input and button -->
+            <div class="row my-6">
+              <!-- Input -->
+              <div class="md-form">
+                <form>
+                  <textarea name='newMessage' [(ngModel)]="newMessage.contents" id="messageTextArea"
+                    class="md-textarea form-control" rows="3"></textarea>
+                </form>
+              </div>
+              <!-- Button -->
+              <div class="float-end">
+                <button (click)="sendMessage()" type="button" class="btn btn my-2 btn-outline-light btn-lg float-end"
+                  style="width: 100px">Send</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> <!-- End Second Card -->
+
+
+    </div>
+  </div> <!-- End Container -->
+</section>

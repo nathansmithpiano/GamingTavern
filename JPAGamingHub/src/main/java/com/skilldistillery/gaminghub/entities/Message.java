@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "message")
 public class Message {
@@ -28,18 +30,22 @@ public class Message {
 
 	private String contents;
 	private LocalDateTime created;
-
+	
+	@JsonIgnoreProperties({"replies"})
 	@OneToOne
 	@JoinColumn(name = "replying_to_message_id")
 	private Message replyingToMessage;
-
+	
+	@JsonIgnoreProperties({"chat"})
 	@OneToMany(mappedBy = "replyingToMessage")
 	private List<Message> replies;
-
+	
+	@JsonIgnoreProperties({"messages"})
 	@ManyToOne
 	@JoinColumn(name = "chat_user_chat_id")
 	private Chat chat;
-
+	
+	@JsonIgnoreProperties({"chats", "createdChats", "friends", "aliases", "blockedUsers"})
 	@OneToOne
 	@JoinColumn(name = "chat_user_user_id")
 	private User fromUser;
@@ -79,7 +85,7 @@ public class Message {
 	public void setFromUser(User fromUser) {
 		this.fromUser = fromUser;
 	}
-
+	
 	public Chat getChat() {
 		return chat;
 	}
@@ -87,7 +93,7 @@ public class Message {
 	public void setChat(Chat chat) {
 		this.chat = chat;
 	}
-
+	
 	public Message getReplyingToMessage() {
 		return replyingToMessage;
 	}
@@ -95,7 +101,7 @@ public class Message {
 	public void setReplyingToMessage(Message replyingToMessage) {
 		this.replyingToMessage = replyingToMessage;
 	}
-
+	
 	public List<Message> getReplies() {
 		return replies;
 	}
@@ -122,10 +128,6 @@ public class Message {
 			}
 		}
 	}
-	
-//	public User getToUser() {
-//		return this.replyingToMessage.getFromUser();
-//	}
 
 	@Override
 	public int hashCode() {

@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "chat")
@@ -26,7 +26,8 @@ public class Chat {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
+//	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "created_by_user_id")
 	private User creatingUser;
@@ -40,13 +41,16 @@ public class Chat {
 
 	private LocalDateTime created;
 	private LocalDateTime updated;
-	@JsonIgnore
+
+//	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "chat_user", joinColumns = @JoinColumn(name = "chat_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> allUsers;
 
+	@JsonIgnoreProperties({"chat"})
 	@OneToMany
-	@JoinTable(name = "chat_user", joinColumns = @JoinColumn(name = "chat_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+//	@JoinTable(name = "chat_user", joinColumns = @JoinColumn(name = "chat_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	@JoinColumn(name = "chat_user_chat_id")
 	private List<Message> messages;
 
 	public Chat() {
@@ -124,7 +128,15 @@ public class Chat {
 	public void setAllUsers(List<User> allUsers) {
 		this.allUsers = allUsers;
 	}
-	
+
+//	public List<String> getAllUsersnames() {
+//		List<String> usernames = new ArrayList<>();
+//		for (User user : allUsers) {
+//			usernames.add(user.getUsername());
+//		}
+//		return usernames;
+//	}
+
 	public void addUser(User user) {
 		if (this.allUsers == null) {
 			this.allUsers = new ArrayList<>();
@@ -134,7 +146,7 @@ public class Chat {
 			user.addChat(this);
 		}
 	}
-	
+
 	public void removeUser(User user) {
 		if (user != null) {
 			this.allUsers.remove(user);
