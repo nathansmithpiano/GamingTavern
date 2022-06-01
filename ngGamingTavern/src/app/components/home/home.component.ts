@@ -15,8 +15,10 @@ export class HomeComponent implements OnInit {
     private auth: AuthService
   ) {}
 
-  // add extra class styling here (i.e. mb-5, me-2, text-muted, bootstrap classes, etc)
+  // global styling - make sure to add to top of page:
+  // import { GlobalComponent } from "src/app/global-component";
   gridItemClass = GlobalComponent.gridItemClass;
+  rippleColor = GlobalComponent.rippleColor;
 
   ngOnInit(): void {}
 }

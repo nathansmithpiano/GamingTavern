@@ -10,4 +10,5 @@ export class AppComponent {
   title = "Gaming Tavern";
 
   gridItemClass = GlobalComponent.gridItemClass;
+  rippleColor = GlobalComponent.rippleColor;
 }
