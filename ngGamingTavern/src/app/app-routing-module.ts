@@ -1,3 +1,4 @@
+import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from "./components/auth/register/register.component";
 import { SplashComponent } from "./components/splash/splash.component";
 import { ChatComponent } from "./components/chat/chat/chat.component";
@@ -6,7 +7,6 @@ import { MeetupComponent } from "./components/meetup/meetup.component";
 import { ServerComponent } from "./components/server/server.component";
 import { EquipmentComponent } from "./components/equipment/equipment.component";
 import { LogoutComponent } from "./components/auth/logout/logout.component";
-import { HomeComponent } from "./components/home/home.component";
 import { LoginComponent } from "./components/auth/login/login.component";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
@@ -14,7 +14,9 @@ import { UserProfileComponent } from "./components/user/profile/user-profile/use
 import { GameComponent } from "./components/game/game.component";
 
 const routes: Routes = [
-  { path: "", pathMatch: "full", component: HomeComponent },
+  
+  { path: "", pathMatch: "full", component: SplashComponent },
+  { path: "home", pathMatch: "full", component: HomeComponent},
   { path: "users", pathMatch: "full", component: UserProfileComponent },
   { path: "users/:username", pathMatch: "full", component: UserProfileComponent },
   { path: "login", pathMatch: "full", component: LoginComponent },
