@@ -22,7 +22,7 @@ import com.skilldistillery.gaminghub.services.GameService;
 
 
 @RestController
-@CrossOrigin({ "*", "http://localhost" })
+@CrossOrigin({ "*", "http://localhost:4200" })
 @RequestMapping("api")
 public class GameController {
 

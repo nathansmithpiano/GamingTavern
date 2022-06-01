@@ -1,13 +1,13 @@
-import { Meetup } from "./../../../../models/meetup/meetup";
-import { AliasService } from "./../../../../services/alias/alias.service";
 import { DatePipe } from "@angular/common";
-import { AuthService } from "./../../../../services/auth/auth.service";
-import { UserService } from "./../../../../services/user/user.service";
 import { Component, OnInit } from "@angular/core";
-import { User } from "src/app/models/user/user";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Alias } from "src/app/models/alias/alias";
 import { Game } from "src/app/models/game/game";
+import { User } from "src/app/models/user/user";
+import { Meetup } from "./../../../../models/meetup/meetup";
+import { AliasService } from "./../../../../services/alias/alias.service";
+import { AuthService } from "./../../../../services/auth/auth.service";
+import { UserService } from "./../../../../services/user/user.service";
 
 @Component({
   selector: "app-user-profile",
@@ -36,6 +36,7 @@ export class UserProfileComponent implements OnInit {
   locations: Location[] = [];
   meetups: Meetup[] = [];
   blockedUsers: User[] = [];
+  updateUser: User = new User();
 
   // loaders
   isLoading: boolean = false;
@@ -302,5 +303,24 @@ export class UserProfileComponent implements OnInit {
         this.isMeetupsLoaded = true;
       }
     );
-  }
+    }
+
+    getUpdateUser(user: User) {
+      // user.id = this.user.id;
+      this.userService.updateUser(user).subscribe(
+        (data) => {
+          console.log('user updated successfully');
+          this.user = data;
+          this.isUserLoaded = true;
+        },
+        (err)=> {
+          console.log(
+            "UserProfileComponent getUpdateUser(): Observable got an error " +
+              err
+          );
+        }
+      );
+      }
 }
+
+

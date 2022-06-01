@@ -16,8 +16,8 @@ export class UserService {
     private auth: AuthService
   ) {}
 
-  private url = environment.baseUrl + "api/";
-  private url2 = this.url + "users/";
+  private url = environment.baseUrl + "api";
+  private url2 = this.url + "/users/";
   private users: User[] = [];
 
   getHttpOptions() {
@@ -114,5 +114,43 @@ export class UserService {
           return throwError("KABOOM");
         })
       );
+  }
+
+  createUser(newUser: User){
+    newUser.completed = false;
+    return this.http.post<User>(this.url, newUser).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('KABOOM');
+      })
+    );
+
+  }
+
+  updateUser(updateUser: User): Observable<User> {
+    if(updateUser.completed) {
+      let tempDate = new Date(Date.now()).toISOString();
+      if(tempDate !== null){
+        updateUser.completeDate = tempDate;
+      }
+    } else {
+      updateUser.completeDate = '';
+    }
+    const httpOptions = {
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: 'Basic ' + this.auth.getCredentials(),
+      },
+    };
+    return this.http.put<User>(this.url2 + updateUser.id, updateUser, {
+      headers: { Authorization: "Basic " + this.auth.getCredentials() }
+    })
+    .pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('KABOOM');
+      })
+    );
+  
   }
 }

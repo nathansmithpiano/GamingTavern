@@ -16,7 +16,7 @@ import com.skilldistillery.gaminghub.entities.Equipment;
 import com.skilldistillery.gaminghub.services.EquipmentService;
 
 @RestController
-@CrossOrigin({ "*", "http://localhost" })
+@CrossOrigin({ "*", "http://localhost:4200" })
 @RequestMapping("api")
 public class EquipmentController {
 
