@@ -1,0 +1,245 @@
+id,abbreviation,offset,locale,description
+1,A,1,Military,Alpha Time Zone
+2,ACDT,10.5,Australia,"Australian Central Daylight Time, CDT - Central Daylight Time, CDST - Central Daylight Savings Time"
+3,ACST,9,Australia,"Australian Central Standard Time, CST - Central Standard Time"
+4,ACT,-5,South America,Acre Time
+5,ACT,9.5,Australia,Australian Central Time
+6,ACWST,8.75,Australia,Australian Central Western Standard Time
+7,ADT,4,Asia,"Arabia Daylight Time, AST - Arabia Summer Time"
+8,ADT,-3,"North America, Atlantic","Atlantic Daylight Time, ADST - Atlantic Daylight Saving Time, AST - Atlantic Summer Time, HAA - Heure Avancee de l'Atlantique (French)"
+9,AEDT,11,Australia,"Australian Eastern Daylight Time, EDT - Eastern Daylight Time, EDST - Eastern Daylight Saving Time"
+10,AEST,10,Australia,"Australian Eastern Standard Time, EST - Eastern Standard Time, AET - Australian Eastern Time"
+11,AET,10,Australia,Australian Eastern Time
+12,AFT,4.5,Asia,Afghanistan Time
+13,AKDT,-8,North America,"Alaska Daylight Time, ADST - Alaska Daylight Saving Time"
+14,AKST,-9,North America,"Alaska Standard Time, AT - Alaska Time"
+15,ALMT,6,Asia,Alma-Ata Time
+16,AMST,-3,South America,Amazon Summer Time
+17,AMST,5,Asia,"Armenia Summer Time, AMDT - Armenia Daylight Time"
+18,AMT,-4,South America,Amazon Time
+19,AMT,4,Asia,Armenia Time
+20,ANAST,12,Asia,Anadyr Summer Time
+21,ANAT,12,Asia,Anadyr Time
+22,AQTT,5,Asia,Aqtobe Time
+23,ART,-3,"Antarctica, South America",Argentina Time
+24,AST,3,Asia,"Arabia Standard Time, AST - Arabic Standard Time, AST - Al Manamah Standard Time"
+25,AST,-4,"North America, Atlantic, Caribbean","Atlantic Standard Time, AT - Atlantic Time, AST - Tiempo Estandar del Atlantico (Spanish), HNA - Heure Normale de l'Atlantique (French)"
+26,AT,-4,"North America, Atlantic",Atlantic Time
+27,AWDT,9,Australia,"Australian Western Daylight Time, WDT - Western Daylight Time, WST - Western Summer Time"
+28,AWST,8,Australia,"Australian Western Standard Time, WST - Western Standard Time, WAT - Western Australia Time"
+29,AZOST,0,Atlantic,"Azores Summer Time, AZODT - Azores Daylight Time"
+30,AZOT,-1,Atlantic,"Azores Time, AZOST - Azores Standard Time"
+31,AZST,5,Asia,Azerbaijan Summer Time
+32,AZT,4,Asia,Azerbaijan Time
+33,AoE,-12,Pacific,Anywhere on Earth
+34,B,2,Military,Bravo Time Zone
+35,BNT,8,Asia,"Brunei Darussalam Time, BDT - Brunei Time"
+36,BOT,-4,South America,Bolivia Time
+37,BRST,-2,South America,"Brasilia Summer Time, BST - Brazil Summer Time, BST - Brazilian Summer Time"
+38,BRT,-3,South America,"Brasilia Time, BT - Brazil Time, BT - Brazilian Time"
+39,BST,6,Asia,Bangladesh Standard Time
+40,BST,11,Pacific,Bougainville Standard Time
+41,BST,1,Europe,"British Summer Time, BDT - British Daylight Time, BDST - British Daylight Saving Time"
+42,BTT,6,Asia,Bhutan Time
+43,C,3,Military,Charlie Time Zone
+44,CAST,8,Antarctica,Casey Time
+45,CAT,2,Africa,Central Africa Time
+46,CCT,6.5,Indian Ocean,Cocos Islands Time
+47,CDT,-5,North America,"Central Daylight Time, CDST - Central Daylight Saving Time, NACDT - North American Central Daylight Time, HAC - Heure Avancee du Centre (French)"
+48,CDT,-4,Caribbean,Cuba Daylight Time
+49,CEST,2,"Europe, Antarctica","Central European Summer Time, CEDT - Central European Daylight Time, ECST - European Central Summer Time, MESZ - Mitteleuropaische Sommerzeit (German)"
+50,CET,1,"Europe, Africa","Central European Time, ECT - European Central Time, CET - Central Europe Time, MEZ - Mitteleuropaische Zeit (German)"
+51,CHADT,13.75,Pacific,"Chatham Island Daylight Time, CDT - Chatham Daylight Time"
+52,CHAST,12.75,Pacific,Chatham Island Standard Time
+53,CHOST,9,Asia,"Choibalsan Summer Time, CHODT - Choibalsan Daylight Time, CHODST - Choibalsan Daylight Saving Time"
+54,CHOT,8,Asia,Choibalsan Time
+55,CHUT,10,Pacific,Chuuk Time
+56,CIDST,-4,Caribbean,Cayman Islands Daylight Saving Time
+57,CIST,-5,Caribbean,"Cayman Islands Standard Time, CIT - Cayman Islands Time"
+58,CKT,-10,Pacific,Cook Island Time
+59,CLST,-3,"South America, Antarctica","Chile Summer Time, CLDT - Chile Daylight Time"
+60,CLT,-4,"South America, Antarctica","Chile Standard Time, CT - Chile Time, CLST - Chile Standard Time"
+61,COT,-5,South America,Colombia Time
+62,CST,-6,"North America, Central America","Central Standard Time, CT - Central Time, NACST - North American Central Standard Time, CST - Tiempo Central Estandar (Spanish), HNC - Heure Normale du Centre (French)"
+63,CST,8,Asia,China Standard Time
+64,CST,-5,Caribbean,Cuba Standard Time
+65,CT,-6,North America,Central Time
+66,CVT,-1,Africa,Cape Verde Time
+67,CXT,7,Australia,Christmas Island Time
+68,ChST,10,Pacific,"Chamorro Standard Time, GST - Guam Standard Time"
+69,D,4,Military,Delta Time Zone
+70,DAVT,7,Antarctica,Davis Time
+71,DDUT,10,Antarctica,Dumont-d'Urville Time
+72,E,5,Military,Echo Time Zone
+73,EASST,-5,Pacific,"Easter Island Summer Time, EADT - Easter Island Daylight Time"
+74,EAST,-6,Pacific,Easter Island Standard Time
+75,EAT,3,"Africa, Indian Ocean","Eastern Africa Time, EAT - East Africa Time"
+76,ECT,-5,South America,Ecuador Time
+77,EDT,-4,"North America, Caribbean","Eastern Daylight Time, EDST - Eastern Daylight Savings Time, NAEDT - North American Eastern Daylight Time, HAE - Heure Avancee de l'Est (French), EDT - Tiempo de verano del Este (Spanish)"
+78,EEST,3,"Europe, Asia","Eastern European Summer Time, EEDT - Eastern European Daylight Time, OESZ - Osteuropaische Sommerzeit (German)"
+79,EET,2,"Europe, Asia, Africa","Eastern European Time, OEZ - Osteuropaische Zeit (German)"
+80,EGST,0,North America,"Eastern Greenland Summer Time, EGST - East Greenland Summer Time"
+81,EGT,-1,North America,"East Greenland Time, EGT - Eastern Greenland Time"
+82,EST,-5,"North America, Caribbean, Central America","Eastern Standard Time, ET - Eastern Time, NAEST - North American Eastern Standard Time, ET - Tiempo del Este (Spanish), HNE - Heure Normale de l'Est (French)"
+83,ET,-5,"North America, Caribbean",Eastern Time
+84,F,6,Military,Foxtrot Time Zone
+85,FET,3,Europe,Further-Eastern European Time
+86,FJST,13,Pacific,"Fiji Summer Time, FJDT - Fiji Daylight Time"
+87,FJT,12,Pacific,Fiji Time
+88,FKST,-3,South America,"Falkland Islands Summer Time, FKDT - Falkland Island Daylight Time"
+89,FKT,-4,South America,"Falkland Island Time, FKST - Falkland Island Standard Time"
+90,FNT,-2,South America,Fernando de Noronha Time
+91,G,7,Military,Golf Time Zone
+92,GALT,-6,Pacific,Galapagos Time
+93,GAMT,-9,Pacific,"Gambier Time, GAMT - Gambier Islands Time"
+94,GET,4,"Asia, Europe",Georgia Standard Time
+95,GFT,-3,South America,French Guiana Time
+96,GILT,12,Pacific,Gilbert Island Time
+97,GMT,0,"Europe, Africa, North America, Antarctica","Greenwich Mean Time, UTC - Coordinated Universal Time, GT - Greenwich Time"
+98,GST,4,Asia,Gulf Standard Time
+99,GST,-2,South America,South Georgia Time
+100,GYT,-4,South America,Guyana Time
+101,H,8,Military,Hotel Time Zone
+102,HDT,-9,North America,"Hawaii-Aleutian Daylight Time, HADT - Hawaii Daylight Time"
+103,HKT,8,Asia,Hong Kong Time
+104,HOVST,8,Asia,"Hovd Summer Time, HOVDT - Hovd Daylight Time, HOVDST - Hovd Daylight Saving Time"
+105,HOVT,7,Asia,Hovd Time
+106,HST,-10,"North America, Pacific","Hawaii Standard Time, HAST - Hawaii-Aleutian Standard Time"
+107,I,9,Military,India Time Zone
+108,ICT,7,Asia,Indochina Time
+109,IDT,3,Asia,Israel Daylight Time
+110,IOT,6,Indian Ocean,Indian Chagos Time
+111,IRDT,4.5,Asia,"Iran Daylight Time, IRST - Iran Summer Time, IDT - Iran Daylight Time"
+112,IRKST,9,Asia,Irkutsk Summer Time
+113,IRKT,8,Asia,Irkutsk Time
+114,IRST,3.5,Asia,"Iran Standard Time, IT - Iran Time"
+115,IST,5.5,Asia,"India Standard Time, IT - India Time, IST - Indian Standard Time"
+116,IST,1,Europe,"Irish Standard Time, IST - Irish Summer Time"
+117,IST,2,Asia,Israel Standard Time
+118,JST,9,Asia,Japan Standard Time
+119,K,10,Military,Kilo Time Zone
+120,KGT,6,Asia,Kyrgyzstan Time
+121,KOST,11,Pacific,Kosrae Time
+122,KRAST,8,Asia,Krasnoyarsk Summer Time
+123,KRAT,7,Asia,Krasnoyarsk Time
+124,KST,9,Asia,"Korea Standard Time, KST - Korean Standard Time, KT - Korea Time"
+125,KUYT,4,Europe,"Kuybyshev Time, SAMST - Samara Summer Time"
+126,L,11,Military,Lima Time Zone
+127,LHDT,11,Australia,Lord Howe Daylight Time
+128,LHST,10.5,Australia,Lord Howe Standard Time
+129,LINT,14,Pacific,Line Islands Time
+130,M,12,Military,Mike Time Zone
+131,MAGST,12,Asia,"Magadan Summer Time, MAGST - Magadan Island Summer Time"
+132,MAGT,11,Asia,"Magadan Time, MAGT - Magadan Island Time"
+133,MART,-9.5,Pacific,Marquesas Time
+134,MAWT,5,Antarctica,Mawson Time
+135,MDT,-6,North America,"Mountain Daylight Time, MDST - Mountain Daylight Saving Time, NAMDT - North American Mountain Daylight Time, HAR - Heure Avancee des Rocheuses (French)"
+136,MHT,12,Pacific,Marshall Islands Time
+137,MMT,6.5,Asia,Myanmar Time
+138,MSD,4,Europe,"Moscow Daylight Time, Moscow Summer Time"
+139,MSK,3,"Europe, Asia","Moscow Standard Time, MCK - Moscow Time"
+140,MST,-7,North America,"Mountain Standard Time, MT - Mountain Time, NAMST - North American Mountain Standard Time, HNR - Heure Normale des Rocheuses (French)"
+141,MT,-7,North America,Mountain Time
+142,MUT,4,Africa,Mauritius Time
+143,MVT,5,Asia,Maldives Time
+144,MYT,8,Asia,"Malaysia Time, MST - Malaysian Standard Time"
+145,N,-1,Military,November Time Zone
+146,NCT,11,Pacific,New Caledonia Time
+147,NDT,-2.5,North America,"Newfoundland Daylight Time, HAT - Heure Avancee de Terre-Neuve (French)"
+148,NFDT,12,Australia,"Norfolk Daylight Time, NFDT - Norfolk Island Daylight Time"
+149,NFT,11,Australia,"Norfolk Time, NFT - Norfolk Island Time"
+150,NOVST,7,Asia,"Novosibirsk Summer Time, OMSST - Omsk Summer Time"
+151,NOVT,7,Asia,"Novosibirsk Time, OMST - Omsk Standard Time"
+152,NPT,5.75,Asia,Nepal Time
+153,NRT,12,Pacific,Nauru Time
+154,NST,3.5,North America,"Newfoundland Standard Time, HNT - Heure Normale de Terre-Neuve (French)"
+155,NUT,-11,Pacific,Niue Time
+156,NZDT,13,"Pacific, Antarctica",New Zealand Daylight Time
+157,NZST,12,"Pacific, Antarctica",New Zealand Standard Time
+158,O,-2,Military,Oscar Time Zone
+159,OMSST,7,Asia,"Omsk Summer Time, NOVST - Novosibirsk Summer Time"
+160,OMST,6,Asia,"Omsk Standard Time, OMST - Omsk Time, NOVT - Novosibirsk Time"
+161,ORAT,5,Asia,Oral Time
+162,P,-3,Military,Papa Time Zone
+163,PDT,-7,North America,"Pacific Daylight Time, PDST - Pacific Daylight Saving Time, NAPDT - North American Pacific Daylight Time, HAP - Heure Avancee du Pacifique (French)"
+164,PET,-5,South America,Peru Time
+165,PETST,12,Asia,Kamchatka Summer Time
+166,PETT,12,Asia,"Kamchatka Time, PETT - Petropavlovsk-Kamchatski Time"
+167,PGT,10,Pacific,Papua New Guinea Time
+168,PHOT,13,Pacific,Phoenix Island Time
+169,PHT,8,Asia,"Philippine Time, PST - Philippine Standard Time"
+170,PKT,5,Asia,"Pakistan Standard Time, PKT - Pakistan Time"
+171,PMDT,-2,North America,Pierre & Miquelon Daylight Time
+172,PMST,-3,North America,Pierre & Miquelon Standard Time
+173,PONT,11,Pacific,Pohnpei Standard Time
+174,PST,-8,North America,"Pacific Standard Time, PT - Pacific Time, NAPST - North American Pacific Standard Time, PT - Tiempo del Pacifico (Spanish), HNP - Heure Normale du Pacifique (French)"
+175,PST,-8,Pacific,Pitcairn Standard Time
+176,PT,-8,North America,Pacific Time
+177,PWT,9,Pacific,Palau Time
+178,PYST,-3,South America,Paraguay Summer Time
+179,PYT,-4,South America,Paraguay Time
+180,PYT,8.5,Asia,"Pyongyang Time, PYST - Pyongyang Standard Time"
+181,Q,-4,Military,Quebec Time Zone
+182,QYZT,6,Asia,Qyzylorda Time
+183,R,-5,Military,Romeo Time Zone
+184,RET,4,Africa,Reunion Time
+185,ROTT,-3,Antarctica,Rothera Time
+186,S,-6,Military,Sierra Time Zone
+187,SAKT,11,Asia,Sakhalin Time
+188,SAMT,4,Europe,"Samara Time, SAMT - Samara Standard Time"
+189,SAST,2,Africa,"South Africa Standard Time, SAST - South African Standard Time"
+190,SBT,11,Pacific,"Solomon Islands Time, SBT - Solomon Island Time"
+191,SCT,4,Africa,Seychelles Time
+192,SGT,8,Asia,"Singapore Time, SST - Singapore Standard Time"
+193,SRET,11,Asia,Srednekolymsk Time
+194,SRT,-3,South America,Suriname Time
+195,SST,-11,Pacific,Samoa Standard Time
+196,SYOT,3,Antarctica,Syowa Time
+197,T,-7,Military,Tango Time Zone
+198,TAHT,-10,Pacific,Tahiti Time
+199,TFT,5,Indian Ocean,"French Southern and Antarctic Time, KIT - Kerguelen (Islands) Time"
+200,TJT,5,Asia,Tajikistan Time
+201,TKT,13,Pacific,Tokelau Time
+202,TLT,9,Asia,East Timor Time
+203,TMT,5,Asia,Turkmenistan Time
+204,TOST,14,Pacific,Tonga Summer Time
+205,TOT,13,Pacific,Tonga Time
+206,TRT,3,"Asia, Europe",Turkey Time
+207,TVT,12,Pacific,Tuvalu Time
+208,U,-8,Military,Uniform Time Zone
+209,ULAST,9,Asia,"Ulaanbaatar Summer Time, ULAST - Ulan Bator Summer Time"
+210,ULAT,8,Asia,"Ulaanbaatar Time, ULAT - Ulan Bator Time"
+211,UTC,0,Worldwide,Coordinated Universal Time
+212,UYST,-2,South America,Uruguay Summer Time
+213,UYT,-3,South America,Uruguay Time
+214,UZT,5,Asia,Uzbekistan Time
+215,V,-9,Military,Victor Time Zone
+216,VET,-4,South America,"Venezuelan Standard Time, HLV - Hora Legal de Venezuela (Spanish)"
+217,VLAST,11,Asia,Vladivostok Summer Time
+218,VLAT,10,Asia,Vladivostok Time
+219,VOST,6,Antarctica,Vostok Time
+220,VUT,11,Pacific,"Vanuatu Time, EFATE - Efate Time"
+221,W,-10,Military,Whiskey Time Zone
+222,WAKT,12,Pacific,Wake Time
+223,WARST,-3,South America,Western Argentine Summer Time
+224,WAST,2,Africa,West Africa Summer Time
+225,WAT,1,Africa,West Africa Time
+226,WEST,1,"Europe, Africa","Western European Summer Time, WEDT - Western European Daylight Time, WESZ - Westeuropaische Sommerzeit (German)"
+227,WET,0,"Europe, Africa","Western European Time, GMT - Greenwich Mean Time, WEZ - Westeuropaische Zeit (German)"
+228,WFT,12,Pacific,Wallis and Futuna Time
+229,WGST,-2,North America,"Western Greenland Summer Time, WGST - West Greenland Summer Time"
+230,WGT,-3,North America,"West Greenland Time, WGT - Western Greenland Time"
+231,WIB,7,Asia,"Western Indonesian Time, WIB - Waktu Indonesia Barat"
+232,WIT,9,Asia,"Eastern Indonesian Time, WIT - Waktu Indonesia Timur"
+233,WITA,8,Asia,"Central Indonesian Time, WITA - Waktu Indonesia Tengah"
+234,WST,13,Pacific,"West Samoa Time, ST - Samoa Time"
+235,WST,1,Africa,Western Sahara Summer Time
+236,WT,0,Africa,"Western Sahara Standard Time, WT - Western Sahara Time"
+237,X,-11,Military,X-ray Time Zone
+238,Y,-12,Military,Yankee Time Zone
+239,YAKST,10,Asia,Yakutsk Summer Time
+240,YAKT,9,Asia,Yakutsk Time
+241,YAPT,10,Pacific,Yap Time
+242,YEKST,6,Asia,Yekaterinburg Summer Time
+243,YEKT,5,Asia,Yekaterinburg Time
+244,Z,0,Military,Zulu Time Zone
