@@ -37,7 +37,7 @@ export class LoginModalComponent implements OnInit {
     this.auth.login(this.username, this.password).subscribe({
       next: (loggedInUser) => {
         this.loginModalRef.close()
-        this.router.navigateByUrl("/user");
+        this.router.navigateByUrl("/users");
       },
       error: (error) => {
         console.log("login error: " + error);
