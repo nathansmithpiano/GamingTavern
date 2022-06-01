@@ -11,4 +11,5 @@ export class AppComponent {
 
   gridItemClass = GlobalComponent.gridItemClass;
   rippleColor = GlobalComponent.rippleColor;
+  customRounding = GlobalComponent.customRounding;
 }

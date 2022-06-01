@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   // import { GlobalComponent } from "src/app/global-component";
   gridItemClass = GlobalComponent.gridItemClass;
   rippleColor = GlobalComponent.rippleColor;
+  customRounding = GlobalComponent.customRounding;
 
   ngOnInit(): void {}
 }
