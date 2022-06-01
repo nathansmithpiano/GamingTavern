@@ -8,15 +8,12 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.gaminghub.entities.Alias;
 import com.skilldistillery.gaminghub.repositories.AliasRepository;
-import com.skilldistillery.gaminghub.repositories.UserRepository;
 
 @Service
 public class AliasServiceImpl implements AliasService {
 
 	@Autowired
 	private AliasRepository aliasRepo;
-
-
 
 	@Override
 	public List<Alias> index() {
