@@ -49,7 +49,7 @@ public class ClanServiceImpl implements ClanService {
 			clans = op.get();
 			clans.setEnabled(clan.isEnabled());
 			clans.setName(clan.getName());
-			clans.setDescription(clans.getDescription());
+			clans.setDescription(clan.getDescription());
 			clans.setImageUrl(clan.getImageUrl());
 			clans.setCreated(clan.getCreated());
 			clans.setUpdated(clan.getUpdated());

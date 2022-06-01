@@ -54,7 +54,10 @@ export class ClanComponent implements OnInit {
   loggedInUser: User;
 
   newClan: Clan = new Clan();
+
   aliases: Alias[] = [];
+  
+  clanUpdate;
 
   showClan(id: number) {
     this.clanSvc.show(id).subscribe(
@@ -64,6 +67,7 @@ export class ClanComponent implements OnInit {
         this.clanImageUrl = data.imageUrl;
         this.clanCreated = data.created;
         this.selected = data;
+        this.clanUpdate = data.updated
       },
       (err) => console.error(err)
     );
