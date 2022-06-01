@@ -56,8 +56,8 @@ export class UserProfileComponent implements OnInit {
       && this.isBlockedUsersLoaded
       && this.isGamesLoaded
       && this.isLocationsLoaded
-      && this.isMeetupsLoaded) 
-      && this.isUserUpdated {
+      && this.isMeetupsLoaded
+      && this.isUserUpdated) {
         return true;
       } else {
         return false;
@@ -305,23 +305,24 @@ export class UserProfileComponent implements OnInit {
         this.isMeetupsLoaded = true;
       }
     );
+    }
 
-    getUpdateUsername(username: string){
-      this.userService.updateUser(username).subscribe(
+    getUpdateUser(user: User) {
+      user.id = this.user.id;
+      this.userService.updateUser(this.user).subscribe(
         (data) => {
-          this.username = data;
-        
+          console.log('user updated successfully');
+          this.user = data;
+          this.isUserLoaded = true;
         },
         (err)=> {
           console.log(
             "UserProfileComponent getMeetupsByUsername(): Observable got an error " +
               err
           );
-          
         }
-      )
-    }
-  }
+      );
+      }
 }
 
 

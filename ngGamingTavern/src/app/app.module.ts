@@ -40,7 +40,6 @@ import { EquipmentComponent } from "./components/equipment/equipment.component";
 import { ServerComponent } from "./components/server/server.component";
 import { MeetupComponent } from "./components/meetup/meetup.component";
 import { GameComponent } from "./components/game/game.component";
-import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 
 
 @NgModule({
