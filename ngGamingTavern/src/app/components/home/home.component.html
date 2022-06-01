@@ -5,16 +5,58 @@
   <div class="container py-3">
 
     <!-- Begin Grid -->
+    
     <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 310, "gutter": 15 }'>
-
-      <!-- Begin Card -->
+      <!-- Breadcrumb -->
       <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item four {{gridItemClass}}">
+        <div class="card bg-glass">
+          <nav aria-label="breadcrumb" class="p-3">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item">Home</li>
+              <li class="breadcrumb-item">Chat</li>
+              <li class="breadcrumb-item active">end path in double braces</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <!-- End Breadcrumb -->
+      <!-- Begin Card -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item one {{gridItemClass}}">
         <div class="card bg-glass ">
           <div class="card-body">
-            <h4>FOUR WIDE WITH BACKGROUND</h4>
+            <h4>REGISTER</h4>
             <hr>
             <div>
-              contents
+              <div>
+                <form class="register">
+                  <label id="username" for="username">Username</label>
+                  <input
+                    [(ngModel)]="newUser.username"
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                  />
+                  <div *ngIf="isUsernameTaken">This Username Has Been Taken</div>
+                  <br />
+                  <label id="password" for="password">Password</label>
+                  <input
+                    [(ngModel)]="newUser.password"
+                    type="text"
+                    name="password"
+                    placeholder="Password"
+                  />
+                  <br />
+                  <label  for="email">Email</label>
+                  <input
+                    [(ngModel)]="newUser.email"
+                    type="text"
+                    name="email"
+                    placeholder="Email"
+                  />
+                  <br />
+                  <button (click)="register(newUser)">Register</button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -24,10 +66,77 @@
       <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item three {{gridItemClass}}">
         <div class="card bg-glass">
           <div class="card-body">
-            <h4>THREE WIDE WITH BACKGROUND</h4>
-            <hr>
             <div>
-              contents
+              <h1>Find Your Game</h1>
+
+              
+              
+              <section class="carousel" aria-label="Gallery">
+                <ol class="carousel__viewport">
+                  <li id="carousel__slide1"
+                      
+                      tabindex="0"
+                      class="carousel__slide">
+                    <div class="carousel__snapper">
+                      <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg?t=1641233427">
+                      <a href="#carousel__slide4"
+                         class="carousel__prev">Go to last slide</a>
+                      <a href="#carousel__slide2"
+                         class="carousel__next">Go to next slide</a>
+                    </div>
+                  </li>
+                  <li id="carousel__slide2"
+                      tabindex="0"
+                      class="carousel__slide">
+                    <div class="carousel__snapper"></div>
+                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg?t=1641233427">
+                    <a href="#carousel__slide1"
+                       class="carousel__prev">Go to previous slide</a>
+                    <a href="#carousel__slide3"
+                       class="carousel__next">Go to next slide</a>
+                  </li>
+                  <li id="carousel__slide3"
+                      tabindex="0"
+                      class="carousel__slide">
+                    <div class="carousel__snapper"><img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg?t=1641233427"></div>
+                    <a href="#carousel__slide2"
+                       class="carousel__prev">Go to previous slide</a>
+                    <a href="#carousel__slide4"
+                       class="carousel__next">Go to next slide</a>
+                  </li>
+                  <li id="carousel__slide4"
+                      tabindex="0"
+                      class="carousel__slide">
+                    <div class="carousel__snapper"></div>
+                    <a href="#carousel__slide3"
+                       class="carousel__prev">Go to previous slide</a>
+                    <a href="#carousel__slide1"
+                       class="carousel__next">Go to first slide</a>
+                  </li>
+                </ol>
+                <aside class="carousel__navigation">
+                  <ol class="carousel__navigation-list">
+                    <li class="carousel__navigation-item">
+                      <a href="#carousel__slide1"
+                         class="carousel__navigation-button">Go to slide 1</a>
+                    </li>
+                    <li class="carousel__navigation-item">
+                      <a href="#carousel__slide2"
+                         class="carousel__navigation-button">Go to slide 2</a>
+                    </li>
+                    <li class="carousel__navigation-item">
+                      <a href="#carousel__slide3"
+                         class="carousel__navigation-button">Go to slide 3</a>
+                    </li>
+                    <li class="carousel__navigation-item">
+                      <a href="#carousel__slide4"
+                         class="carousel__navigation-button">Go to slide 4</a>
+                    </li>
+                  </ol>
+                </aside>
+              </section>
+           
+              
             </div>
           </div>
         </div>
