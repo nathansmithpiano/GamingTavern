@@ -1,5 +1,7 @@
+import { Alias } from './../alias/alias';
 export class Clan {
-    id: number;
+    id: number | null;
+    creatorAlias: Alias;
     enabled: boolean;
     name: string;
     description: string;
@@ -10,7 +12,8 @@ export class Clan {
 
 
 constructor(
-    id: number= 0,
+    id: number | null = null,
+    creatorAlias: Alias = null,
     enabled: boolean = true,
     name: string = "",
     description: string = "",
@@ -19,6 +22,7 @@ constructor(
     updated: string = ""
 ){
     this.id = id;
+    this.creatorAlias = creatorAlias;
     this.enabled = enabled;
     this.name = name;
     this.description = description;
