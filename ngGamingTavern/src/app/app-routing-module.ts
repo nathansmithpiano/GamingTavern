@@ -1,4 +1,5 @@
-import { SplashComponent } from './components/splash/splash.component';
+import { SplashComponent } from "./components/splash/splash.component";
+import { ChatComponent } from "./components/chat/chat/chat.component";
 import { ClanComponent } from "./components/clan/clan.component";
 import { MeetupComponent } from "./components/meetup/meetup.component";
 import { ServerComponent } from "./components/server/server.component";
@@ -14,7 +15,11 @@ import { GameComponent } from "./components/game/game.component";
 const routes: Routes = [
   { path: "", pathMatch: "full", component: HomeComponent },
   { path: "users", pathMatch: "full", component: UserProfileComponent },
-  { path: "users/:username", pathMatch: "full", component: UserProfileComponent},
+  {
+    path: "users/:username",
+    pathMatch: "full",
+    component: UserProfileComponent,
+  },
   { path: "login", pathMatch: "full", component: LoginComponent },
   { path: "logout", pathMatch: "full", component: LogoutComponent },
   { path: "profile", pathMatch: "full", component: UserProfileComponent },
@@ -23,7 +28,8 @@ const routes: Routes = [
   { path: "server", pathMatch: "full", component: ServerComponent },
   { path: "meetup", pathMatch: "full", component: MeetupComponent },
   { path: "game", pathMatch: "full", component: GameComponent },
-  { path: "splash", pathMatch: "full", component: SplashComponent}
+  { path: "splash", pathMatch: "full", component: SplashComponent },
+  { path: "chat", pathMatch: "full", component: ChatComponent },
 ];
 
 @NgModule({
