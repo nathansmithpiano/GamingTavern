@@ -1,6 +1,7 @@
 <form>
     <label for="username">Username</label>
     <input  [(ngModel)]="newUser.username" type="text" name="username" placeholder="Username">
+    <div *ngIf="isUsernameTaken">This Username Has Been Taken</div>
     <br>
     <label for="password">Password</label>
     <input  [(ngModel)]="newUser.password" type="text" name="password" placeholder="Password">
@@ -10,4 +11,6 @@
     <br>
     <button (click)="register(newUser)">Register</button>
   </form>
+  
+
   

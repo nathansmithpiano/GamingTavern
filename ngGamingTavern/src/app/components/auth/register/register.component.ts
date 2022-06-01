@@ -1,8 +1,10 @@
+import { UserService } from 'src/app/services/user/user.service';
+import { User } from 'src/app/models/user/user';
 import { Router } from '@angular/router';
 import { AuthService } from './../../../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user/user';
 import { catchError, Observable, throwError } from 'rxjs';
+import { CustomvalidationService } from 'src/app/servicescustomvalidation.service';
 
 @Component({
   selector: 'app-register',
@@ -11,15 +13,22 @@ import { catchError, Observable, throwError } from 'rxjs';
 })
 export class RegisterComponent implements OnInit {
 
+  submitted = false;
+  isUsernameTaken: boolean = false;
+  user: User;
+  isUserLoaded: boolean;
+
   constructor(
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private customValidator: CustomvalidationService,
+    private userService: UserService,
   ) { }
 
   newUser: User = new User();
 
-  ngOnInit(): void {
-  }
+  ngOnInit() {}
+
 
   register(user: User): void {
     console.log('Registering user:');
@@ -38,22 +47,21 @@ export class RegisterComponent implements OnInit {
       },
       error: (fail) => {
         console.error('RegisterComponent.register(): Error registering account');
+        console.error('user account already taken')
+        this.isUsernameTaken = true;
         console.error(fail);
       }
     });
-  }
 
-  // getUserByUsername(username: string): Observable<User> {
-  //   return this.http
-  //     .get<User>(this.url2 + username, {
-  //       headers: { Authorization: "Basic " + this.auth.getCredentials() },
-  //     })
-  //     .pipe(
-  //       catchError((err: any) => {
-  //         console.log(err);
-  //         return throwError("KABOOM");
-  //       })
-  //     );
-  // }
-
+  
+    function checkUsername(username: string) {
+      if(this.getUserByUsername(username)){
+        this.isUsernameTaken = true;
+      }
+      
+    }
+    
+function username(username: any, string: any) {
+  throw new Error('Function not implemented.');
 }
+}}

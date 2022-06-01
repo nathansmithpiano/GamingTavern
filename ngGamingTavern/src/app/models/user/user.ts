@@ -14,6 +14,8 @@ export class User {
   imageUrl: string;
   created: string;
   updated: string;
+  completed: any;
+  completeDate: string;
 
   constructor(
     id: number = 0,
@@ -28,7 +30,8 @@ export class User {
     description: string = "",
     imageUrl: string = "",
     created: string = "",
-    updated: string = ""
+    updated: string = "",
+    completeDate: string = ""
   ) {
     this.id = id;
     this.enabled = enabled;
@@ -43,5 +46,6 @@ export class User {
     this.imageUrl = imageUrl;
     this.created = created;
     this.updated = updated;
+    this.completeDate = completeDate;
   }
 }

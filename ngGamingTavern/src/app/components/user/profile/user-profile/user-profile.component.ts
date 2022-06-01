@@ -1,13 +1,13 @@
-import { Meetup } from "./../../../../models/meetup/meetup";
-import { AliasService } from "./../../../../services/alias/alias.service";
 import { DatePipe } from "@angular/common";
-import { AuthService } from "./../../../../services/auth/auth.service";
-import { UserService } from "./../../../../services/user/user.service";
 import { Component, OnInit } from "@angular/core";
-import { User } from "src/app/models/user/user";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Alias } from "src/app/models/alias/alias";
 import { Game } from "src/app/models/game/game";
+import { User } from "src/app/models/user/user";
+import { Meetup } from "./../../../../models/meetup/meetup";
+import { AliasService } from "./../../../../services/alias/alias.service";
+import { AuthService } from "./../../../../services/auth/auth.service";
+import { UserService } from "./../../../../services/user/user.service";
 
 @Component({
   selector: "app-user-profile",
@@ -36,6 +36,7 @@ export class UserProfileComponent implements OnInit {
   locations: Location[] = [];
   meetups: Meetup[] = [];
   blockedUsers: User[] = [];
+  updateUser: User = new User();
 
   // loaders
   isLoading: boolean = false;
@@ -46,6 +47,7 @@ export class UserProfileComponent implements OnInit {
   isGamesLoaded: boolean = false;
   isLocationsLoaded: boolean = false;
   isMeetupsLoaded: boolean = false;
+  isUserUpdated: boolean = false;
 
   isLoaded = ():boolean => {
     if (this.isUserLoaded 
@@ -54,7 +56,8 @@ export class UserProfileComponent implements OnInit {
       && this.isBlockedUsersLoaded
       && this.isGamesLoaded
       && this.isLocationsLoaded
-      && this.isMeetupsLoaded) {
+      && this.isMeetupsLoaded) 
+      && this.isUserUpdated {
         return true;
       } else {
         return false;
@@ -302,5 +305,23 @@ export class UserProfileComponent implements OnInit {
         this.isMeetupsLoaded = true;
       }
     );
+
+    getUpdateUsername(username: string){
+      this.userService.updateUser(username).subscribe(
+        (data) => {
+          this.username = data;
+        
+        },
+        (err)=> {
+          console.log(
+            "UserProfileComponent getMeetupsByUsername(): Observable got an error " +
+              err
+          );
+          
+        }
+      )
+    }
   }
 }
+
+

@@ -117,4 +117,33 @@ export class UserService {
         })
       );
   }
+
+  createUser(newUser: User) {
+    newUser.completed = false;
+    return this.http.post<User>(this.url, newUser).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('KABOOM');
+      })
+    );
+
+  }
+
+  updateUser(updateUser: User) {
+    if(updateUser.completed) {
+      let tempDate = this.datePipe.transform(Date.now(), 'shortDate');
+      if(tempDate !== null){
+        updateUser.completeDate = tempDate;
+      }
+    } else {
+      updateUser.completeDate = '';
+    }
+    return this.http.put<User>(this.url + '/' + updateUser.id, updateUser).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('KABOOM');
+      })
+    );
+  
+  }
 }
