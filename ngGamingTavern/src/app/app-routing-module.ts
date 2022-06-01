@@ -14,7 +14,7 @@ import { GameComponent } from "./components/game/game.component";
 const routes: Routes = [
   { path: "", pathMatch: "full", component: HomeComponent },
   { path: "users", pathMatch: "full", component: UserProfileComponent },
-  { path: "users/:username", pathMatch: "full", component: UserProfileComponent},
+  { path: "users/:username", pathMatch: "full", component: UserProfileComponent },
   { path: "login", pathMatch: "full", component: LoginComponent },
   { path: "logout", pathMatch: "full", component: LogoutComponent },
   { path: "profile", pathMatch: "full", component: UserProfileComponent },
