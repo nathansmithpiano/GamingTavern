@@ -16,7 +16,7 @@ import com.skilldistillery.gaminghub.entities.User;
 import com.skilldistillery.gaminghub.services.AuthService;
 
 @RestController
-@CrossOrigin({ "*", "http://localhost" })
+@CrossOrigin({ "*", "http://localhost:4200" })
 
 public class AuthController {
 

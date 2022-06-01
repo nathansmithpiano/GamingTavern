@@ -23,7 +23,7 @@ import com.skilldistillery.gaminghub.services.AliasService;
 import com.skilldistillery.gaminghub.services.ClanService;
 
 @RestController
-@CrossOrigin({ "*", "http://localhost" })
+@CrossOrigin({ "*", "http://localhost:4200" })
 @RequestMapping("api")
 public class ClanController {
 
@@ -65,6 +65,7 @@ public class ClanController {
 	@PostMapping("clans")
 	public Clan create(@RequestBody Clan clan, Principal principal, 
 			HttpServletResponse resp) {
+		System.out.println(clan);
 		Alias alias = aliasSvc.getAliasById(clan.getCreatorAlias().getId());
 		if (alias == null) {
 			resp.setStatus(404);

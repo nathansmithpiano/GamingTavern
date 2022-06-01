@@ -28,7 +28,20 @@
                                         <img src={{clanImageUrl}} />
                                         <h3>{{clanName}}</h3>
                                         <p>{{clanDescription}}</p>
-                                        <p>Created: {{clanCreated | date: 'short'}}</p>
+                                        <p>Created: {{clanCreated | date: 'MM/dd/yyyy'}}</p>
+                                        <p>Updated: {{clanUpdate | date: 'MM/dd/yyyy'}}</p>
+                                        <button (click)="setUpdateClan()">Update</button>
+                                        <div *ngIf= "clanUpdated" class="row">
+                                            <form>
+                                            <h3>Update</h3>
+                                            <input placeholder="Name" type="text" name="name" [(ngModel)]= "clanUpdated.name" /><br />
+                                            <input placeholder="Description" type="text" name="description" [(ngModel)]= "clanUpdated.description" /><br />
+                                            <input placeholder="ImageURL" type="text" name="imageUrl" [(ngModel)]= "clanUpdated.imageUrl" /><br />
+                                            <input placeholder="Updated" type="date" name="update" [(ngModel)]= "clanUpdated.updated" /><br />
+                                            <input type="checkbox" name="enabled" [(ngModel)]= "clanUpdated.enabled" />Active<br />
+                                            <button (click)="updateClan(clanUpdated, selected.id)">Submit</button>
+                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -44,11 +57,16 @@
                                 <div class="row">
                                     <h3>Create</h3>
                                     <form>
-                                        <input type="text" name="name" [(ngModel)]="newClan.name" /><br />
-                                        <input type="text" name="price" [(ngModel)]="newClan.description" /><br />
-                                        <input type="text" name="imageUrl" [(ngModel)]="newClan.imageUrl" /><br />
-                                        <input type="date" name="created" [(ngModel)]="newClan.created" /><br />
-                                        <input type="submit" (click)="onSubmit()" />
+                                        <label for="Alises">Aliases: </label>
+                                        <select [(ngModel)]= "aliasId" name = "alias">
+                                            <option *ngFor="let item of aliases" [value]="item.id">{{item.name}}</option>
+                                        </select><br>
+                                        <input placeholder="Name" type="text" name="name" [(ngModel)]= "newClan.name" /><br />
+                                        <input placeholder="Description" type="text" name="description" [(ngModel)]= "newClan.description" /><br />
+                                        <input placeholder="ImageURL" type="text" name="imageUrl" [(ngModel)]= "newClan.imageUrl" /><br />
+                                        <input placeholder="Created" type="date" name="created" [(ngModel)]= "newClan.created" /><br />
+                                        <input type="checkbox" name="enabled" [(ngModel)]= "newClan.enabled" />Active<br />
+                                        <button (click)="createClan(newClan)">Submit</button>
                                       </form>
                                 </div>
                                 <hr>
@@ -58,11 +76,10 @@
                         </div>
                     </div>
                     <!-- Sub card 2 -->
-                    <div class="col-6">
+                    <!-- <div class="col-6">
                         <div class="card bg-glass mb-2">
                             <div class="card-body">
                                 <div class="row">
-                                    <h3>Card 2</h3>
                                 </div>
                                 <hr>
                                 <div class="row">
@@ -70,12 +87,12 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- Subcard Row 2 -->
                 <div class="row">
                     <!-- Sub card 3 -->
-                    <div class="col-6">
+                    <!-- <div class="col-6">
                         <div class="card bg-glass mb-2">
                             <div class="card-body">
                                 <div class="row">
@@ -87,9 +104,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- Sub card 4 -->
-                    <div class="col-6">
+                    <!-- <div class="col-6">
                         <div class="card bg-glass mb-2">
                             <div class="card-body">
                                 <div class="row">
@@ -101,7 +118,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

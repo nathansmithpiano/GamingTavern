@@ -16,7 +16,7 @@ import com.skilldistillery.gaminghub.entities.Platform;
 import com.skilldistillery.gaminghub.services.PlatformService;
 
 @RestController
-@CrossOrigin({ "*", "http://localhost" })
+@CrossOrigin({ "*", "http://localhost:4200" })
 @RequestMapping("api")
 public class PlatformController {
 

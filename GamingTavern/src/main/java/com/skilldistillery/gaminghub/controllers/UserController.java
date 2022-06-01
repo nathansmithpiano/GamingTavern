@@ -25,7 +25,7 @@ import com.skilldistillery.gaminghub.entities.User;
 import com.skilldistillery.gaminghub.services.UserService;
 
 @RestController
-@CrossOrigin({ "*", "http://localhost" })
+@CrossOrigin({ "*", "http://localhost:4200" })
 @RequestMapping("api")
 public class UserController {
 
