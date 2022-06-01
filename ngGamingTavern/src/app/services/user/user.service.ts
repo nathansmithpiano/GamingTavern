@@ -129,7 +129,7 @@ export class UserService {
 
   updateUser(updateUser: User): Observable<User> {
     if(updateUser.completed) {
-      let tempDate = this.datePipe.transform(Date.now(), 'shortDate');
+      let tempDate = new Date(Date.now()).toISOString();
       if(tempDate !== null){
         updateUser.completeDate = tempDate;
       }
