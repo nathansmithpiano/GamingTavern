@@ -6,14 +6,28 @@
     <!-- Begin Grid -->
     <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 310, "gutter": 15 }'>
 
+      <!-- Breadcrumb -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item four {{gridItemClass}}">
+        <div class="card bg-glass">
+          <nav aria-label="breadcrumb" class="p-3">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item">Home</li>
+              <li class="breadcrumb-item">Chat</li>
+              <li class="breadcrumb-item active">end path in double braces</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <!-- End Breadcrumb -->
+
       <!-- Begin Card -->
       <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item four {{gridItemClass}}">
-        <div class="card bg-glass ">
+        <div class="card bg-glass">
           <div class="card-body">
             <h4>FOUR WIDE WITH BACKGROUND</h4>
             <hr>
             <div>
-              contents
+
             </div>
           </div>
         </div>
