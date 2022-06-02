@@ -201,7 +201,7 @@
               <ul class="list-group">
                 <li *ngFor="let allUser of pagedAllUsernames[pagedAllUsernamesIndex]" class="list-group-item">
                   <div class="row listButton">
-                    <a class="btn listButtonA" role="button">
+                    <a class="btn listButtonA" role="button" href="users/{{allUser}}">
                       {{allUser}}
                     </a>
                   </div>
