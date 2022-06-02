@@ -101,5 +101,20 @@ export class ClanService {
     );
   }
 
+  delete(clanId: number ) {
+    const httpOptions = {
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: 'Basic ' + this.auth.getCredentials(),
+      },
+    };
+    return this.http.delete<void>(this.url + "/" + clanId, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError("KABOOM");
+      })
+    );
+  }
+
 
 }

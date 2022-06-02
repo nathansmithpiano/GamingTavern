@@ -1,17 +1,22 @@
+<!-- Begin Section -->
 <section>
-  <!-- Container -->
-  <div class="container py-5">
+  <!-- Begin Container -->
+  <div class="container py-3">
+
+    <!-- Begin Grid -->
     <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 310, "gutter": 15 }'>
 
       <!-- Breadcrumb -->
-      <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item four">
-        <nav aria-label="breadcrumb" class="bg-glass shadow-4-strong rounded-{{rounding}} p-3">
-          <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item">Home</li>
-            <li class="breadcrumb-item">Chat</li>
-            <li class="breadcrumb-item active">{{user.username}}</li>
-          </ol>
-        </nav>
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item four {{gridItemClass}}">
+        <div class="card bg-glass">
+          <nav aria-label="breadcrumb" class="p-3">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item">Home</li>
+              <li class="breadcrumb-item">Chat</li>
+              <li class="breadcrumb-item text-muted">{{loggedInUser.username}}</li>
+            </ol>
+          </nav>
+        </div>
       </div>
       <!-- End Breadcrumb -->
 
@@ -62,7 +67,7 @@
             <div *ngFor="let message of selectedChat.messages">
 
               <!-- From User -->
-              <div *ngIf="message.fromUser.username == user.username">
+              <div *ngIf="message.fromUser.username == loggedInUser.username">
                 <div class="user-message d-flex flex-row justify-content-start">
                   <!-- fromUser's image if imageUrl not empty -->
                   <img *ngIf="message.fromUser.imageUrl != null" src="{{message.fromUser.imageUrl}}"
@@ -84,7 +89,7 @@
                 </div>
               </div>
               <!-- From Other -->
-              <div *ngIf="message.fromUser.username !== user.username">
+              <div *ngIf="message.fromUser.username !== loggedInUser.username">
                 <div class="d-flex flex-row justify-content-end mb-4 pt-1">
                   <!-- Message -->
                   <div>

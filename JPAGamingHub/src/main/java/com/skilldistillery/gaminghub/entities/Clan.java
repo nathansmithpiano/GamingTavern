@@ -43,10 +43,8 @@ public class Clan {
 	@Column(name = "image_url")
 	private String imageUrl;
 	
-	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate created;
 	
-	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate updated;
 	
 	@JsonIgnore

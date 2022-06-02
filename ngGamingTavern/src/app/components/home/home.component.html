@@ -13,12 +13,51 @@
             <ol class="breadcrumb mb-0">
               <li class="breadcrumb-item">Home</li>
               <li class="breadcrumb-item">Chat</li>
-              <li class="breadcrumb-item active">end path in double braces</li>
+              <li class="breadcrumb-item text-muted">end path in double braces</li>
             </ol>
           </nav>
         </div>
       </div>
       <!-- End Breadcrumb -->
+
+      <!-- Begin Card -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item one-third {{gridItemClass}}">
+        <div class="card bg-glass">
+          <div class="card-body">
+            <h4>ONE THIRD WIDE WITH BG</h4>
+            <hr>
+            <div>
+              contents
+            </div>
+          </div>
+        </div>
+      </div> <!-- End Card -->
+
+      <!-- Begin Card -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item one-third {{gridItemClass}}">
+        <div class="card bg-glass">
+          <div class="card-body">
+            <h4>ONE THIRD WIDE WITH BG</h4>
+            <hr>
+            <div>
+              contents
+            </div>
+          </div>
+        </div>
+      </div> <!-- End Card -->
+      
+      <!-- Begin Card -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item one-third {{gridItemClass}}">
+        <div class="card bg-glass">
+          <div class="card-body">
+            <h4>ONE THIRD WIDE WITH BG</h4>
+            <hr>
+            <div>
+              contents
+            </div>
+          </div>
+        </div>
+      </div> <!-- End Card -->
 
       <!-- Begin Card -->
       <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item {{gridItemClass}}">
@@ -111,9 +150,97 @@
       <!-- Begin Image Card -->
       <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item {{gridItemClass}}">
         <div class="card bg-glass">
-          <img class="{{customRounding}} "src="assets/art/tavern_room.png">
+          <img class="{{customRounding}} " src="assets/art/tavern_room.png">
         </div>
       </div> <!-- End Image Card -->
+
+      <!-- Begin Card -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item two {{gridItemClass}}">
+        <div class="card bg-glass">
+          <div class="card-body">
+            <h4>TWO WIDE WITH BG</h4>
+            <hr>
+            <div>
+              <form [formGroup]="validationForm">
+                <!-- Begin Row -->
+                <div class="row">
+                  <div class="col-md-6">
+                    <mdb-form-control>
+                      <input
+                        mdbValidate
+                        mdbInput
+                        type="text"
+                        id="formFirstName"
+                        class="form-control text-white"
+                        formControlName="firstName"
+                        autocomplete="off"
+                        required
+                      />
+                      <label mdbLabel class="form-label text-muted" for="formFirstName">First name</label>
+                      <mdb-error *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)">
+                        First name is required
+                      </mdb-error>
+                      <mdb-success *ngIf="firstName?.valid && (firstName?.dirty || firstName?.touched)">
+                        Looks good!
+                      </mdb-success>
+                    </mdb-form-control>
+                  </div>
+                  <div class="col-md-6">
+                    <mdb-form-control>
+                      <input
+                        mdbValidate
+                        mdbInput
+                        type="text"
+                        id="formLastName"
+                        class="form-control text-white"
+                        formControlName="lastName"
+                        autocomplete="off"
+                        required
+                      />
+                      <label mdbLabel class="form-label text-muted" for="formLastName">Last name</label>
+                      <mdb-error *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)">
+                        Last name is required
+                      </mdb-error>
+                      <mdb-success *ngIf="lastName?.valid && (lastName?.dirty || lastName?.touched)">
+                        Looks good!
+                      </mdb-success>
+                    </mdb-form-control>
+                  </div>
+                </div>
+                <!-- End Row -->
+
+                <!-- Begin Row -->
+               <div class="row py-5">
+                 <div class="col-md-6">
+                   <mdb-form-control>
+                     <input 
+                      mdbValidate
+                      mdbInput
+                      type="email" 
+                      id="formEmail"
+                      class="form-control text-white" 
+                      formControlName="email"
+                      autocomplete="off"
+                      required
+                    />
+                     <label mdbInput class="form-label text-muted" for="formEmail">Email input</label>
+                     <mdb-error *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+                      Email is required
+                    </mdb-error>
+                    <mdb-success *ngIf="email?.valid && (email?.dirty || email?.touched)">
+                      Looks good!
+                    </mdb-success>
+                   </mdb-form-control>
+                 </div>
+               </div>
+               <!-- End Row -->
+              </form>
+            </div>
+          </div>
+        </div>
+      </div> <!-- End Card -->
+
+
 
     </div> <!-- End Grid -->
   </div> <!-- End Container -->

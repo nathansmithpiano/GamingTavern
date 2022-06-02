@@ -11,6 +11,8 @@ public interface AliasService {
 	Alias getAliasById(int aliasId);
 
 	List<Alias> getAliasesByUsername(String username);
+	
+	List<Alias> getAliasesByClanId(int clanId);
 
 	Alias updateAlias(String user, Alias alias, int aliasId);
 

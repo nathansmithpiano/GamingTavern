@@ -28,7 +28,6 @@ import { NavComponent } from "./components/page/nav/nav.component";
 import { LoginComponent } from "./components/auth/login/login.component";
 import { UserProfileComponent } from "./components/user/profile/user-profile/user-profile.component";
 import { DatePipe } from "@angular/common";
-
 import { UsersTableComponent } from "./components/user/users-table/users-table.component";
 import { HomeComponent } from "./components/home/home.component";
 import { LogoutComponent } from "./components/auth/logout/logout.component";
@@ -40,8 +39,7 @@ import { EquipmentComponent } from "./components/equipment/equipment.component";
 import { ServerComponent } from "./components/server/server.component";
 import { MeetupComponent } from "./components/meetup/meetup.component";
 import { GameComponent } from "./components/game/game.component";
-import { ChatComponent } from './components/chat/chat/chat.component';
-
+import { ChatComponent } from "./components/chat/chat/chat.component";
 
 @NgModule({
   declarations: [

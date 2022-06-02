@@ -29,6 +29,11 @@ public class AliasServiceImpl implements AliasService {
 			return null;
 		}
 	}
+	
+	@Override
+	public List<Alias> getAliasesByClanId(int clanId) {
+		return aliasRepo.findByClansId(clanId);
+	}
 
 	@Override
 	public Alias createAlias(Alias alias) {
@@ -51,7 +56,6 @@ public class AliasServiceImpl implements AliasService {
 
 			}
 		}
-
 		return null;
 	}
 
@@ -69,5 +73,4 @@ public class AliasServiceImpl implements AliasService {
 		return false;
 
 	}
-
 }

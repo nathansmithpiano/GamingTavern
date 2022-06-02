@@ -22,26 +22,22 @@ body {
 }
 
 /* ---- grid-item ---- */
-
 .grid-item {
   width: 310px;
-  // height: 50px;
   float: left;
-  // background: var(--bgGlassBackground);
-  // backdrop-filter: var(--bgGlassBackdropFilter);
-  // border: 2px solid rgba(255,255,255,.1);
-  // border-color: var(--bodyBackgroundColor);
   border: 0px;
-  // border-radius: 8px;
-  margin-bottom: 15px; // should match gutter in html div class="grid"
+  margin-bottom: 16px; // should match gutter in html div class="grid"
+  margin-left: 16px;
 }
 
 .grid-item.one-third {
-  width: 424px;
+  // width: 424px;
+  width: 416px;
 }
 
 .grid-item.two-thirds {
-  width: 847px;
+  // width: 847px;
+  width: 843px;
 }
 
 .grid-item.two {

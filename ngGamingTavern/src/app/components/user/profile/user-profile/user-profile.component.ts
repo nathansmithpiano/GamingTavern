@@ -48,25 +48,27 @@ export class UserProfileComponent implements OnInit {
   isLocationsLoaded: boolean = false;
   isMeetupsLoaded: boolean = false;
 
-  isLoaded = ():boolean => {
-    if (this.isUserLoaded 
-      && this.isAliasesLoaded 
-      && this.isFriendsLoaded
-      && this.isBlockedUsersLoaded
-      && this.isGamesLoaded
-      && this.isLocationsLoaded
-      && this.isMeetupsLoaded) {
-        return true;
-      } else {
-        return false;
-      }
-  }
+  isLoaded = (): boolean => {
+    if (
+      this.isUserLoaded &&
+      this.isAliasesLoaded &&
+      this.isFriendsLoaded &&
+      this.isBlockedUsersLoaded &&
+      this.isGamesLoaded &&
+      this.isLocationsLoaded &&
+      this.isMeetupsLoaded
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   // html settings
   topPadding = 3;
-
   rounding: number = 5;
   gridItemClass: string = "shadow-4-strong rounded-5";
+  textClass = "text-muted";
 
   // left card
   leftCardWidth = 3;
@@ -74,7 +76,6 @@ export class UserProfileComponent implements OnInit {
   headerMarginTop = 2;
   descriptionMarginTop = 0;
   leftIconMarginEnd = 3;
-  textClass = "text-muted";
   leftSummaryClass = "text-center text-muted";
   leftSummaryCol1Width = 5;
   leftSummaryCol2Width = 7;
@@ -303,24 +304,21 @@ export class UserProfileComponent implements OnInit {
         this.isMeetupsLoaded = true;
       }
     );
-    }
+  }
 
-    getUpdateUser(user: User) {
-      // user.id = this.user.id;
-      this.userService.updateUser(user).subscribe(
-        (data) => {
-          console.log('user updated successfully');
-          this.user = data;
-          this.isUserLoaded = true;
-        },
-        (err)=> {
-          console.log(
-            "UserProfileComponent getUpdateUser(): Observable got an error " +
-              err
-          );
-        }
-      );
+  getUpdateUser(user: User) {
+    // user.id = this.user.id;
+    this.userService.updateUser(user).subscribe(
+      (data) => {
+        console.log("user updated successfully");
+        this.user = data;
+        this.isUserLoaded = true;
+      },
+      (err) => {
+        console.log(
+          "UserProfileComponent getUpdateUser(): Observable got an error " + err
+        );
       }
+    );
+  }
 }
-
-
