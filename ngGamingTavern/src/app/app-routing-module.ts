@@ -14,7 +14,7 @@ import { MeetupComponent } from "./components/meetup/meetup.component";
 import { GameComponent } from "./components/game/game.component";
 
 const routes: Routes = [
-  { path: "", pathMatch: "full", component: SplashComponent },
+  { path: "", pathMatch: "full", component: HomeComponent },
   { path: "home", pathMatch: "full", component: HomeComponent },
   { path: "splash", pathMatch: "full", component: SplashComponent },
   { path: "login", pathMatch: "full", component: LoginComponent },
@@ -33,7 +33,7 @@ const routes: Routes = [
 
 @NgModule({
   // imports: [RouterModule.forRoot(routes, {useHash: true})],
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes, { useHash: false })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
