@@ -7,6 +7,6 @@ import com.skilldistillery.gaminghub.entities.Equipment;
 public interface EquipmentService {
 
 	List<Equipment> index();
-
 	Equipment getEquipmentById(int equipmentId);
+	List<Equipment> getEquipmentByUsername(String username);
 }

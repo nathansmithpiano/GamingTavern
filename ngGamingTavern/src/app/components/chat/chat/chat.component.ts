@@ -31,6 +31,7 @@ export class ChatComponent implements OnInit {
   selectedChat: Chat;
   newMessage: Message = new Message();
   timerStarted: boolean = false;
+  allChatUsers: User[] = [];
 
   // html settings
   topPadding = 3;
@@ -51,6 +52,7 @@ export class ChatComponent implements OnInit {
 
   selectChat(chat: Chat) {
     this.selectedChat = chat;
+    this.allChatUsers = chat.allUsers;
     this.sortSelectedChat();
     // refresh on time interval, start only once
     let seconds = 3;

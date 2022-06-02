@@ -20,6 +20,10 @@ public class UserServiceImpl implements UserService {
 	public List<User> index() {
 		return userRepo.findAll();
 	}
+	
+	public List<String> getAllUsernames() {
+		return userRepo.findAllUsernames();
+	}
 
 	@Override
 	public User getUserById(int userId) {

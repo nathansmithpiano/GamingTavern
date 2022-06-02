@@ -10,7 +10,7 @@
                 <div class="card bg-glass">
                     <nav aria-label="breadcrumb" class="p-3">
                         <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a class="text-white" href="Home">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="home">Home</a></li>
                             <li class="breadcrumb-item text-muted">Clans</li>
                         </ol>
                     </nav>
@@ -22,12 +22,12 @@
             <div class="grid-item one-third {{gridItemClass}}">
                 <div class="card bg-glass">
                     <!-- Image Header -->
-                    <div class="bg-image hover-overlay ripple" mdbRipple rippleColor="{{rippleColor}}">
+                    <div mdbRipple rippleColor="{{rippleColor}}" class="bg-image hover-overlay ripple" mdbRipple rippleColor="{{rippleColor}}">
                         <img src="assets/art/clan_800_541.jpg" class="img-fluid" />
                     </div>
                     <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <h4>CLANS</h4>
+                        <div mdbRipple rippleColor="{{rippleColor}}" class="d-flex justify-content-between">
+                            <h4>{{clans.length}} Clan{{aliases.length != 1 ? 's' : ''}}</h4>
                             <a class="btn btn-primary" style="background-color: #4c75a3;" role="button"
                                 (click)="isUpdating = false; isCreating = true">
                                 <span>
@@ -41,7 +41,7 @@
                         <div class="row">
                             <!-- Page Buttons -->
                             <div *ngIf="clans.length > numRows">
-                                <div class="d-flex justify-content-center pageButtons">
+                                <div class="d-flex justify-content-center pageButtons-one-third">
                                     <button (click)="pagedClansIndex = tPrev(pagedClans, pagedClansIndex)"
                                         class="btn btn-sm btn-light tPrev" type="button">
                                         <span><i class="fas fa-angles-left fa-sm"></i></span>
@@ -54,7 +54,7 @@
                                         <span><i class="fas fa-angles-right fa-sm ms-1"></i></span>
                                     </button>
                                 </div> <!-- End Page Buttons -->
-                                <div class="row text-center text-muted pageButtons pageItemCount">
+                                <div class="row text-center text-muted pageButtons-one-third pageItemCount-one-third">
                                     <small>({{pagedClansIndex * numRows + 1}}-{{pagedClansIndex * numRows + numRows}} of
                                         {{clans.length}})</small>
                                 </div>
@@ -81,13 +81,13 @@
                 class="grid-item two-thirds {{gridItemClass}}">
                 <div class="card bg-glass">
                     <iframe width="847" height="476"
-                        src="https://www.youtube.com/embed/mLyOj_QD4a4?autoplay=0&mute=1&controls=0&showinfo=0&autoplay=0"
+                        src="https://www.youtube.com/embed/mLyOj_QD4a4?&mute=1&controls=0&showinfo=0&autoplay=1"
                         title="Leroy Jenkins" frameborder="0" allow="accelerometer; 
                         encrypted-media; 
                         picture-in-picture" allowfullscreen></iframe>
                     <div class="mask">
                         <div class="d-flex justify-content-center align-items-end h-100">
-                            <h2 class="display-6 mb-2">Join a Clan. Have Fun. Don't be a Leroy.</h2>
+                            <h2 class="display-6 mb-2 videoOverlayText">Join a Clan. Have Fun. Don't be a Leroy.</h2>
                         </div>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
 
             <!-- Begin Selected Clan Card -->
             <div *ngIf="isSelectedLoaded" class="grid-item one-third {{gridItemClass}}">
-                <div class="card bg-glass">
+                <div mdbRipple rippleColor="{{rippleColor}}" class="card bg-glass">
                     <!-- Image Header -->
                     <div class="bg-image hover-overlay ripple" mdbRipple rippleColor="{{rippleColor}}">
                         <img src="{{selected.imageUrl}}" class="img-fluid" />
@@ -132,8 +132,8 @@
             <div *ngIf="isSelectedLoaded && isClansAliasesLoaded" class="grid-item one-third {{gridItemClass}}">
                 <div class="card bg-glass">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <h4>Aliases in {{selected.name}}</h4>
+                        <div mdbRipple rippleColor="{{rippleColor}}" class="d-flex justify-content-between">
+                            <h4>{{aliases.length}} Alias{{aliases.length != 1 ? 'es' : ''}} in {{selected.name}}</h4>
                             <hr>
                         </div>
                         <hr>
@@ -141,7 +141,7 @@
                         <div class="row">
                             <!-- Page Buttons -->
                             <div *ngIf="clanAliases.length > numRows">
-                                <div class="d-flex justify-content-center pageButtons">
+                                <div class="d-flex justify-content-center pageButtons-one-third">
                                     <button (click)="pagedClanAliasesIndex = tPrev(pagedClanAliases, pagedClanAliasesIndex)"
                                         class="btn btn-sm btn-light tPrev" type="button">
                                         <span><i class="fas fa-angles-left fa-sm"></i></span>
@@ -154,7 +154,7 @@
                                         <span><i class="fas fa-angles-right fa-sm ms-1"></i></span>
                                     </button>
                                 </div>
-                                <div class="row text-center text-muted pageButtons pageItemCount">
+                                <div class="row text-center text-muted pageButtons-one-third pageItemCount-one-third">
                                     <small>({{pagedClanAliasesIndex * numRows + 1}}-{{pagedClanAliasesIndex * numRows + numRows}} of
                                         {{clanAliases.length}})</small>
                                 </div>

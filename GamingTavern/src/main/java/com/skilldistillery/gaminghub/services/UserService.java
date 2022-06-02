@@ -6,7 +6,9 @@ import com.skilldistillery.gaminghub.entities.User;
 
 public interface UserService {
 	
-	List<User> index ();
+	List<User> index();
+	
+	List<String> getAllUsernames();
 
 	User getUserById(int userId);
 	

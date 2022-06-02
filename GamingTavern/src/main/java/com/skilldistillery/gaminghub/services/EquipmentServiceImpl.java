@@ -30,4 +30,9 @@ public class EquipmentServiceImpl implements EquipmentService {
 		}
 	}
 
+	@Override
+	public List<Equipment> getEquipmentByUsername(String username) {
+		return equipRepo.findByUsersUsername(username);
+	}
+
 }

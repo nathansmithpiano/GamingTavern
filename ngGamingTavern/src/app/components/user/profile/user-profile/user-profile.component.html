@@ -1,22 +1,27 @@
 <section *ngIf="isLoaded()">
 
-  <div class="container py-{{ topPadding }}">
+  <!-- Begin Container -->
+  <div class="container py-3">
+
+    <!-- Begin Grid -->
     <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 310, "gutter": 15 }'>
 
       <!-- Breadcrumb -->
-      <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item four">
-        <nav aria-label="breadcrumb" class="bg-glass shadow-4-strong rounded-{{rounding}} p-3">
-          <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">User</a></li>
-            <li class="breadcrumb-item active">{{user.username}}</li>
-          </ol>
-        </nav>
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item four {{gridItemClass}}">
+        <div class="card bg-glass">
+          <nav aria-label="breadcrumb" class="p-3">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a class="text-white" href="home">Home</a></li>
+              <li class="breadcrumb-item"><a class="text-white" href="users">Users</a></li>
+              <li class="breadcrumb-item text-muted">{{user.username}}</li>
+            </ol>
+          </nav>
+        </div>
       </div>
       <!-- End Breadcrumb -->
 
-      <!-- First Card -->
-      <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">
+      <!-- Begin Main Card -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item {{gridItemClass}}">
         <div class="card bg-glass">
           <div class="card-body">
             <div class="{{ leftSummaryClass }}">
@@ -29,8 +34,8 @@
                 {{ user.description }}
               </p>
 
-              <!-- Buttons Group 2 -->
-              <div class="btn-group btn-group-sm" role="group">
+              <!-- Buttons for Not Logged In User -->
+              <div *ngIf="!this.isCurrentUser" class="btn-group btn-group-sm" role="group">
                 <!-- Friend -->
                 <button type="button" class="btn btn-{{ friendButtonType }}">
                   <span>
@@ -43,6 +48,17 @@
                   <span>
                     <i class="fas fa-user-plus"></i>
                     {{ chatButtonLabel }}
+                  </span>
+                </button>
+              </div>
+              <!-- Buttons for Logged In User -->
+              <div *ngIf="this.isCurrentUser" class="btn-group btn-group-sm justify-content-end" role="group">
+                <!-- Update -->
+                <button (click)="isUpdating = true; resetUpdateUser()" type="button"
+                  class="btn btn-{{ updateButtonType }}">
+                  <span>
+                    <i class="fas fa-user-plus"></i>
+                    {{ updateButtonLabel }}
                   </span>
                 </button>
               </div>
@@ -137,7 +153,7 @@
             <!-- End User Summary -->
 
             <!-- Row 3 -->
-            <div class="{{ leftSummaryClass }}">
+            <div *ngIf="!this.isCurrentUser" class="{{ leftSummaryClass }}">
               <!-- Button Group 2 -->
               <div class="btn-group btn-group-sm" role="group">
                 <!-- Endorsement -->
@@ -156,111 +172,475 @@
                 </button>
               </div> <!-- End Button Group -->
             </div> <!-- End Row 3 -->
+
+            <!-- allUsers -->
+            <div class="row my-0">
+              <h3 class="text-center">All {{allUsernames.length}} Users</h3>
+              <hr>
+              <!-- Page Buttons -->
+              <div *ngIf="allUsernames.length > numRows">
+                <div class="d-flex justify-content-center pageButtons">
+                  <button (click)="pagedAllUsernamesIndex = tPrev(pagedAllUsernames, pagedAllUsernamesIndex)"
+                    class="btn btn-sm btn-light tPrev" type="button">
+                    <span><i class="fas fa-angles-left fa-sm"></i></span>
+                  </button>
+                  <button type="button" class="btn btn-sm btn-light tCenter">
+                    page {{pagedAllUsernamesIndex + 1}} of {{pagedAllUsernames.length}}
+                  </button>
+                  <button (click)="pagedAllUsernamesIndex = tNext(pagedAllUsernames, pagedAllUsernamesIndex)"
+                    class="btn btn-sm btn-light tNext" type="button">
+                    <span><i class="fas fa-angles-right fa-sm ms-1"></i></span>
+                  </button>
+                </div> <!-- End Page Buttons -->
+                <div class="row text-center text-muted pageButtons pageItemCount">
+                  <small>({{pagedAllUsernamesIndex * numRows + 1}}-{{pagedAllUsernamesIndex * numRows + numRows}} of
+                    {{allUsernames.length}})</small>
+                </div>
+              </div>
+              <!-- Paged List -->
+              <ul class="list-group">
+                <li *ngFor="let allUser of pagedAllUsernames[pagedAllUsernamesIndex]" class="list-group-item">
+                  <div class="row listButton">
+                    <a class="btn listButtonA" role="button">
+                      {{allUser}}
+                    </a>
+                  </div>
+                </li>
+              </ul> <!-- End Paged List -->
+            </div> <!-- End allUsers -->
+
+
+
           </div> <!-- End Card Body -->
         </div> <!-- End Card -->
       </div> <!-- End First Card -->
 
-      <!-- Image / Card 2 -->
-      <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item two full-image {{gridItemClass}}">
+      <!-- Friends -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item {{gridItemClass}}">
         <div class="card bg-glass">
-          <img src="assets/art/tavern_table.jpeg" class="rounded-{{rounding}} " style="width: 100%" />
+          <div class="card-body {{ leftSummaryClass }}">
+            <div mdbRipple rippleColor="{{rippleColor}}"></div>
+            <h4>{{friends.length}} Friend{{friends.length != 1 ? 's' : ''}}</h4>
+            <hr>
+            <div class="row my-0">
+              <!-- Page Buttons -->
+              <div *ngIf="friends.length > numRows">
+                <div class="d-flex justify-content-center pageButtons">
+                  <button (click)="pagedAliasesIndex = tPrev(pagedFriends, pagedFriendsIndex)"
+                    class="btn btn-sm btn-light tPrev" type="button">
+                    <span><i class="fas fa-angles-left fa-sm"></i></span>
+                  </button>
+                  <button type="button" class="btn btn-sm btn-light tCenter">
+                    page {{pagedFriendsIndex + 1}} of {{pagedFriends.length}}
+                  </button>
+                  <button (click)="pagedFriendsIndex = tNext(pagedFriends, pagedFriendsIndex)"
+                    class="btn btn-sm btn-light tNext" type="button">
+                    <span><i class="fas fa-angles-right fa-sm ms-1"></i></span>
+                  </button>
+                </div> <!-- End Page Buttons -->
+                <div class="row text-center text-muted pageButtons pageItemCount">
+                  <small>({{pagedFriendsIndex * numRows + 1}}-{{pagedFriendsIndex * numRows + numRows}} of
+                    {{friends.length}})</small>
+                </div>
+              </div>
+              <!-- Paged List -->
+              <ul class="list-group">
+                <li *ngFor="let friend of pagedFriends[pagedFriendsIndex]" class="list-group-item">
+                  <div class="row listButton">
+                    <a class="btn listButtonA" role="button" href="users/{{friend.username}}">
+                      {{friend.username}}
+                    </a>
+                  </div>
+                </li>
+              </ul> <!-- End Paged List -->
+            </div>
+          </div>
+        </div>
+      </div> <!-- End Friends -->
+
+      <!-- Update / Image Card -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item two full-image {{gridItemClass}}">
+        <div class="card bg-glass">
+
+          <!-- If not updating, display image -->
+          <div *ngIf="!isUpdating">
+            <img src="assets/art/tavern_table.jpeg" class="rounded-{{rounding}} " style="width: 100%" />
+          </div>
+
+          <!-- If not updating, display update card -->
+          <div *ngIf="isUpdating">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <h3>Update User</h3>
+                <a (click)="isUpdating = false; resetUpdateUser()">
+                  <i class="fas fa-xmark fa-lg"></i>
+                </a>
+              </div>
+              <hr>
+              <!-- Begin Form Div -->
+              <div>
+
+                <!-- Begin Form -->
+                <form [formGroup]="validationForm">
+                  <!-- Begin Email -->
+                  <div class="row mb-4">
+                    <div>
+                      <mdb-form-control>
+                        <input mdbValidate mdbInput autofocus type="text" id="form1"
+                          class="form-control text-white custInput" formControlName="email" required
+                          [(ngModel)]="updateUser.email" />
+                        <label mdbLabel class="form-label" for="form1">Email</label>
+                        <mdb-error *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+                          Email is required
+                        </mdb-error>
+                        <mdb-success *ngIf="email?.valid && (email?.dirty || email?.touched)">
+                          Looks good!
+                        </mdb-success>
+                      </mdb-form-control>
+                    </div>
+                  </div> <!-- End Email -->
+
+                  <!-- Begin First Name -->
+                  <div class="row mb-3">
+                    <div>
+                      <mdb-form-control>
+                        <input mdbValidate mdbInput type="text" id="form2" class="form-control text-white custInput"
+                          formControlName="firstName" [(ngModel)]="updateUser.firstName" />
+                        <label mdbLabel class="form-label" for="form2">First Name</label>
+                      </mdb-form-control>
+                    </div>
+                  </div> <!-- End First Name -->
+
+                  <!-- Begin Middle Name -->
+                  <div class="row mb-3">
+                    <div>
+                      <mdb-form-control>
+                        <input mdbValidate mdbInput autofocus type="text" id="form2"
+                          class="form-control text-white custInput" formControlName="middleName"
+                          [(ngModel)]="updateUser.middleName" />
+                        <label mdbLabel class="form-label" for="form2">Middle Name</label>
+                      </mdb-form-control>
+                    </div>
+                  </div> <!-- End Middle Name -->
+
+                  <!-- Begin Last Name -->
+                  <div class="row mb-3">
+                    <div>
+                      <mdb-form-control>
+                        <input mdbValidate mdbInput autofocus type="text" id="form2"
+                          class="form-control text-white custInput" formControlName="lastName"
+                          [(ngModel)]="updateUser.lastName" />
+                        <label mdbLabel class="form-label" for="form2">Last Name</label>
+                      </mdb-form-control>
+                    </div>
+                  </div> <!-- End Last Name -->
+
+                  <!-- Begin Description -->
+                  <div class="row mb-3">
+                    <div>
+                      <mdb-form-control>
+                        <input mdbValidate mdbInput autofocus type="text" id="form2"
+                          class="form-control text-white custInput" formControlName="description"
+                          [(ngModel)]="updateUser.description" />
+                        <label mdbLabel class="form-label" for="form2">Description</label>
+                      </mdb-form-control>
+                    </div>
+                  </div> <!-- End Description -->
+
+                  <!-- Begin imageUrl -->
+                  <div class="row mb-3">
+                    <div>
+                      <mdb-form-control>
+                        <input mdbValidate mdbInput autofocus type="text" id="form3"
+                          class="form-control text-white custInput" formControlName="imageUrl"
+                          [(ngModel)]="updateUser.imageUrl" />
+                        <label mdbLabel class="form-label" for="form3">Image URL</label>
+                      </mdb-form-control>
+                    </div>
+                  </div> <!-- End imageUrl -->
+
+                  <!-- Begin Button Row -->
+                  <div class="d-flex justify-content-end">
+                    <!-- Begin Button Group -->
+                    <div class="btn-group" role="group">
+                      <!-- Reset Button -->
+                      <button (click)="resetUpdateUser()" class="btn btn-light" type="button">
+                        <span>
+                          <i class="fas fa-arrow-rotate-left me-1"></i>
+                          RESET
+                        </span>
+                      </button>
+                      <!-- Submit Button -->
+                      <button (click)="beginUpdate()" class="btn btn-success" type="button">
+                        <span>
+                          <i class="fas fa-circle-check me-1"></i>
+                          UPDATE
+                        </span>
+                      </button>
+                    </div> <!-- End Button Group -->
+                  </div> <!-- End Button Row -->
+
+                </form> <!-- End Form -->
+              </div> <!-- End Form Div -->
+            </div>
+          </div>
         </div>
       </div> <!-- End Image / Card 2 -->
 
-      <!-- Card 3 -->
-      <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">
+      <!-- Equipments -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item {{gridItemClass}}">
         <div class="card bg-glass">
           <div class="card-body {{ leftSummaryClass }}">
-            <h4>{{friends.length}} Friends</h4>
+            <h4>{{equipments.length}} Equipment{{equipments.length > 1 ? 's' : ''}}</h4>
             <hr>
             <div class="row my-0">
-              <table class="table table-sm table-borderless table-hover table-striped">
-                <tbody>
-                  <tr *ngFor="let friend of friendsDisp[friendsPage]">
-                    <td class="text-white">{{friend.username}}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div *ngIf="friends.length > 5" class="d-grid gap-0 px-0 d-sm-flex justify-content-sm-center">
-                <button (click)="friendsPage = tPrev(friendsDisp, friendsPage)"
-                  class="btn btn-outline-light btn-sm me-md-2" type="button">
-                  <span><i class="fas fa-angles-left fa-sm me-1"></i>Prev</span>
-                </button>
-                <button (click)="friendsPage = tNext(friendsDisp, friendsPage)" class="btn btn-outline-light btn-sm "
-                  type="button">
-                  <span>Next<i class="fas fa-angles-right fa-sm ms-1"></i></span>
-                </button>
+              <!-- Page Buttons -->
+              <div *ngIf="equipments.length > numRows">
+                <div class="d-flex justify-content-center pageButtons">
+                  <button (click)="pagedEquipmentsIndex = tPrev(pagedEquipments, pagedEquipmentsIndex)"
+                    class="btn btn-sm btn-light tPrev" type="button">
+                    <span><i class="fas fa-angles-left fa-sm"></i></span>
+                  </button>
+                  <button type="button" class="btn btn-sm btn-light tCenter">
+                    page {{pagedEquipmentsIndex + 1}} of {{pagedEquipments.length}}
+                  </button>
+                  <button (click)="pagedEquipmentsIndex = tNext(pagedEquipments, pagedEquipmentsIndex)"
+                    class="btn btn-sm btn-light tNext" type="button">
+                    <span><i class="fas fa-angles-right fa-sm ms-1"></i></span>
+                  </button>
+                </div> <!-- End Page Buttons -->
+                <div class="row text-center text-muted pageButtons pageItemCount">
+                  <small>({{pagedEquipmentsIndex * numRows + 1}}-{{pagedEquipmentsIndex * numRows + numRows}} of
+                    {{equipments.length}})</small>
+                </div>
               </div>
-              <div class="text-center text-muted">
-                <small>Page {{friendsPage + 1}} of {{friendsDisp.length - 1}}</small>
-              </div>
+              <!-- Paged List -->
+              <ul class="list-group">
+                <li *ngFor="let equipment of pagedEquipments[pagedEquipmentsIndex]" class="list-group-item">
+                  <div class="row listButton">
+                    <a class="btn listButtonA" role="button">
+                      {{equipment.name}}
+                    </a>
+                  </div>
+                </li>
+              </ul> <!-- End Paged List -->
             </div>
           </div>
         </div>
-      </div> <!-- End Card 3 -->
+      </div> <!-- End Equipments -->
 
-      <!-- Card 4 -->
-      <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">
+      <!-- Blocked Users -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item {{gridItemClass}}">
         <div class="card bg-glass">
           <div class="card-body {{ leftSummaryClass }}">
-            <h4>{{aliases.length}} Aliases</h4>
+            <h4>{{blockedUsers.length}} Blocked User{{blockedUsers.length != 1 ? 's' : ''}}</h4>
             <hr>
             <div class="row my-0">
-              <table class="table table-sm table-borderless table-hover table-striped">
-                <tbody>
-                  <tr *ngFor="let alias of aliasesDisp[aliasesPage]">
-                    <td class="text-white">{{alias.name}}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div *ngIf="aliases.length > 5" class="d-grid gap-0 px-0 d-sm-flex justify-content-sm-center">
-                <button (click)="aliasesPage = tPrev(aliasesDisp, aliasesPage)"
-                  class="btn btn-outline-light btn-sm me-md-2" type="button">
-                  <span><i class="fas fa-angles-left fa-sm me-1"></i>Prev</span>
-                </button>
-                <button (click)="aliasesPage = tNext(aliasesDisp, aliasesPage)" class="btn btn-outline-light btn-sm "
-                  type="button">
-                  <span>Next<i class="fas fa-angles-right fa-sm ms-1"></i></span>
-                </button>
+              <!-- Page Buttons -->
+              <div *ngIf="blockedUsers.length > numRows">
+                <div class="d-flex justify-content-center pageButtons">
+                  <button (click)="pagedBlockedUsersIndex = tPrev(pagedBlockedUsers, pagedBlockedUsersIndex)"
+                    class="btn btn-sm btn-light tPrev" type="button">
+                    <span><i class="fas fa-angles-left fa-sm"></i></span>
+                  </button>
+                  <button type="button" class="btn btn-sm btn-light tCenter">
+                    page {{pagedBlockedUsersIndex + 1}} of {{pagedBlockedUsers.length}}
+                  </button>
+                  <button (click)="pagedBlockedUsersIndex = tNext(pagedBlockedUsers, pagedBlockedUsersIndex)"
+                    class="btn btn-sm btn-light tNext" type="button">
+                    <span><i class="fas fa-angles-right fa-sm ms-1"></i></span>
+                  </button>
+                </div> <!-- End Page Buttons -->
+                <div class="row text-center text-muted pageButtons pageItemCount">
+                  <small>({{pagedBlockedUsersIndex * numRows + 1}}-{{pagedBlockedUsersIndex * numRows + numRows}} of
+                    {{blockedUsers.length}})</small>
+                </div>
               </div>
-              <div class="text-center text-muted">
-                <small>Page {{aliasesPage + 1}} of {{aliasesDisp.length - 1}}</small>
-              </div>
+              <!-- Paged List -->
+              <ul class="list-group">
+                <li *ngFor="let blockedUser of pagedBlockedUsers[pagedBlockedUsersIndex]" class="list-group-item">
+                  <div class="row listButton">
+                    <a class="btn listButtonA" role="button" href="users/{{blockedUser.username}}">
+                      {{blockedUser.username}}
+                    </a>
+                  </div>
+                </li>
+              </ul> <!-- End Paged List -->
             </div>
           </div>
         </div>
-      </div> <!-- End Card 4 -->
+      </div> <!-- End Blocked Users -->
 
-      <!-- Card 4 -->
-      <div *ngIf="!isLoading">
-        <div *ngFor="let game of games" mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">
-          <div class="card bg-glass">
-            <img src="{{game.imageUrl}}" class="rounded-{{rounding}} " style="width: 100%" />
+      <!-- Aliases -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item {{gridItemClass}}">
+        <div class="card bg-glass">
+          <div class="card-body {{ leftSummaryClass }}">
+            <h4>{{aliases.length}} Alias{{aliases.length != 1 ? 'es' : ''}}</h4>
+            <hr>
+            <div class="row my-0">
+              <!-- Page Buttons -->
+              <div *ngIf="aliases.length > numRows">
+                <div class="d-flex justify-content-center pageButtons">
+                  <button (click)="pagedAliasesIndex = tPrev(pagedAliases, pagedAliasesIndex)"
+                    class="btn btn-sm btn-light tPrev" type="button">
+                    <span><i class="fas fa-angles-left fa-sm"></i></span>
+                  </button>
+                  <button type="button" class="btn btn-sm btn-light tCenter">
+                    page {{pagedAliasesIndex + 1}} of {{pagedAliases.length}}
+                  </button>
+                  <button (click)="pagedAliasesIndex = tNext(pagedAliases, pagedAliasesIndex)"
+                    class="btn btn-sm btn-light tNext" type="button">
+                    <span><i class="fas fa-angles-right fa-sm ms-1"></i></span>
+                  </button>
+                </div> <!-- End Page Buttons -->
+                <div class="row text-center text-muted pageButtons pageItemCount">
+                  <small>({{pagedAliasesIndex * numRows + 1}}-{{pagedAliasesIndex * numRows + numRows}} of
+                    {{aliases.length}})</small>
+                </div>
+              </div>
+              <!-- Paged List -->
+              <ul class="list-group">
+                <li *ngFor="let alias of pagedAliases[pagedAliasesIndex]" class="list-group-item">
+                  <div class="row listButton">
+                    <a class="btn listButtonA" role="button">
+                      {{alias.name}}
+                    </a>
+                  </div>
+                </li>
+              </ul> <!-- End Paged List -->
+            </div>
           </div>
         </div>
-        <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item {{gridItemClass}}">
-          <div class="card bg-glass">
-            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg?t=1641233427"
-              class="rounded-{{rounding}} " style="width: 100%" />
+      </div> <!-- End Aliases -->
+
+      <!-- Games -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item {{gridItemClass}}">
+        <div class="card bg-glass">
+          <div class="card-body {{ leftSummaryClass }}">
+            <h4>{{games.length}} Game{{games.length != 1 ? 's' : ''}}</h4>
+            <hr>
+            <div class="row my-0">
+              <!-- Page Buttons -->
+              <div *ngIf="games.length > numRows">
+                <div class="d-flex justify-content-center pageButtons">
+                  <button (click)="pagedGamesIndex = tPrev(pagedGames, pagedGamesIndex)"
+                    class="btn btn-sm btn-light tPrev" type="button">
+                    <span><i class="fas fa-angles-left fa-sm"></i></span>
+                  </button>
+                  <button type="button" class="btn btn-sm btn-light tCenter">
+                    page {{pagedGamesIndex + 1}} of {{pagedGames.length}}
+                  </button>
+                  <button (click)="pagedGamesIndex = tNext(pagedGames, pagedGamesIndex)"
+                    class="btn btn-sm btn-light tNext" type="button">
+                    <span><i class="fas fa-angles-right fa-sm ms-1"></i></span>
+                  </button>
+                </div> <!-- End Page Buttons -->
+                <div class="row text-center text-muted pageButtons pageItemCount">
+                  <small>({{pagedGamesIndex * numRows + 1}}-{{pagedGamesIndex * numRows + numRows}} of
+                    {{games.length}})</small>
+                </div>
+              </div>
+              <!-- Paged List -->
+              <ul class="list-group">
+                <li *ngFor="let game of pagedGames[pagedGamesIndex]" class="list-group-item">
+                  <div class="row listButton">
+                    <a class="btn listButtonA" role="button">
+                      {{game.name}}
+                    </a>
+                  </div>
+                </li>
+              </ul> <!-- End Paged List -->
+            </div>
           </div>
         </div>
-      </div> <!-- End Card 4 -->
+      </div> <!-- End Games -->
+
+      <!-- Locations -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item {{gridItemClass}}">
+        <div class="card bg-glass">
+          <div class="card-body {{ leftSummaryClass }}">
+            <h4>{{locations.length}} Location{{locations.length != 1 ? 's' : ''}}</h4>
+            <hr>
+            <div class="row my-0">
+              <!-- Page Buttons -->
+              <div *ngIf="locations.length > numRows">
+                <div class="d-flex justify-content-center pageButtons">
+                  <button (click)="pagedLocationsIndex = tPrev(pagedLocations, pagedLocationsIndex)"
+                    class="btn btn-sm btn-light tPrev" type="button">
+                    <span><i class="fas fa-angles-left fa-sm"></i></span>
+                  </button>
+                  <button type="button" class="btn btn-sm btn-light tCenter">
+                    page {{pagedLocationsIndex + 1}} of {{pagedLocations.length}}
+                  </button>
+                  <button (click)="pagedLocationsIndex = tNext(pagedLocations, pagedLocationsIndex)"
+                    class="btn btn-sm btn-light tNext" type="button">
+                    <span><i class="fas fa-angles-right fa-sm ms-1"></i></span>
+                  </button>
+                </div> <!-- End Page Buttons -->
+                <div class="row text-center text-muted pageButtons pageItemCount">
+                  <small>({{pagedLocationsIndex * numRows + 1}}-{{pagedLocationsIndex * numRows + numRows}} of
+                    {{locations.length}})</small>
+                </div>
+              </div>
+              <!-- Paged List -->
+              <ul class="list-group">
+                <li *ngFor="let location of pagedLocations[pagedLocationsIndex]" class="list-group-item">
+                  <div class="row listButton">
+                    <a class="btn listButtonA" role="button">
+                      {{location.name}}
+                    </a>
+                  </div>
+                </li>
+              </ul> <!-- End Paged List -->
+            </div>
+          </div>
+        </div>
+      </div> <!-- End Locations -->
+
+      <!-- Meetups -->
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item {{gridItemClass}}">
+        <div class="card bg-glass">
+          <div class="card-body {{ leftSummaryClass }}">
+            <h4>{{meetups.length}} Meetup{{meetups.length != 1 ? 's' : ''}}</h4>
+            <hr>
+            <div class="row my-0">
+              <!-- Page Buttons -->
+              <div *ngIf="meetups.length > numRows">
+                <div class="d-flex justify-content-center pageButtons">
+                  <button (click)="pagedMeetupsIndex = tPrev(pagedMeetups, pagedMeetupsIndex)"
+                    class="btn btn-sm btn-light tPrev" type="button">
+                    <span><i class="fas fa-angles-left fa-sm"></i></span>
+                  </button>
+                  <button type="button" class="btn btn-sm btn-light tCenter">
+                    page {{pagedMeetupsIndex + 1}} of {{pagedMeetups.length}}
+                  </button>
+                  <button (click)="pagedMeetupsIndex = tNext(pagedMeetups, pagedMeetupsIndex)"
+                    class="btn btn-sm btn-light tNext" type="button">
+                    <span><i class="fas fa-angles-right fa-sm ms-1"></i></span>
+                  </button>
+                </div> <!-- End Page Buttons -->
+                <div class="row text-center text-muted pageButtons pageItemCount">
+                  <small>({{pagedMeetupsIndex * numRows + 1}}-{{pagedMeetupsIndex * numRows + numRows}} of
+                    {{meetups.length}})</small>
+                </div>
+              </div>
+              <!-- Paged List -->
+              <ul class="list-group">
+                <li *ngFor="let meetup of pagedMeetups[pagedMeetupsIndex]" class="list-group-item">
+                  <div class="row listButton">
+                    <a class="btn listButtonA" role="button">
+                      {{meetup.name}}
+                    </a>
+                  </div>
+                </li>
+              </ul> <!-- End Paged List -->
+            </div>
+          </div>
+        </div>
+      </div> <!-- End Meetups -->
 
       <!-- End Grid -->
     </div>
-
-    <form>
-      <label for="username">Username</label>
-      <input  [(ngModel)]="user.username" type="text" name="username" placeholder="Username">
-      <br>
-      <label for="password">Password</label>
-      <input  [(ngModel)]="user.password" type="text" name="password" placeholder="Password">
-      <br>
-      <label for="email">Email</label>
-      <input  [(ngModel)]="user.email" type="text" name="email" placeholder="Email">
-      <br>
-      <button (click)="getUpdateUser(user)">Update Profile</button>
-    </form>
 
   </div>
 </section>

@@ -1,6 +1,6 @@
 <!-- Navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-glass">
-  <div class="container justify-content-between">
+  <div mdbRipple rippleColor="{{rippleColor}}" class="container justify-content-between">
     <!-- Left elements -->
     <div class="d-flex">
       <!-- Logo -->
@@ -31,32 +31,38 @@
 
     <!-- Center elements -->
     <ul class="navbar-nav flex-row d-none d-md-flex">
-      <!-- Friends -->
-      <li *ngIf="isLoggedIn()" class="{{ liClass }}">
-        <a class="{{ centerItemsAClass }}" [routerLink]="['/friends']">
-          <span class="{{ iconSpanClass }}"><i class="fas fa-users fa-lg"></i></span>
-          <span *ngIf="friendsBadgeCount > 0" class="{{ centerItemsBadgeSpanClass }}">{{ friendsBadgeCount }}</span>
-        </a>
-      </li>
-      <!-- Friends -->
-
       <!-- Chat -->
       <li *ngIf="isLoggedIn()" class="{{ liClass }}">
         <a class="{{ centerItemsAClass }}" [routerLink]="['/chat']">
-          <span class="{{ iconSpanClass }}"><i class="fas fa-comments fa-lg"></i></span>
-          <span *ngIf="chatBadgeCount > 0" class="{{ centerItemsBadgeSpanClass }}">{{ chatBadgeCount }}</span>
+          <span class="{{ iconSpanClass }}"><i class="fas fa-comments fa-lg"></i> Chat</span>
         </a>
       </li>
-      <!-- End Chat -->
+      <!-- Chat -->
 
-      <!-- Endorsements -->
+      <!-- Clans -->
       <li *ngIf="isLoggedIn()" class="{{ liClass }}">
-        <a class="{{ centerItemsAClass }}" [routerLink]="['/endorsements']">
-          <span class="{{ iconSpanClass }}"><i class="fas fa-thumbs-up fa-lg"></i></span>
-          <span *ngIf="friendsBadgeCount > 0" class="{{ centerItemsBadgeSpanClass }}">{{ friendsBadgeCount }}</span>
+        <a class="{{ centerItemsAClass }}" [routerLink]="['/clans']">
+          <span class="{{ iconSpanClass }}"><i class="fas fa-champagne-glasses fa-lg"></i> Clans</span>
         </a>
       </li>
-      <!-- End Endorsements -->
+      <!-- End Clans -->
+
+      <!-- Games -->
+      <li *ngIf="isLoggedIn()" class="{{ liClass }}">
+        <a class="{{ centerItemsAClass }}" [routerLink]="['/games']">
+          <span class="{{ iconSpanClass }}"><i class="fas fa-gamepad fa-lg"></i> Games</span>
+        </a>
+      </li>
+      <!-- End Games -->
+
+      <!-- Games -->
+      <li *ngIf="isLoggedIn()" class="{{ liClass }}">
+        <a class="{{ centerItemsAClass }}" [routerLink]="['/servers']">
+          <span class="{{ iconSpanClass }}"><i class="fas fa-server fa-lg"></i> Servers</span>
+        </a>
+      </li>
+      <!-- End Games -->
+
     </ul>
     <!-- End Center elements -->
 

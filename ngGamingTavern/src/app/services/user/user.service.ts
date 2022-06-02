@@ -1,3 +1,4 @@
+import { Equipment } from './../../models/equipment/equipment';
 import { Meetup } from './../../models/meetup/meetup';
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
@@ -38,9 +39,35 @@ export class UserService {
     );
   }
 
+  getAllUsernames(): Observable<String[]> {
+    return this.http
+      .get<String[]>(this.url2 + 'usernames', {
+        headers: { Authorization: "Basic " + this.auth.getCredentials() },
+      })
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError("KABOOM");
+        })
+      );
+  }
+
   getUserByUsername(username: string): Observable<User> {
     return this.http
       .get<User>(this.url2 + username, {
+        headers: { Authorization: "Basic " + this.auth.getCredentials() },
+      })
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError("KABOOM");
+        })
+      );
+  }
+
+  getEquipmentsByUsername(username: string): Observable<Equipment[]> {
+    return this.http
+      .get<Equipment[]>(this.url2 + username + '/equipment', {
         headers: { Authorization: "Basic " + this.auth.getCredentials() },
       })
       .pipe(

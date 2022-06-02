@@ -12,7 +12,7 @@ import {
   FormControl,
   FormGroup,
   Validators,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 } from "@angular/forms";
 
 @Component({
@@ -32,7 +32,7 @@ export class ClanComponent implements OnInit {
     this.validationForm = new FormGroup({
       name: new FormControl(null, Validators.required),
       description: new FormControl(null),
-      imageUrl: new FormControl(null)
+      imageUrl: new FormControl(null),
     });
   }
 
@@ -57,10 +57,11 @@ export class ClanComponent implements OnInit {
 
   // return true if no other modes are active
   // used to hide/show main page card(s) via *ngIf="emptyStatus()"
-  emptyStatus = ():boolean => {
-    return (!this.isLoading && !this.selected 
-      && !this.isCreating && !this.isUpdating);
-  }
+  emptyStatus = (): boolean => {
+    return (
+      !this.isLoading && !this.selected && !this.isCreating && !this.isUpdating
+    );
+  };
 
   // no longer used
   // leftColumnWidth = 4;
@@ -97,8 +98,8 @@ export class ClanComponent implements OnInit {
   }
 
   createPages = (arr: any[], pagedArr: any[][]): any => {
-    let count:number = arr.length;
-    let numPages = ((count - (count % this.numRows)) / this.numRows);
+    let count: number = arr.length;
+    let numPages = (count - (count % this.numRows)) / this.numRows;
     if (count % this.numRows != 0) {
       numPages++;
     }
@@ -115,7 +116,7 @@ export class ClanComponent implements OnInit {
       }
       pagedArr.push(page);
     }
-  }
+  };
 
   tNext = (arr: any[][], index): number => {
     if (arr.length > index + 1) {
@@ -141,7 +142,7 @@ export class ClanComponent implements OnInit {
       this.invalidAliasId = false;
       this.doCreateClan();
     }
-  }
+  };
 
   beginUpdate = (): void => {
     this.isCreating = false;
@@ -151,23 +152,23 @@ export class ClanComponent implements OnInit {
       this.invalidAliasId = false;
       this.doUpdateClan();
     }
-  }
+  };
 
   resetAll = (): void => {
     this.resetClanUpdated();
     this.resetCreateForm();
     this.isCreating = false;
     this.isUpdating = false;
-  }
+  };
 
   resetClanUpdated = (): void => {
     this.clanUpdated = new Clan();
     this.clanUpdated = Object.assign(this.clanUpdated, this.selected);
-  }
+  };
 
   resetCreateForm = (): void => {
     this.newClan = new Clan();
-  }
+  };
 
   isLoaded = (): boolean => {
     if (this.isLoggedInUserLoaded && this.isClansLoaded) {
@@ -203,8 +204,10 @@ export class ClanComponent implements OnInit {
         this.isSelectedLoaded = true;
         this.isLoading = false;
       },
-      (err) => console.error(
-        "ClanComponent getClanById(): Observable got an error " + err)
+      (err) =>
+        console.error(
+          "ClanComponent getClanById(): Observable got an error " + err
+        )
     );
   }
 
@@ -214,12 +217,14 @@ export class ClanComponent implements OnInit {
         this.clans = data;
         this.pagedClans = new Array<Array<any>>();
         this.createPages(this.clans, this.pagedClans);
-        // console.log(this.pagedClans);
+        
         this.isClansLoaded = true;
         this.isLoading = false;
       },
-      (err) => console.error(
-        "ClanComponent getAllClans(): Observable got an error " + err)
+      (err) =>
+        console.error(
+          "ClanComponent getAllClans(): Observable got an error " + err
+        )
     );
   };
 
@@ -237,7 +242,6 @@ export class ClanComponent implements OnInit {
     }
     this.clanSvc.create(clan).subscribe(
       (data) => {
-        
         // reset newClan
         this.newClan = new Clan();
 
@@ -246,12 +250,14 @@ export class ClanComponent implements OnInit {
 
         // reload clans
         this.getAllClans();
-        
+
         this.getAliasesByClanId(data.id);
         this.isLoading = false;
       },
-      (err) => console.error(
-        "ClanComponent createClan(): Observable got an error" + err)
+      (err) =>
+        console.error(
+          "ClanComponent createClan(): Observable got an error" + err
+        )
     );
   }
 
@@ -278,8 +284,10 @@ export class ClanComponent implements OnInit {
         this.getClanById(data.id);
         this.isLoading = false;
       },
-      (err) => console.error(
-        "ClanComponent updateClan(): Observable got an error" + err)
+      (err) =>
+        console.error(
+          "ClanComponent updateClan(): Observable got an error" + err
+        )
     );
   }
 
@@ -315,8 +323,10 @@ export class ClanComponent implements OnInit {
         this.isCreating = false;
         this.isLoading = false;
       },
-      (err) => console.error(
-        "ClanComponent deleteClanById(): Observable got an error" + err)
+      (err) =>
+        console.error(
+          "ClanComponent deleteClanById(): Observable got an error" + err
+        )
     );
   }
 
@@ -346,13 +356,12 @@ export class ClanComponent implements OnInit {
       },
       (err) => {
         console.error(
-          "ChatComponent getAliasesByUsername(): Observable got an error " +
-            err
+          "ChatComponent getAliasesByUsername(): Observable got an error " + err
         );
       }
     );
   }
-  
+
   getAliasesByClanId(id: number) {
     this.isLoading = true;
     this.aliasSvc.showByClanId(id).subscribe(
@@ -364,12 +373,9 @@ export class ClanComponent implements OnInit {
       },
       (err) => {
         console.error(
-          "ChatComponent getAliasesByUsername(): Observable got an error " +
-            err
+          "ChatComponent getAliasesByUsername(): Observable got an error " + err
         );
       }
     );
   }
-
-  
 }

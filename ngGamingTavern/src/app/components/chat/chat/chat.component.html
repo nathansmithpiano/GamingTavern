@@ -11,8 +11,8 @@
         <div class="card bg-glass">
           <nav aria-label="breadcrumb" class="p-3">
             <ol class="breadcrumb mb-0">
-              <li class="breadcrumb-item">Home</li>
-              <li class="breadcrumb-item">Chat</li>
+              <li class="breadcrumb-item"><a href="home" class="text-white">Home</a></li>
+              <li class="breadcrumb-item"><a href="chat" class="text-white">Chat</a></li>
               <li class="breadcrumb-item text-muted">{{loggedInUser.username}}</li>
             </ol>
           </nav>
@@ -53,15 +53,39 @@
         </div>
       </div> <!-- End First Card -->
 
+      <!-- Begin Video Card -->
+      <div *ngIf="!selectedChat" mdbRipple rippleColor="{{rippleColor}}" class="grid-item two-thirds {{gridItemClass}}">
+        <div class="card bg-glass">
+          <img src="assets/art/tavern_room.png">
+        </div>
+      </div> <!-- End Video Card -->
+
       <!-- Second Card - chat -->
-      <div *ngIf="selectedChat" class="grid-item two-thirds {{gridItemClass}}">
+      <div *ngIf="selectedChat" mdbRipple rippleColor="{{rippleColor}}" class="grid-item two-thirds {{gridItemClass}}">
         <div class="card bg-glass">
           <div class="card-body" mdbRipple rippleColor="hsl(0, 0%, 75%)">
             <!-- Header -->
             <div class="{{ leftSummaryClass }}">
-              <h4>{{selectedChat.title}}</h4>
-              <p class="small text-muted mb-1">{{selectedChat.description}}</p>
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h4>{{selectedChat.title}}</h4>
+                  <p class="small text-muted mb-1">{{selectedChat.description}}</p>
+                </div>
+                <div>
+                  <a (click)="selectedChat = null">
+                    <i class="fas fa-xmark fa-lg"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="d-flex justify-content-end">
+                <a *ngFor="let user of allChatUsers" href="users/{{user.username}}">
+                  <button type="button" class="btn btn-sm btn-light btn-rounded chatUserButton">
+                    {{user.username}}
+                  </button>
+                </a>
+              </div>
             </div>
+            <hr>
 
             <!-- Display each message -->
             <div *ngFor="let message of selectedChat.messages">
