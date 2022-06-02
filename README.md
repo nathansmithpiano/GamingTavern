@@ -1,1 +1,750 @@
 # FinalProject
+
+  -- Developed for Skill Distillery Bootcamp Cohort 32 --
+
+  [See this project deployed on Amazon Web Services](http://54.176.181.174:8080/GamingTavern/)
+
+### Description
+
+  This project uses a REST API via JPA and Spring, along with an Angular frontend, to perform CRUD and search procedures through a JSON-based API.  The database consists of thirty tables - containing our team's culmination of four months of programming.
+
+### Table of Contents
+1. [Routes](#routes)
+2. [The Data](#the-data)
+3. [Using The Data](#using-the-data)
+4. [Single Event](#single-event)
+5. [Multiple Events](#multiple-events)
+6. [Aggregating Data](#aggregating-data-in-home)
+
+
+### Technologies Used
+
+<table>
+    <tr>
+        <th>Tools</th>
+        <th>Languages</th>
+        <th>Other</th>
+    </tr>
+    <tr>
+        <td valign="baseline">
+            <ul>
+                <li>Spring Tool Suite 4</li>
+                <li>Visual Studio Code</li>
+                <li>Atom</li>
+                <li>Postman</li>
+                <li>MYSQL Workbench</li>
+                <li>Google Chrome</li>
+                <li>Terminal</li>
+                <li>Github</li>
+            </ul>
+        </td>
+        <td valign="baseline">
+            <h5>Java</h5>
+            <ul>
+                <li>JPA</li>
+                <li>Spring</li>
+                <li>Tomcat</li>
+                <li>jparepository</li>
+                <li>Gradle</li>
+            </ul>
+            <h5>Angular</h5>
+            <ul>
+                <li>DataTables</li>
+                <li>Bootstrap</li>
+                <li>FormsModule</li>
+                <li>DatePipe</li>
+                <li>Additional modules not specifically listed
+            </ul>
+        </td>
+        <td valign="baseline">
+            <ul>
+                <li>MAMP</li>
+                <li>MySql</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+
+### Thoughts For The Future
+
+This project evolved over several steps - first, a JPA project, then adding a Spring REST, then an Angular frontend.  It was surprisingly difficult to get Angular to work with Datatables or any other outside resources.  After trying to integrate many templates and other pre-existing components like ngbootstrap, I settled for only integrating DataTables.  This was only a weekend project, after all.
+
+Many of the routes were not used in the front end. It seems more efficient to create a custom `pipe` to handle filtering, rather than building an actual route for this. I imagine this would not be the case if other resources were consuming my data, and/or server efficiency would be a factor.
+
+## Routes
+Each of these routes speaks to a specific method and mapping in the controller class.  Parameters and/or JSON body is received by the controller, which sends data or a request to the corresponding method in the service class, which in turn sends data or a request to the repository, which may or may not use an implemented method from the jparepository interface.
+
+<table>
+    <tr>
+        <th>Used</th>
+        <th>Local</th>
+        <th>AWS</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>:white_check_mark:</td>
+        <td><code>GET /api/index</code></td>
+        <td><a href="http://52.52.235.108:8080/GarminTrackerRestApplication/api/index">Link</a>
+        <td>all <code>GarminEvent</code></td>
+    </tr>
+    <tr>
+        <td>:white_check_mark:</td>
+        <td><code>GET /api/{id}</code></td>
+        <td><a href="http://52.52.235.108:8080/GarminTrackerRestApplication/api/1">Link</a>
+        <td>single <code>GarminEvent</code> by id (int)</td>
+    </tr>
+    <tr>
+        <td>:white_check_mark:</td>
+        <td><code>POST /api/create</code></td>
+        <td><a href="http://52.52.235.108:8080/GarminTrackerRestApplication/api/create">Link</a>
+        <td>create <code>GarminEvent</code></td>
+    </tr>
+    <tr>
+        <td>:white_check_mark:</td>
+        <td><code>PUT /api/update/{id}</code></td>
+        <td><a href="http://52.52.235.108:8080/GarminTrackerRestApplication/api/update/1">Link</a>
+        <td>update existing <code>GarminEvent</code> by id (int)</td>
+    </tr>
+    <tr>
+        <td>:white_check_mark:</td>
+        <td><code>DELETE /api/delete/{id}</code></td>
+        <td><a href="http://52.52.235.108:8080/GarminTrackerRestApplication/api/delete/1">Link</a>
+        <td>delete single <code>GarminEvent</code> by id (int)</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><code>GET /api/search/distance/{low}/{high}</code></td>
+        <td><a href="http://52.52.235.108:8080/GarminTrackerRestApplication/api/search/distance/1/10">Link</a>
+        <td>search distance range (double) and get many <code>GarminEvent</code></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><code>GET /api/search/calories/{low}/{high}</code></td>
+        <td><a href="http://52.52.235.108:8080/GarminTrackerRestApplication/api/search/calories/500/1500">Link</a>
+        <td>search calorie range (int) and get many <code>GarminEvent</code></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><code>GET /api/search/date/{low}/{high}</code></td>
+        <td><a href="http://52.52.235.108:8080/GarminTrackerRestApplication/api/search/date/2019-01-01/2020-12-31">Link</a>
+        <td>search date range (yyyy-mm-dd) and get many <code>GarminEvent</code></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><code>GET /api/search/time/moving/{low}/{high}</code></td>
+        <td><a href="http://52.52.235.108:8080/GarminTrackerRestApplication/api/search/time/moving/04:00:00/23:00:00">Link</a>
+        <td>search time moving range (hh-mm-ss) and get many <code>GarminEvent</code></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><code>GET /api/search/time/elapsed/{low}/{high}</code></td>
+        <td><a href="http://52.52.235.108:8080/GarminTrackerRestApplication/api/search/time/elapsed/04:00:00/23:00:00">Link</a>
+        <td>search time elapsed range (hh-mm-ss) and get many <code>GarminEvent</code></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><code>GET /api/search/ascent/{low}/{high}</code></td>
+        <td><a href="http://52.52.235.108:8080/GarminTrackerRestApplication/api/search/ascent/4000/10000">Link</a>
+        <td>search total ascent range (int) and get many <code>GarminEvent</code></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><code>GET /api/search/descent/{low}/{high}</code></td>
+        <td><a href="http://52.52.235.108:8080/GarminTrackerRestApplication/api/search/descent/4000/10000">Link</a>
+        <td>search total descent range (int) and get many <code>GarminEvent</code></td>
+    </tr>
+</table>
+
+### Front End Routes
+
+For this project, these routes were created and utilized:
+<table>
+<tr>
+<th>Route</th>
+<th>Component</th>
+<th><code>app.routing.module.ts</code></th>
+</tr>
+<tr>
+<td>empty</td>
+<td>Home</td>
+<td rowspan="4">
+
+```typescript
+const routes: Routes = [
+
+  { path: "", pathMatch: "full", component: SplashComponent },
+  { path: "home", pathMatch: "full", component: HomeComponent},
+  { path: "users", pathMatch: "full", component: UserProfileComponent },
+  { path: "users/:username", pathMatch: "full", component: UserProfileComponent },
+  { path: "login", pathMatch: "full", component: LoginComponent },
+  { path: "logout", pathMatch: "full", component: LogoutComponent },
+  { path: "profile", pathMatch: "full", component: UserProfileComponent },
+  { path: "clans", pathMatch: "full", component: ClanComponent },
+  { path: "equipment", pathMatch: "full", component: EquipmentComponent },
+  { path: "server", pathMatch: "full", component: ServerComponent },
+  { path: "meetup", pathMatch: "full", component: MeetupComponent },
+  { path: "game", pathMatch: "full", component: GameComponent },
+  { path: "register", pathMatch: "full", component: RegisterComponent },
+  { path: "splash", pathMatch: "full", component: SplashComponent },
+  { path: "chat", pathMatch: "full", component: ChatComponent },
+];
+```
+
+</td>
+</tr>
+<tr>
+<td>/events</td>
+<td>EventsComponent</td>
+</tr>
+<tr>
+<td>/events/{id}</td>
+<td>GarminEventComponent</td>
+</tr>
+<tr>
+<td>everything else</td>
+<td>NotFoundComponent</td>
+</tr>
+</table>
+
+## The Data
+
+I use a Garmin Fenix 5 watch to track my activities - typically running and hiking.  For this project, I imported my own personal data from the [Garmin Connect](https://connect.garmin.com) website into the project's database.
+
+On Garmin Connect / Activities, as on 5/21/22, **activities** are displayed in a table with reach row:
+
+![single activity on the Garmin Connect website](Media/garminconnect_tablerow.png)
+
+Data was exported in .csv format and cleaned up via find/replace in [Google Sheets](sheets.google.com) - things like null, dates, numbers with commas, etc.  Next, the cleaned up data was again exported as a .csv and imported into MySQLWorkbench.  
+
+From here, the schema was forward engineered directly into the local server (run on **MAMP**).
+
+### garmindb
+The database contains only one table, `garmin_event`:
+
+```
++-----------------+-------------+------+-----+---------+----------------+
+| Field           | Type        | Null | Key | Default | Extra          |
++-----------------+-------------+------+-----+---------+----------------+
+| id              | int(11)     | NO   | PRI | NULL    | auto_increment |
+| type            | varchar(45) | NO   |     | NULL    |                |
+| date            | datetime    | YES  |     | NULL    |                |
+| title           | varchar(45) | YES  |     | NULL    |                |
+| distance        | double      | YES  |     | NULL    |                |
+| calories        | int(11)     | YES  |     | NULL    |                |
+| time            | time        | YES  |     | NULL    |                |
+| hr_avg          | int(11)     | YES  |     | NULL    |                |
+| hr_max          | int(11)     | YES  |     | NULL    |                |
+| aerobic_te      | double      | YES  |     | NULL    |                |
+| run_cadence_avg | int(11)     | YES  |     | NULL    |                |
+| run_cadence_max | int(11)     | YES  |     | NULL    |                |
+| pace_avg        | time        | YES  |     | NULL    |                |
+| ascent          | int(11)     | YES  |     | NULL    |                |
+| descent         | int(11)     | YES  |     | NULL    |                |
+| time_moving     | time        | YES  |     | NULL    |                |
+| time_elapsed    | time        | YES  |     | NULL    |                |
+| elevation_min   | int(11)     | YES  |     | NULL    |                |
+| elevation_max   | int(11)     | YES  |     | NULL    |                |
++-----------------+-------------+------+-----+---------+----------------+
+```
+
+**Sample row with id=1:**
+
+```
++----+---------------+---------------------+-----------------------+----------+----------+
+| id | type          | date                | title                 | distance | calories |
++----+---------------+---------------------+-----------------------+----------+----------+
+|  1 | Trail Running | 2022-04-03 15:12:06 | Boulder Trail Running |     8.17 |     1426 |
++----+---------------+---------------------+-----------------------+----------+----------+
+
++----------+--------+--------+------------+-----------------+-----------------+----------+
+| time     | hr_avg | hr_max | aerobic_te | run_cadence_avg | run_cadence_max | pace_avg |
++----------+--------+--------+------------+-----------------+-----------------+----------+
+| 03:36:43 |    112 |    165 |        3.1 |              59 |             248 | 00:26:32 |
++----------+--------+--------+------------+-----------------+-----------------+----------+
+
++--------+---------+-------------+--------------+---------------+---------------+
+| ascent | descent | time_moving | time_elapsed | elevation_min | elevation_max |
++--------+---------+-------------+--------------+---------------+---------------+
+|   7618 |    7608 | 02:41:05    | 03:41:22     |          5706 |          8438 |
++--------+---------+-------------+--------------+---------------+---------------+
+```
+
+For simplicity's sake, only two fields are **non-null**: id (generated, auto-increment), and type.
+
+## Using the Data
+
+
+<table>
+<tr>
+<th>JPA Entity (GamingTavernJPA)</th>
+<th>Angular model (ngGamingTavern)</th>
+</tr>
+<tr>
+<td valign="baseline">
+
+```java
+@Entity
+@Table(name = "user")
+public class User {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
+	private String username;
+	private String password;
+	private String email;
+	private boolean enabled;
+	private String role;
+
+	@Column(name = "first_name")
+	private String firstName;
+
+	@Column(name = "middle_name")
+	private String middleName;
+
+	@Column(name = "last_name")
+	private String lastName;
+
+	private String description;
+
+	@Column(name = "image_url")
+	private String imageUrl;
+
+	private LocalDateTime created;
+	private LocalDateTime updated;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "user")
+	private List<Alias> aliases;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "user")
+	private List<Meetup> meetups;
+
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "user_location", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
+	private List<Location> locations;
+
+	// all chats a User is in
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "chat_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "chat_id"))
+	private List<Chat> chats;
+
+	// all the chats a User has created
+	@JsonIgnore
+	@OneToMany(mappedBy = "creatingUser")
+	private List<Chat> createdChats;
+
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "user_equipment", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "equipment_id"))
+	private List<Equipment> equipments;
+
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "user_friend", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "friend_id"))
+	private List<User> friends;
+
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "blocked_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "blocked_user_id"))
+	private List<User> blockedUsers;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "endorsingUser")
+	private List<UserEndorsement> sentUserEndorsements;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "endorsedUser")
+	private List<UserEndorsement> userReceivedEndorsements;
+}
+```
+</td>
+<td valign="baseline">
+
+```typescript
+export class User {
+  id: number;
+  enabled: boolean;
+  role: string;
+  username: string;
+  password: string;
+  email: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  description: string;
+  imageUrl: string;
+  created: string;
+  updated: string;
+  completed: any;
+  completeDate: string;
+
+  constructor(
+    id: number = 0,
+    enabled: boolean = true,
+    role: string = "",
+    username: string = "",
+    password: string = "",
+    email: string = "",
+    firstName: string = "",
+    middleName: string = "",
+    lastName: string = "",
+    description: string = "",
+    imageUrl: string = "",
+    created: string = "",
+    updated: string = "",
+    completeDate: string = ""
+  ) {
+    this.id = id;
+    this.enabled = enabled;
+    this.role = role;
+    this.username = username;
+    this.password = password;
+    this.email = email;
+    this.firstName = firstName;
+    this.middleName = middleName;
+    this.lastName = lastName;
+    this.description = description;
+    this.imageUrl = imageUrl;
+    this.created = created;
+    this.updated = updated;
+    this.completeDate = completeDate;
+  }
+}
+
+```
+
+</td>
+</tr>
+</table>
+
+
+## Single Event
+
+### Validating {id} parameter
+
+When navigating to /events/{id}, I wanted to validate the {id} parameter is truly an integer > 0 and for everything else, to redirect to the not found page.
+- **Valid:**
+    - /events/1
+- **Invalid:**
+    - /events/one
+    - /events/0
+    - /events/-1
+    - /events/1.1
+    - /events/taco
+
+<table>
+<tr>
+<th><code>garmin-event.component.ts</code></th>
+</tr>
+<tr>
+<td>
+
+```typescript
+
+// verify and return valid id as integer or null if invalid
+private verifyParam = (): number | null => {
+
+// get param 'id' from route as string (null if param empty)
+let paramString: string | null = this.route.snapshot.paramMap.get('id');
+if (paramString) {
+  // re-route if 'create' mode
+  if (paramString === 'create') {
+    this.beginCreate();
+    return null;
+  } else if (
+    // reroute to not found if parameter is not an int above 0
+    isNaN(parseInt(paramString)) ||
+    parseInt(paramString).toString() != paramString ||
+    parseFloat(paramString) != parseInt(paramString) ||
+    parseInt(paramString) <= 0
+  ) {
+    console.error('invalid parameter: ' + paramString);
+  } else {
+    // return valid id
+    let paramId: number = parseInt(paramString);
+    return paramId;
+  }
+}
+// if param is invalid, redirect to not found and return null
+this.router.navigateByUrl('/event-not-found/' + paramString);
+return null;
+};
+```
+
+</td>
+</tr>
+<tr>
+<th><code>garmin.service.ts</code></th>
+</tr>
+<tr>
+<td>
+
+```typescript
+show(id: number): Observable<GarminEvent> {
+  return this.http.get<GarminEvent>(this.url + id).pipe(
+    catchError((err: any) => {
+      return throwError(
+        'garmin.service.ts.show(id=' + id + ') says: not found (404)'
+      );
+    })
+  );
+}
+```
+
+</td>
+</tr>
+</table>
+
+### Viewing or Creating an event
+For viewing or creating an event, one set of inputs were used.  These were not within to a form but rather bound to data in the component.  Inputs are disabled/enabled and various button options 'hidden' via,`ngModel`, `ngIf`, and `ngClass` in the html.
+
+Example:
+
+```html
+<div class="card-header">
+  <h6 *ngIf="this.mode != 'create'" class="card-title">{{event.title}} on {{eventDate}} (id {{event.id}})</h6>
+  <h6 *ngIf="this.mode === 'create'" class="card-title">Create a New Event</h6>
+</div>
+```
+
+#### Viewing Event
+
+![view event](Media/view_event.png)
+
+#### Edit Event
+
+![edit event](Media/edit_event.png)
+
+A good deal of effort was put into validating the input.  Rather than using an outside library or bootstrap's own validation, the component does this manually.
+
+For example, the `date` property of `GarminEvent` is a `LocalDateTime` in the JPA and is sent as such in the API.  The Angular model stores this as a `String`, and the `Event` page input displays this as text in the format of `1:02:03 PM`.  Various conversion is necessary - not only to military time but to a string in the format `2022-04-03T15:12:06`.
+
+```typescript
+// verify Time of Day is not empty
+if (!this.timeOfDay) {
+ this.invalid = true;
+ this.addMessage('Time of Day is required');
+} else {
+ // verify time is in correct format
+ // should be in format: 01:02:03 PM
+ let regex = new RegExp('^([0-1]{1}[0-2]{1}|[0]{1}[0-9]{1}):[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}[ ]{1}[A,P]{1}[M]{1}$');
+ if (!regex.test(this.timeOfDay)) {
+   this.invalid = true;
+   this.addMessage('Time of Day must be in format: hh:mm:ss AM/PM (including leading zeros)');
+ } else {
+   // convert to 2022-04-03T15:12:06
+   let newDate = this.datePipe.transform(this.eventDate, 'y-MM-dd');
+   let newTOD = this.timeOfDay;
+   if (!newDate) {
+     this.invalid = true;
+     this.addMessage('ERROR converting Date');
+   } else {
+     // convert to military time
+     let arr = newTOD.split(' ');
+     if (!arr || arr.length != 2) {
+       this.invalid = true;
+       this.addMessage('ERROR converting Time Of Day');
+     } else {
+       if (arr[1] === 'PM') {
+         let arr2 = arr[0].split(':');
+         if (parseInt(arr2[0]) < 12) {
+           // convert hours to military time
+           arr2[0] = (parseInt(arr2[0]) + 12).toString();
+         }
+         newTOD = arr2[0] + ':' + arr2[1] + ':' + arr2[2] + ' PM';
+       }
+     }
+   }
+   if (newTOD.includes('M')) {
+     // remove AM/PM at end
+     newTOD = newTOD.slice(0, newTOD.indexOf('M') - 1);
+     this.event.date = newDate + 'T' + newTOD;
+   } else {
+     this.event.date = newDate + 'T' + newTOD;
+   }
+  }
+}
+```
+
+When using this form, at various points, may be necessary to reset the data back to the `event` obtained from the API.  Rather than using `Object.assign` or manually copying all properties, I used JSON to perform a deep copy.
+
+```typescript
+this.event = JSON.parse(JSON.stringify(this.backup));
+```
+
+#### Create Event / Edit Event validation
+
+![edit event](Media/create_event.png)
+
+## Multiple Events
+
+### Integrating Datatables
+
+This was surprisingly difficult, perhaps because it was my first time trying to integrate an outside resource other than bootstrap, DatePipe, etc.  I attempted to use things like `PrimeNG` and `ngBootstrap` but this proved time consuming and for the purposes of this project unnecessary.
+
+I was able to use `DataTables` by first installing via the Angular CLI, then adding the following in `Angular.json`
+
+```JSON
+"styles": [
+  "node_modules/datatables.net-dt/css/jquery.dataTables.css"
+],
+"scripts": [
+  "node_modules/jquery/dist/jquery.js",
+  "node_modules/datatables.net/js/jquery.dataTables.js"
+]
+```
+
+Also, `in app.module.ts`:
+
+```typescript
+import { DataTablesModule } from 'angular-datatables';
+
+imports: [
+DataTablesModule
+],
+```
+
+After this, other areas of the project such as the `Events` component could use `DataTables`.
+
+```html
+<!-- Data Table -->
+<table id="events-table" datatable class="table row-border hover">
+<thead>
+  <tr>
+    <th>Type</th>
+    <th>Date</th>
+    <th>Title</th>
+    <th>Distance</th>
+    <th>Calories</th>
+    <th>Time</th>
+    <th>Ascent</th>
+    <th>Descent</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let event of events" (click)="show(event.id)">
+    <td>{{event.type}}</td>
+    <td>{{event.date | date: 'short' }}</td>
+    <td>{{event.title}}</td>
+    <td>{{event.distance}}</td>
+    <td>{{event.calories}}</td>
+    <td>{{event.time}}</td>
+    <td>{{event.ascent}}</td>
+    <td>{{event.descent}}</td>
+  </tr>
+</tbody>
+</table>
+```
+
+## Aggregating Data in Home
+
+To produce a summary of data in the `Home` page, while I had several routes in my Rest controller already created to search via year range, distances, and so on, here I simply used `index()` in my Angular service to obtain all `GarminEvent` and then process through in typescript.
+
+```typescript
+setSummaries = (): void => {
+    let seconds = 0;
+    let maxD = 0;
+    let maxC = 0;
+    let maxT = 0;
+    for (let evt of this.events) {
+      if (evt) {
+        this.totalEvents += 1;
+        this.totalMiles += evt.distance ? evt.distance : 0;
+        this.totalCalories += evt.calories ? evt.calories : 0;
+        this.totalAscent += evt.ascent ? evt.ascent : 0;
+        if (evt.distance && evt.distance > maxD) {
+          maxD = evt.distance;
+        }
+        if (evt.calories && evt.calories > maxC) {
+          maxC = evt.calories;
+        }
+
+        // total time
+        if (evt.time) {
+          let arr = evt.time.split(':');
+          let s = 0;
+          if (arr[0]) {
+            s += parseInt(arr[0]) * 60 * 60;
+          }
+          if (arr[1]) {
+            s += parseInt(arr[1]) * 60;
+          }
+          if (arr[2]) {
+            s += parseInt(arr[2]);
+          }
+          seconds += s;
+          if (s > maxT) {
+            maxT = s;
+          }
+        }
+      }
+
+      let date: Date = new Date();
+      if (evt.date) {
+        date = new Date(Date.parse(evt.date));
+      }
+      let year = date.getFullYear();
+      if (this.yearCounts.has(year)) {
+        let count = this.yearCounts.get(year);
+        if (count) {
+          this.yearCounts.set(year, count + 1);
+        }
+      } else {
+        this.yearCounts.set(year, 1);
+      }
+    }
+    this.totalTime = this.secondsToHms(seconds);
+    this.totalMiles = Math.round(this.totalMiles);
+    this.maxTime = this.secondsToHms(maxT);
+    this.maxDistance = maxD;
+    this.maxCalories = maxC;
+    this.everestEquivalent = Math.round(this.totalAscent / 11433.7);
+    this.marathonEquivalent = Math.round(this.totalMiles / 26.2188);
+    this.oreoEquivalent = Math.round(this.totalCalories / 53);
+  };
+
+  secondsToHms(sec: number):string {
+    var d = Math.floor(sec / (3600*24));
+    var h = Math.floor(sec % (3600*24) / 3600);
+    var m = Math.floor(sec % 3600 / 60);
+    var s = Math.floor(sec % 60);
+    m += Math.round(s / 60);
+    if (d > 0) {
+      return d + ' days, ' + h + ' hrs, ' + m + ' min';
+    } else {
+      return h + ' hrs, ' + m + ' min';
+    }
+}
+```
+
+Shoutout to [this StackOverflow solution](https://stackoverflow.com/a/37096512) for the secondsToHms solution which was easily adapted to include days.
+
+Using a `Map` seemed unusual at first but worked just fine in typescript.  At first, I built a controller routing in the REst project to return a `HashMap<Integer, Integer>`, but changed this to simply use `index` in my Angular service.  As I was already going to be going through each event, it made sense to do all aggregating in that same loop.
+
+```typescript
+yearCounts: Map<number, number> = new Map<number, number>();
+
+for (let evt of this.events) {
+    let date: Date = new Date(Date.parse(evt.date));
+
+    let year = date.getFullYear();
+    if (this.yearCounts.has(year)) {
+        let count = this.yearCounts.get(year);
+        if (count) {
+          this.yearCounts.set(year, count + 1);
+        }
+    } else {
+    this.yearCounts.set(year, 1);
+    }
+}
+```
+
+![summary on the Home page](Media/home_summary.png)
+
+Shoutout to [this codepen](https://codepen.io/lesliesamafful/pen/oNXgmBG) for the example of cards.

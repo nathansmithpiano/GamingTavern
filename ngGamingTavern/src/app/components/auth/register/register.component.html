@@ -1,16 +1,40 @@
-<form>
-    <label for="username">Username</label>
-    <input  [(ngModel)]="newUser.username" type="text" name="username" placeholder="Username">
-    <div *ngIf="isUsernameTaken">This Username Has Been Taken</div>
-    <br>
-    <label for="password">Password</label>
-    <input  [(ngModel)]="newUser.password" type="text" name="password" placeholder="Password">
-    <br>
-    <label for="email">Email</label>
-    <input  [(ngModel)]="newUser.email" type="text" name="email" placeholder="Email">
-    <br>
-    <button (click)="register(newUser)">Register</button>
-  </form>
-  
+
+     <!-- Begin Image Card -->
+     <div class="d-flex justify-content-center">
+    </div>
+    <!-- End Image Card -->
+    
+    <!-- Begin Card -->
+    <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item four {{gridItemClass}}" id="registerDiv">
+      <br>
+      <br>
+      <div>
+        <form>
+          <div class="d-flex justify-content-center">
+            <div class="col col-6">
+              <h4>Registration Form</h4>
+              <label for="username">Username</label>
+              <input  [(ngModel)]="newUser.username" type="text" name="username" placeholder="Username">
+              <div *ngIf="isUsernameTaken">This Username Has Been Taken</div>
+              <br>
+              <label for="password">Password</label>
+              <input  [(ngModel)]="newUser.password" type="text" name="password" placeholder="Password">
+              <br>
+              <label for="email">Email</label>
+              <input  [(ngModel)]="newUser.email" type="text" name="email" placeholder="Email">
+              <br>
+              <label for="fname">First Name</label>
+              <input  [(ngModel)]="newUser.firstName" type="text" name="fname" placeholder="First name">
+              <br>
+              <label for="lname">Last Name</label>
+              <input  [(ngModel)]="newUser.lastName" type="text" name="lname" placeholder="Last name">
+              <br>
+              
+              <button (click)="register(newUser)">Register</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div> <!-- End Card -->
 
   

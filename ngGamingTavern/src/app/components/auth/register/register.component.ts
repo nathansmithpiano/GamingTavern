@@ -5,6 +5,7 @@ import { AuthService } from './../../../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { CustomvalidationService } from 'src/app/servicescustomvalidation.service';
+import { GlobalComponent } from 'src/app/global-component';
 
 @Component({
   selector: 'app-register',
@@ -24,6 +25,10 @@ export class RegisterComponent implements OnInit {
     private customValidator: CustomvalidationService,
     private userService: UserService,
   ) { }
+
+  rippleColor = GlobalComponent.rippleColor;
+  gridItemClass = GlobalComponent.gridItemClass;
+  customRounding = GlobalComponent.customRounding;
 
   newUser: User = new User();
 
