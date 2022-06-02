@@ -1,6 +1,0 @@
-id,enabled,name,type,description,image_url,created,updated
-1,1,Steam,Library,Game Store and Library,,2020-04-10 18:30:00,2020-04-11 18:30:00
-2,1,Epic Games,Library,Game Store and Library,,2020-04-11 18:30:00,2020-04-12 18:30:00
-3,1,Discord,Voice,Voice and Chat Client,,2020-04-12 18:30:00,2020-04-13 18:30:00
-4,1,Xbox App,Library,Game Store and Library,,2020-04-13 18:30:00,2020-04-14 18:30:00
-5,1,TeamSpeak,Voice,Voice and Chat Client,,2020-04-14 18:30:00,2020-04-15 18:30:00

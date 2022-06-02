@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { HomeComponent } from "./components/home/home.component";
+import { HomeComponent } from './components/home/home.component';
 import { SplashComponent } from "./components/splash/splash.component";
 import { LoginComponent } from "./components/auth/login/login.component";
 import { LogoutComponent } from "./components/auth/logout/logout.component";
@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: "equipment", pathMatch: "full", component: EquipmentComponent },
   { path: "servers", pathMatch: "full", component: ServerComponent },
   { path: "meetups", pathMatch: "full", component: MeetupComponent },
-  { path: "games", pathMatch: "full", component: GameComponent },
+  { path: "games", pathMatch: "full", component: GameComponent }
 ];
 
 @NgModule({

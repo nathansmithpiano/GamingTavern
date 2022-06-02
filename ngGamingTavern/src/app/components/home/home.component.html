@@ -1,13 +1,26 @@
+<div>
+  <video style="
+      position: fixed;
+      opacity: 0.7;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      z-index: -11;
+    " class="video-fluid" autoplay loop muted src="assets/art/forest.mp4"></video>
+</div>
+
 <!-- Begin Section -->
 <section>
   <!-- Begin Container -->
   <div class="container py-3">
-
     <!-- Begin Grid -->
-    <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 310, "gutter": 15 }'>
 
+
+    <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 310, "gutter": 15 }'>
       <!-- Breadcrumb -->
-      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item four {{gridItemClass}}">
+      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item four {{ gridItemClass }}">
+
         <div class="card bg-glass">
           <nav aria-label="breadcrumb" class="p-3">
             <ol class="breadcrumb mb-0">
@@ -20,227 +33,304 @@
       <!-- End Breadcrumb -->
 
       <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item one-third {{gridItemClass}}">
-        <div class="card bg-glass">
-          <div class="card-body">
-            <h4>ONE THIRD WIDE WITH BG</h4>
-            <hr>
-            <div>
-              contents
-            </div>
-          </div>
-        </div>
-      </div> <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item one-third {{gridItemClass}}">
-        <div class="card bg-glass">
-          <div class="card-body">
-            <h4>ONE THIRD WIDE WITH BG</h4>
-            <hr>
-            <div>
-              contents
-            </div>
-          </div>
-        </div>
-      </div> <!-- End Card -->
-      
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item one-third {{gridItemClass}}">
-        <div class="card bg-glass">
-          <div class="card-body">
-            <h4>ONE THIRD WIDE WITH BG</h4>
-            <hr>
-            <div>
-              contents
-            </div>
-          </div>
-        </div>
-      </div> <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item {{gridItemClass}}">
-        <div class="card bg-glass">
-          <div class="card-body">
-            <h4>ONE WIDE WITH BG</h4>
-            <hr>
-            <div>
-              contents
-            </div>
-          </div>
-        </div>
-      </div> <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item two {{gridItemClass}}">
-        <div class="card bg-glass">
-          <div class="card-body">
-            <h4>TWO WIDE WITH BG</h4>
-            <hr>
-            <div>
-              contents
-            </div>
-          </div>
-        </div>
-      </div> <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item three {{gridItemClass}}">
-        <div class="card bg-glass">
-          <div class="card-body">
-            <h4>THREE WIDE WITH BG</h4>
-            <hr>
-            <div>
-              contents
-            </div>
-          </div>
-        </div>
-      </div> <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item four {{gridItemClass}}">
-        <div class="card bg-glass">
-          <div class="card-body">
-            <h4>FOUR WIDE WITH BG</h4>
-            <hr>
-            <div class="card bg-glass">
-
-            </div>
-          </div>
-        </div>
-      </div> <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item {{gridItemClass}}">
-        <h4>ONE WIDE NO BG</h4>
-        <hr>
-        <div>
-          contents
-        </div>
-      </div> <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item two {{gridItemClass}}">
-        <h4>TWO WIDE NO BG</h4>
-        <hr>
-        <div>
-          contents
-        </div>
-      </div> <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item three {{gridItemClass}}">
-        <h4>THREE WIDE NO BG</h4>
-        <hr>
-        <div>
-          contents
-        </div>
-      </div> <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item four {{gridItemClass}}">
-        <h4>FOUR WIDE NO BG</h4>
-        <hr>
-        <div>
-          contents
-        </div>
-      </div> <!-- End Card -->
-
-      <!-- Begin Image Card -->
-      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item {{gridItemClass}}">
-        <div class="card bg-glass">
-          <img class="{{customRounding}} " src="assets/art/tavern_room.png">
-        </div>
-      </div> <!-- End Image Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item two {{gridItemClass}}">
-        <div class="card bg-glass">
-          <div class="card-body">
-            <h4>TWO WIDE WITH BG</h4>
-            <hr>
-            <div>
-              <form [formGroup]="validationForm">
-                <!-- Begin Row -->
-                <div class="row">
-                  <div class="col-md-6">
-                    <mdb-form-control>
-                      <input
-                        mdbValidate
-                        mdbInput
-                        type="text"
-                        id="formFirstName"
-                        class="form-control text-white"
-                        formControlName="firstName"
-                        autocomplete="off"
-                        required
-                      />
-                      <label mdbLabel class="form-label text-muted" for="formFirstName">First name</label>
-                      <mdb-error *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)">
-                        First name is required
-                      </mdb-error>
-                      <mdb-success *ngIf="firstName?.valid && (firstName?.dirty || firstName?.touched)">
-                        Looks good!
-                      </mdb-success>
-                    </mdb-form-control>
-                  </div>
-                  <div class="col-md-6">
-                    <mdb-form-control>
-                      <input
-                        mdbValidate
-                        mdbInput
-                        type="text"
-                        id="formLastName"
-                        class="form-control text-white"
-                        formControlName="lastName"
-                        autocomplete="off"
-                        required
-                      />
-                      <label mdbLabel class="form-label text-muted" for="formLastName">Last name</label>
-                      <mdb-error *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)">
-                        Last name is required
-                      </mdb-error>
-                      <mdb-success *ngIf="lastName?.valid && (lastName?.dirty || lastName?.touched)">
-                        Looks good!
-                      </mdb-success>
-                    </mdb-form-control>
-                  </div>
+      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item four {{ gridItemClass }}">
+        <button type="button" class="btn btn-dark" (click)="revealRegister()">
+          Register
+        </button>
+        <div *ngIf="showRegister">
+          <div class="card bg-glass">
+            <div class="card-body">
+              <hr />
+              <div>
+                <div>
+                  <form class="register">
+                    <label id="username" for="username">Username</label>
+                    <input [(ngModel)]="newUser.username" type="text" name="username" placeholder="Username" />
+                    <div *ngIf="isUsernameTaken">
+                      This Username Has Been Taken
+                    </div>
+                    <br />
+                    <label id="password" for="password">Password</label>
+                    <input [(ngModel)]="newUser.password" type="text" name="password" placeholder="Password" />
+                    <br />
+                    <label for="email">Email</label>
+                    <input [(ngModel)]="newUser.email" type="text" name="email" placeholder="Email" />
+                    <br />
+                    <br />
+                    <button type="button" class="btn btn-dark" (click)="register(newUser)">
+                      Submit
+                    </button>
+                    <button type="button" class="btn btn-dark" (click)="back()">
+                      Close
+                    </button>
+                  </form>
                 </div>
-                <!-- End Row -->
+              </div>
 
-                <!-- Begin Row -->
-               <div class="row py-5">
-                 <div class="col-md-6">
-                   <mdb-form-control>
-                     <input 
-                      mdbValidate
-                      mdbInput
-                      type="email" 
-                      id="formEmail"
-                      class="form-control text-white" 
-                      formControlName="email"
-                      autocomplete="off"
-                      required
-                    />
-                     <label mdbInput class="form-label text-muted" for="formEmail">Email input</label>
-                     <mdb-error *ngIf="email?.invalid && (email?.dirty || email?.touched)">
-                      Email is required
-                    </mdb-error>
-                    <mdb-success *ngIf="email?.valid && (email?.dirty || email?.touched)">
-                      Looks good!
-                    </mdb-success>
-                   </mdb-form-control>
-                 </div>
-               </div>
-               <!-- End Row -->
-              </form>
             </div>
           </div>
         </div>
-      </div> <!-- End Card -->
+      </div>
+      <!-- End Card -->
+      <!-- Begin Image Card -->
+
+      <!-- End Image Card -->
+      <!-- Begin Card -->
+
+      <!-- End Card -->
+      <!-- Begin Card -->
+
+      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item two {{ gridItemClass }}">
+        <div class="card bg-glass">
+          <div class="card-body">
+
+            <div>
+              <h4 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                Select Your Game
+              </h4>
+
+              <mdb-carousel [controls]="false" [animation]="'fade'">
+                <mdb-carousel-item>
+                  <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1085660/header.jpg?t=1653420922"
+                    class="d-block w-100" alt="..." />
+                </mdb-carousel-item>
+                <mdb-carousel-item>
+                  <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1506830/header.jpg?t=1644868577"
+                    class="d-block w-100" alt="..." />
+                </mdb-carousel-item>
+                <mdb-carousel-item>
+                  <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/header.jpg?t=1649774637"
+                    class="d-block w-100" alt="..." />
+                </mdb-carousel-item>
+                <mdb-carousel-item>
+                  <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/346110/header.jpg?t=1649288168"
+                    class="d-block w-100" alt="..." />
+                </mdb-carousel-item>
+                <mdb-carousel-item>
+                  <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/230410/header.jpg?t=1652974168"
+                    class="d-block w-100" alt="..." />
+                </mdb-carousel-item>
+                <mdb-carousel-item>
+                  <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1644960/header.jpg?t=1653059048"
+                    class="d-block w-100" alt="..." />
+                </mdb-carousel-item>
+              </mdb-carousel>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Card -->
+
+      <!-- Begin Card -->
+
+      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item two {{ gridItemClass }}">
+        <div class="card bg-glass">
+          <div class="card-body">
+            <mdb-carousel [controls]="false" [animation]="'fade'">
+              <h4>Ad Space</h4>
+
+              <mdb-carousel-item>
+                <a href="https://www.microsoft.com/en-us/windows/?r=1">
+                  <img src="assets/art/windowsad.webp" class="d-block w-100" alt="..." />
+                </a>
+              </mdb-carousel-item>
+
+              <mdb-carousel-item>
+                <a href="https://www.xbox.com/en-US/xbox-game-pass">
+                  <img src="assets/art/xboxad.jpeg" class="d-block w-100" alt="..." />
+                </a>
+              </mdb-carousel-item>
+
+              <mdb-carousel-item>
+                <a href="https://www.amazon.com/">
+                  <img src="assets/art/amazonad.webp" class="d-block w-100" alt="..." />
+                </a>
+              </mdb-carousel-item>
+
+              <mdb-carousel-item>
+                <a href="https://worldofwarcraft.com/en-us/">
+                  <img src="assets/art/wowad.png" class="d-block w-100" alt="..." />
+                </a>
+              </mdb-carousel-item>
+            </mdb-carousel>
+          </div>
+        </div>
+      </div>
+      <!-- End Card -->
+
+      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item two {{ gridItemClass }}">
+        <div class="card bg-glass">
+          <div class="card-body">
+
+            <div>
+              <h3 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Find Your Clan</h3>
+
+              <mdb-carousel [controls]="false" [animation]="'fade'">
+                <mdb-carousel-item>
+                  <img
+                    src="https://lookingforclan.com/sites/default/files/styles/list_image/public/2021-12/AWOHI__AXON_eSports_Background_-_Sponsor_Repeat_Peach_Melon.png.jpg?itok=JNAyYtra"
+                    class="d-block w-100" alt="..." />
+                </mdb-carousel-item>
+                <mdb-carousel-item>
+                  <img
+                    src="https://lookingforclan.com/sites/default/files/styles/list_image/public/2021-01/Banner.jpg?itok=LshVxurR"
+                    class="d-block w-100" alt="..." />
+                </mdb-carousel-item>
+                <mdb-carousel-item>
+                  <img
+                    src="https://lookingforclan.com/sites/default/files/styles/list_image/public/2022-05/Rivia_bg_lfc.png.jpg?itok=iRDrIDsZ"
+                    class="d-block w-100" alt="..." />
+                </mdb-carousel-item>
+                <mdb-carousel-item>
+                  <img
+                    src="https://lookingforclan.com/sites/default/files/styles/list_image/public/2020-10/lfc.jpg?itok=HzGjENst"
+                    class="d-block w-100" alt="..." />
+                </mdb-carousel-item>
+                <mdb-carousel-item>
+                  <img
+                    src="https://lookingforclan.com/sites/default/files/styles/list_image/public/2019-03/winter_video_ss_1.jpg?itok=AOldcZCR"
+                    class="d-block w-100" alt="..." />
+                </mdb-carousel-item>
+                <mdb-carousel-item>
+                  <img
+                    src="https://lookingforclan.com/sites/default/files/styles/list_image/public/2021-10/Vertic_YT_Banner.jpg?itok=nnQ8ouiw"
+                    class="d-block w-100" alt="..." />
+                </mdb-carousel-item>
+              </mdb-carousel>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Begin Card -->
+
+      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item two {{ gridItemClass }}">
+        <div class="card bg-glass">
+          <div class="card-body">
+            <div>
+              <h3 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                Sharpen Your Skills
+              </h3>
+
+              <mdb-carousel [controls]="true" [animation]="'fade'">
+                <mdb-carousel-item>
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/a1lK2CKKGzI?controls=0"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+                </mdb-carousel-item>
+                <mdb-carousel-item>
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/jPZXbW4wz_A?controls=0"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+                </mdb-carousel-item>
+
+                <mdb-carousel-item>
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/4pdeKZNuShU"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+                </mdb-carousel-item>
+
+                <mdb-carousel-item>
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/FURvOjv3teI"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+                </mdb-carousel-item>
+              </mdb-carousel>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--End Card-->
+      <!-- <div
+        mdbRipple
+        rippleColor="{{ rippleColor }}"
+        class="grid-item two {{ gridItemClass }}"
+      >
+        <div class="card bg-glass">
+          <div class="card-body">
+            <h4>TWO WIDE WITH BACKGROUND</h4>
+            <hr />
+            <div>contents</div>
+          </div>
+        </div>
+      </div> -->
+      <!-- End Card -->
+
+      <!-- Begin Card -->
+
+      <!-- <div
+        mdbRipple
+        rippleColor="{{ rippleColor }}"
+        class="grid-item {{ gridItemClass }}"
+      >
+        <div class="card bg-glass">
+          <div class="card-body">
+            <h4>ONE WIDE WITH BACKGROUND</h4>
+            <hr />
+            <div>contents</div>
+          </div>
+
+        </div>
+      </div> -->
+      <!-- End Card -->
+
+      <!-- Begin Card -->
+
+      <!-- <div
+        mdbRipple
+        rippleColor="{{ rippleColor }}"
+        class="grid-item {{ gridItemClass }}"
+      >
+        <h4>ONE WIDE NO BACKGROUND</h4>
+        <hr />
+        <div>contents</div>
+      </div> -->
+      <!-- End Card -->
+
+      <!-- Begin Card -->
+      <!-- <div
+        mdbRipple
+        rippleColor="{{ rippleColor }}"
+        class="grid-item two {{ gridItemClass }}"
+      >
+        <h4>ONE WIDE NO BACKGROUND</h4>
+        <hr />
+        <div>contents</div>
+      </div> -->
+      <!-- End Card -->
+
+      <!-- Begin Card -->
+      <!-- <div
+        mdbRipple
+        rippleColor="{{ rippleColor }}"
+        class="grid-item three {{ gridItemClass }}"
+      >
+        <h4>ONE WIDE NO BACKGROUND</h4>
+        <hr />
+        <div>contents</div>
+      </div> -->
+      <!-- End Card -->
 
 
-
-    </div> <!-- End Grid -->
-  </div> <!-- End Container -->
-</section> <!-- End Section -->
+      <!-- Begin Card -->
+      <!-- <div
+        mdbRipple
+        rippleColor="{{ rippleColor }}"
+        class="grid-item four {{ gridItemClass }}"
+      >
+        <h4>ONE WIDE NO BACKGROUND</h4>
+        <hr />
+        <div>contents</div>
+      </div> -->
+      <!-- End Card -->
+    </div>
+    <!-- End Grid -->
+  </div>
+  <!-- End Container -->
+</section>
+<!-- End Section -->

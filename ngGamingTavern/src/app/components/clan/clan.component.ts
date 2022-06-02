@@ -41,8 +41,6 @@ export class ClanComponent implements OnInit {
   gridItemClass = GlobalComponent.gridItemClass;
   rippleColor = GlobalComponent.rippleColor;
   customRounding = GlobalComponent.customRounding;
-  topPadding = GlobalComponent.topPadding;
-  rounding = GlobalComponent.rounding;
 
   // booleans
   isLoggedInUserLoaded: boolean = false;
@@ -217,7 +215,7 @@ export class ClanComponent implements OnInit {
         this.clans = data;
         this.pagedClans = new Array<Array<any>>();
         this.createPages(this.clans, this.pagedClans);
-        
+
         this.isClansLoaded = true;
         this.isLoading = false;
       },

@@ -26,8 +26,9 @@ body {
   width: 306px;
   float: left;
   border: 0px;
-  margin-bottom: 16px; // should match gutter in html div class="grid"
+  margin-bottom: 16px;
   margin-left: 16px;
+  // border-radius: 8px;
 }
 
 .grid-item.one-third {
@@ -57,14 +58,14 @@ body {
 }
 
 // resize four-width when screen too small
-@media screen and (max-width: 1399px) { 
+@media screen and (max-width: 1399px) {
   .grid-item.four {
     width: 960px;
   }
 }
 
 // resize three- and four-width when screen too small
-@media screen and (max-width: 1010px) { 
+@media screen and (max-width: 1010px) {
   .grid-item.three {
     width: 635px;
   }
