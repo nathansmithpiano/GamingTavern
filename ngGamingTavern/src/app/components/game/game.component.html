@@ -51,7 +51,7 @@
                       <!-- <p>{{ gameEnabled | date:'short' }}</p> -->
                       <p>{{ gameStudio }}</p>
                       
-                      <p><a href="{{gameUrl}}">{{gameUrl}}</a></p>
+                      <p><a [routerLink]="['{{gameUrl}}']">{{gameUrl}}</a></p>
                       <p> {{ gameCreated | date:'short'}}</p>
                       <p> {{ gameUpdated | date:'short'}}</p>
                     </div>
