@@ -34,19 +34,29 @@ public class AliasController {
 		Alias alias = aliasSvc.getAliasById(aliasId);
 		if (alias == null) {
 			resp.setStatus(404);
+			return null;
 		}
 		return alias;
 	}
 
-	
 	@GetMapping("aliases/user/{username}")
 	public List<Alias> getbyUsername(Principal principal, HttpServletResponse resp, @PathVariable String username) {
 		List<Alias> aliases = aliasSvc.getAliasesByUsername(username);
 		if (aliases == null) {
 			resp.setStatus(404);
+			return null;
+		}
+		return aliases;
+	}
+
+	@GetMapping("clans/{clanId}/aliases")
+	public List<Alias> getByClanId(Principal principal, HttpServletResponse resp, @PathVariable int clanId) {
+		List<Alias> aliases = aliasSvc.getAliasesByClanId(clanId);
+		if (aliases == null) {
+			resp.setStatus(404);
+			return null;
 		}
 		return aliases;
 	}
 
 }
-

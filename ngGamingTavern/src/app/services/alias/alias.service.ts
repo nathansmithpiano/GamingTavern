@@ -16,8 +16,8 @@ export class AliasService {
     private auth: AuthService
   ) {}
 
-  private url = environment.baseUrl + "api/aliases";
-  private url2 = this.url + "/";
+  private url = environment.baseUrl + "api";
+  private url2 = this.url + "/aliases";
   private aliases: Alias[] = [];
 
   getHttpOptions() {
@@ -31,7 +31,7 @@ export class AliasService {
   }
 
   public index() {
-    return this.http.get<Alias[]>(this.url, this.getHttpOptions()).pipe(
+    return this.http.get<Alias[]>(this.url2, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         return throwError("KABOOM");
       })
@@ -40,7 +40,7 @@ export class AliasService {
 
   show(id: number): Observable<Alias> {
     return this.http
-      .get<Alias>(this.url2 + id, {
+      .get<Alias>(this.url2 + '/' + id, {
         headers: { Authorization: "Basic " + this.auth.getCredentials() },
       })
       .pipe(
@@ -53,7 +53,20 @@ export class AliasService {
 
   showByUsername(username: string): Observable<Alias[]> {
     return this.http
-      .get<Alias[]>(this.url + '/user/' + username, {
+      .get<Alias[]>(this.url2 + '/user/' + username, {
+        headers: { Authorization: "Basic " + this.auth.getCredentials() },
+      })
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError("KABOOM");
+        })
+      );
+  }
+
+  showByClanId(id: number): Observable<Alias[]> {
+    return this.http
+      .get<Alias[]>(this.url + '/clans/' + id + '/aliases', {
         headers: { Authorization: "Basic " + this.auth.getCredentials() },
       })
       .pipe(

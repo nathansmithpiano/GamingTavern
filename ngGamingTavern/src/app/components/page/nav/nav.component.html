@@ -1,47 +1,24 @@
 <!-- Navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-glass">
-  <div class="container justify-content-between">
+  <div mdbRipple rippleColor="{{rippleColor}}" class="container justify-content-between">
     <!-- Left elements -->
     <div class="d-flex">
       <!-- Logo -->
-      <a
-        class="navbar-brand me-2 mb-1 d-flex align-items-center"
-        [routerLink]="['']"
-      >
-        <img
-          src="assets/art/logo2_190_26.png"
-          height="26"
-          alt=""
-          loading="lazy"
-          style="margin-top: 2px; margin-bottom: 0px"
-        />
+      <a class="navbar-brand me-2 mb-1 d-flex align-items-center" [routerLink]="['']">
+        <img src="assets/art/logo2_190_26.png" height="26" alt="" loading="lazy"
+          style="margin-top: 2px; margin-bottom: 0px" />
       </a>
       <!-- End Logo -->
 
       <!-- Search -->
       <div class="input-group">
         <!-- Search Form -->
-        <form
-          class="{{ searchFormClass }}"
-          mdbRipple
-          rippleColor="{{ rippleColor }}"
-        >
-          <input
-            autocomplete="off"
-            type="search"
-            class="{{ searchInputClass }}"
-            placeholder="Search"
-            id="searchInput"
-          />
+        <form class="{{ searchFormClass }}" mdbRipple rippleColor="{{ rippleColor }}">
+          <input autocomplete="off" type="search" class="{{ searchInputClass }}" placeholder="Search"
+            id="searchInput" />
 
           <!-- Search button -->
-          <button
-            class="btn btn-primary"
-            type="button"
-            id="button-search"
-            mdbRipple
-            rippleColor="{{ rippleColor }}"
-          >
+          <button class="btn btn-primary" type="button" id="button-search" mdbRipple rippleColor="{{ rippleColor }}">
             <i class="fas fa-search"></i>
           </button>
           <!-- End Search button -->
@@ -54,50 +31,38 @@
 
     <!-- Center elements -->
     <ul class="navbar-nav flex-row d-none d-md-flex">
-      <!-- Friends -->
-      <li *ngIf="isLoggedIn()" class="{{ liClass }}">
-        <a class="{{ centerItemsAClass }}" [routerLink]="['/friends']">
-          <span class="{{ iconSpanClass }}"
-            ><i class="fas fa-users fa-lg"></i
-          ></span>
-          <span
-            *ngIf="friendsBadgeCount > 0"
-            class="{{ centerItemsBadgeSpanClass }}"
-            >{{ friendsBadgeCount }}</span
-          >
-        </a>
-      </li>
-      <!-- Friends -->
-
       <!-- Chat -->
       <li *ngIf="isLoggedIn()" class="{{ liClass }}">
         <a class="{{ centerItemsAClass }}" [routerLink]="['/chat']">
-          <span class="{{ iconSpanClass }}"
-            ><i class="fas fa-comments fa-lg"></i
-          ></span>
-          <span
-            *ngIf="chatBadgeCount > 0"
-            class="{{ centerItemsBadgeSpanClass }}"
-            >{{ chatBadgeCount }}</span
-          >
+          <span class="{{ iconSpanClass }}"><i class="fas fa-comments fa-lg"></i> Chat</span>
         </a>
       </li>
-      <!-- End Chat -->
+      <!-- Chat -->
 
-      <!-- Endorsements -->
+      <!-- Clans -->
       <li *ngIf="isLoggedIn()" class="{{ liClass }}">
-        <a class="{{ centerItemsAClass }}" [routerLink]="['/endorsements']">
-          <span class="{{ iconSpanClass }}"
-            ><i class="fas fa-thumbs-up fa-lg"></i
-          ></span>
-          <span
-            *ngIf="friendsBadgeCount > 0"
-            class="{{ centerItemsBadgeSpanClass }}"
-            >{{ friendsBadgeCount }}</span
-          >
+        <a class="{{ centerItemsAClass }}" [routerLink]="['/clans']">
+          <span class="{{ iconSpanClass }}"><i class="fas fa-champagne-glasses fa-lg"></i> Clans</span>
         </a>
       </li>
-      <!-- End Endorsements -->
+      <!-- End Clans -->
+
+      <!-- Games -->
+      <li *ngIf="isLoggedIn()" class="{{ liClass }}">
+        <a class="{{ centerItemsAClass }}" [routerLink]="['/games']">
+          <span class="{{ iconSpanClass }}"><i class="fas fa-gamepad fa-lg"></i> Games</span>
+        </a>
+      </li>
+      <!-- End Games -->
+
+      <!-- Games -->
+      <li *ngIf="isLoggedIn()" class="{{ liClass }}">
+        <a class="{{ centerItemsAClass }}" [routerLink]="['/servers']">
+          <span class="{{ iconSpanClass }}"><i class="fas fa-server fa-lg"></i> Servers</span>
+        </a>
+      </li>
+      <!-- End Games -->
+
     </ul>
     <!-- End Center elements -->
 
@@ -124,7 +89,7 @@
         <a class="{{ rightItemsAClass }}" [routerLink]="['/register']">
           <strong class="{{ rightItemStrongClass }}">{{
             registerLabel
-          }}</strong>
+            }}</strong>
         </a>
       </li>
       <!-- End Register -->
@@ -141,6 +106,6 @@
     <!-- End Right elements -->
   </div>
 
-  
+
 </nav>
 <!-- End Navbar -->

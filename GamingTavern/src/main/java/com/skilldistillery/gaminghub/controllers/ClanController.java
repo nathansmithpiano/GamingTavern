@@ -78,6 +78,13 @@ public class ClanController {
 
 	@PutMapping("clans/{clanId}")
 	public Clan update(@RequestBody Clan clans, @PathVariable int clanId, Principal principal) {
+		System.err.println("**********************************");
+		System.err.println("**********************************");
+		System.err.println("**********************************");
+		System.err.println(clans);
+		System.err.println("**********************************");
+		System.err.println("**********************************");
+		System.err.println("**********************************");
 		return clanSvc.updateClan(clans, clanId);
 	}
 

@@ -22,26 +22,22 @@ body {
 }
 
 /* ---- grid-item ---- */
-
 .grid-item {
-  width: 310px;
-  // height: 50px;
+  width: 306px;
   float: left;
-  // background: var(--bgGlassBackground);
-  // backdrop-filter: var(--bgGlassBackdropFilter);
-  // border: 2px solid rgba(255,255,255,.1);
-  // border-color: var(--bodyBackgroundColor);
   border: 0px;
-  // border-radius: 8px;
-  margin-bottom: 13px; // should match gutter in html div class="grid"
+  margin-bottom: 13px;
   margin-left: 13px;
+  // border-radius: 8px;
 }
 
 .grid-item.one-third {
-  width: 424px;
+  // width: 424px;
+  width: 424;
 }
 
 .grid-item.two-thirds {
+  // width: 847px;
   width: 847px;
 }
 
@@ -62,14 +58,14 @@ body {
 }
 
 // resize four-width when screen too small
-@media screen and (max-width: 1399px) { 
+@media screen and (max-width: 1399px) {
   .grid-item.four {
     width: 960px;
   }
 }
 
 // resize three- and four-width when screen too small
-@media screen and (max-width: 1010px) { 
+@media screen and (max-width: 1010px) {
   .grid-item.three {
     width: 635px;
   }

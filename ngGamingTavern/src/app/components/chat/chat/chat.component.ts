@@ -5,6 +5,7 @@ import { User } from "src/app/models/user/user";
 import { UserService } from "src/app/services/user/user.service";
 import { AuthService } from "src/app/services/auth/auth.service";
 import { Message } from "src/app/models/message/message";
+import { GlobalComponent } from "src/app/global-component";
 
 @Component({
   selector: "app-chat",
@@ -18,17 +19,23 @@ export class ChatComponent implements OnInit {
     private userService: UserService
   ) {}
 
-  user: User = new User();
+  // global styling - make sure to add to top of page:
+  // import { GlobalComponent } from "src/app/global-component";
+  gridItemClass = GlobalComponent.gridItemClass;
+  rippleColor = GlobalComponent.rippleColor;
+  customRounding = GlobalComponent.customRounding;
+
+  loggedInUser: User = new User();
   chats: Chat[] = [];
   usernames: string[];
   selectedChat: Chat;
   newMessage: Message = new Message();
   timerStarted: boolean = false;
+  allChatUsers: User[] = [];
 
   // html settings
   topPadding = 3;
   rounding: number = 5;
-  gridItemClass: string = "shadow-4-strong rounded-5";
   leftSummaryClass = "text-center text-muted";
 
   ngOnInit(): void {
@@ -36,7 +43,7 @@ export class ChatComponent implements OnInit {
   }
 
   reload() {
-    this.getChatsByUsername(this.user.username);
+    this.getChatsByUsername(this.loggedInUser.username);
   }
 
   refreshChat() {
@@ -45,6 +52,7 @@ export class ChatComponent implements OnInit {
 
   selectChat(chat: Chat) {
     this.selectedChat = chat;
+    this.allChatUsers = chat.allUsers;
     this.sortSelectedChat();
     // refresh on time interval, start only once
     let seconds = 3;
@@ -82,8 +90,8 @@ export class ChatComponent implements OnInit {
 
   sendMessage() {
     console.log(this.newMessage);
-    this.newMessage.fromUser = this.user;
-    this.newMessage.fromUser = this.user;
+    this.newMessage.fromUser = this.loggedInUser;
+    this.newMessage.fromUser = this.loggedInUser;
     this.newMessage.chat = this.selectedChat;
     this.newMessage.replyingToMessage = null;
     this.newMessage.created = new Date().toISOString();
@@ -149,7 +157,7 @@ export class ChatComponent implements OnInit {
   getUserByUsername(username: string) {
     this.userService.getUserByUsername(username).subscribe(
       (data) => {
-        this.user = data;
+        this.loggedInUser = data;
         this.reload();
       },
       (err) => {

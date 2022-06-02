@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.gaminghub.entities.Alias;
+import com.skilldistillery.gaminghub.entities.Equipment;
 import com.skilldistillery.gaminghub.entities.Game;
 import com.skilldistillery.gaminghub.entities.Location;
 import com.skilldistillery.gaminghub.entities.Meetup;
@@ -47,6 +48,11 @@ public class UserController {
 		List<User> users = userSvc.index();
 		return users;
 	}
+	
+	@GetMapping("users/usernames")
+	public List<String> getAllUsernames(Principal principal) {
+		return userSvc.getAllUsernames();
+	}
 
 	@GetMapping("users/{username}")
 	public User getByUsername(Principal principal, HttpServletResponse resp, @PathVariable String username) {
@@ -55,6 +61,16 @@ public class UserController {
 			resp.setStatus(404);
 		}
 		return user;
+	}
+	
+	@GetMapping("users/{username}/equipment")
+	public List<Equipment> getEquipmentByUsername(Principal principal, HttpServletResponse resp, @PathVariable String username) {
+		User user = userSvc.getUserByUsername(username);
+		if (user == null) {
+			resp.setStatus(404);
+			return null;
+		}
+		return user.getEquipments();
 	}
 	
 	@GetMapping("users/{username}/friends")

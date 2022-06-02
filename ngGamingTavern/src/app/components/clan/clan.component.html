@@ -1,126 +1,373 @@
 <section>
-    <div class="container py-{{topPadding}}">
-        <div class="row">
-            <!-- Left Column -->
-            <div class="col-lg-{{leftColumnWidth}}">
-                <div class="card bg-glass mb-0">
+    <!-- Begin Container -->
+    <div class="container py-3">
+
+        <!-- Begin Grid -->
+        <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 310, "gutter": 15 }'>
+
+            <!-- Breadcrumb -->
+            <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item four {{gridItemClass}}">
+                <div class="card bg-glass">
+                    <nav aria-label="breadcrumb" class="p-3">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a class="text-white" href="home">Home</a></li>
+                            <li class="breadcrumb-item text-muted">Clans</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- End Breadcrumb -->
+
+            <!-- Begin Main Card -->
+            <div class="grid-item one-third {{gridItemClass}}">
+                <div class="card bg-glass">
+                    <!-- Image Header -->
+                    <div mdbRipple rippleColor="{{rippleColor}}" class="bg-image hover-overlay ripple" mdbRipple rippleColor="{{rippleColor}}">
+                        <img src="assets/art/clan_800_541.jpg" class="img-fluid" />
+                    </div>
                     <div class="card-body">
-                        <!-- Row 1 -->
+                        <div mdbRipple rippleColor="{{rippleColor}}" class="d-flex justify-content-between">
+                            <h4>{{clans.length}} Clan{{aliases.length != 1 ? 's' : ''}}</h4>
+                            <a class="btn btn-primary" style="background-color: #4c75a3;" role="button"
+                                (click)="isUpdating = false; isCreating = true">
+                                <span>
+                                    <i class="fas fa-plus me-2"></i>
+                                    Create a Clan
+                                </span>
+                            </a>
+                        </div>
+                        <hr>
+                        <!-- Begin Clan List -->
                         <div class="row">
-                            <h3>{{leftHeader}}</h3>
-                            <ul>
-                                <li *ngFor="let data of clanData" ><a (click) = "showClan(data.id)">{{data.name}}</a></li>
-                            </ul>
+                            <!-- Page Buttons -->
+                            <div *ngIf="clans.length > numRows">
+                                <div class="d-flex justify-content-center pageButtons-one-third">
+                                    <button (click)="pagedClansIndex = tPrev(pagedClans, pagedClansIndex)"
+                                        class="btn btn-sm btn-light tPrev" type="button">
+                                        <span><i class="fas fa-angles-left fa-sm"></i></span>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-light tCenter">
+                                        page {{pagedClansIndex + 1}} of {{pagedClans.length}}
+                                    </button>
+                                    <button (click)="pagedClansIndex = tNext(pagedClans, pagedClansIndex)"
+                                        class="btn btn-sm btn-light tNext" type="button">
+                                        <span><i class="fas fa-angles-right fa-sm ms-1"></i></span>
+                                    </button>
+                                </div> <!-- End Page Buttons -->
+                                <div class="row text-center text-muted pageButtons-one-third pageItemCount-one-third">
+                                    <small>({{pagedClansIndex * numRows + 1}}-{{pagedClansIndex * numRows + numRows}} of
+                                        {{clans.length}})</small>
+                                </div>
+                            </div>
+                            <!-- Paged List -->
+                            <ul class="list-group">
+                                <li *ngFor="let clan of pagedClans[pagedClansIndex]"
+                                    [ngClass]="selected && selected.id === clan.id ? 'list-group-item active' : 'list-group-item'"
+                                    (click)="resetAll(); selectClan(clan)">
+                                    <div class="row listButton">
+                                        <a class="btn listButtonA" role="button">
+                                            {{clan.name}}
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul> <!-- End Paged List -->
+                        </div> <!-- End Clan List -->
+                    </div>
+                </div>
+            </div> <!-- End Main Card -->
+
+            <!-- Begin Video Card -->
+            <div *ngIf="emptyStatus()" mdbRipple rippleColor="{{rippleColor}}"
+                class="grid-item two-thirds {{gridItemClass}}">
+                <div class="card bg-glass">
+                    <iframe width="847" height="476"
+                        src="https://www.youtube.com/embed/mLyOj_QD4a4?&mute=1&controls=0&showinfo=0&autoplay=1"
+                        title="Leroy Jenkins" frameborder="0" allow="accelerometer; 
+                        encrypted-media; 
+                        picture-in-picture" allowfullscreen></iframe>
+                    <div class="mask">
+                        <div class="d-flex justify-content-center align-items-end h-100">
+                            <h2 class="display-6 mb-2 videoOverlayText">Join a Clan. Have Fun. Don't be a Leroy.</h2>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Right Column -->
-            <div class="col-lg-{{rightColumnWidth}}">
-                <!-- Primary Card -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card bg-glass mb-2">
-                            <div class="card-body">
-                                <div class="text-center text-muted">
-                                    <!-- Row 1 -->
-                                    <div class="row">
-                                        <img src={{clanImageUrl}} />
-                                        <h3>{{clanName}}</h3>
-                                        <p>{{clanDescription}}</p>
-                                        <p>Created: {{clanCreated | date: 'MM/dd/yyyy'}}</p>
-                                        <p>Updated: {{clanUpdate | date: 'MM/dd/yyyy'}}</p>
-                                        <button (click)="setUpdateClan()">Update</button>
-                                        <div *ngIf= "clanUpdated" class="row">
-                                            <form>
-                                            <h3>Update</h3>
-                                            <input placeholder="Name" type="text" name="name" [(ngModel)]= "clanUpdated.name" /><br />
-                                            <input placeholder="Description" type="text" name="description" [(ngModel)]= "clanUpdated.description" /><br />
-                                            <input placeholder="ImageURL" type="text" name="imageUrl" [(ngModel)]= "clanUpdated.imageUrl" /><br />
-                                            <input placeholder="Updated" type="date" name="update" [(ngModel)]= "clanUpdated.updated" /><br />
-                                            <input type="checkbox" name="enabled" [(ngModel)]= "clanUpdated.enabled" />Active<br />
-                                            <button (click)="updateClan(clanUpdated, selected.id)">Submit</button>
-                                        </form>
-                                        </div>
+            </div> <!-- End Video Card -->
+
+            <!-- Begin Selected Clan Card -->
+            <div *ngIf="isSelectedLoaded" class="grid-item one-third {{gridItemClass}}">
+                <div mdbRipple rippleColor="{{rippleColor}}" class="card bg-glass">
+                    <!-- Image Header -->
+                    <div class="bg-image hover-overlay ripple" mdbRipple rippleColor="{{rippleColor}}">
+                        <img src="{{selected.imageUrl}}" class="img-fluid" />
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <h4>{{selected.name}}</h4>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-danger" role="button" (click)="deleteClanById(selected.id); resetAll()">
+                                    <span>
+                                        <i class="fas fa-wrench me-2"></i>
+                                        DELETE
+                                    </span>
+                                </a>
+                                <a class="btn btn-success" role="button" (click)="isCreating = false; isUpdating = true; resetClanUpdated()">
+                                    <span>
+                                        <i class="fas fa-wrench me-2"></i>
+                                        UPDATE
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                        <hr>
+                        <div>
+                            {{selected.description}}
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- End Selected Clan Card -->
+
+            <!-- Begin Selected Clan Aliases Card -->
+            <div *ngIf="isSelectedLoaded && isClansAliasesLoaded" class="grid-item one-third {{gridItemClass}}">
+                <div class="card bg-glass">
+                    <div class="card-body">
+                        <div mdbRipple rippleColor="{{rippleColor}}" class="d-flex justify-content-between">
+                            <h4>{{aliases.length}} Alias{{aliases.length != 1 ? 'es' : ''}} in {{selected.name}}</h4>
+                            <hr>
+                        </div>
+                        <hr>
+                        <!-- Begin Clan Alias List -->
+                        <div class="row">
+                            <!-- Page Buttons -->
+                            <div *ngIf="clanAliases.length > numRows">
+                                <div class="d-flex justify-content-center pageButtons-one-third">
+                                    <button (click)="pagedClanAliasesIndex = tPrev(pagedClanAliases, pagedClanAliasesIndex)"
+                                        class="btn btn-sm btn-light tPrev" type="button">
+                                        <span><i class="fas fa-angles-left fa-sm"></i></span>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-light tCenter">
+                                        page {{pagedClanAliasesIndex + 1}} of {{pagedClans.length}}
+                                    </button>
+                                    <button (click)="pagedClanAliasesIndex = tNext(pagedClans, pagedClanAliases)"
+                                        class="btn btn-sm btn-light tNext" type="button">
+                                        <span><i class="fas fa-angles-right fa-sm ms-1"></i></span>
+                                    </button>
+                                </div>
+                                <div class="row text-center text-muted pageButtons-one-third pageItemCount-one-third">
+                                    <small>({{pagedClanAliasesIndex * numRows + 1}}-{{pagedClanAliasesIndex * numRows + numRows}} of
+                                        {{clanAliases.length}})</small>
+                                </div>
+                            </div> <!-- End Page Buttons -->
+                            <!-- Paged List -->
+                            <ul class="list-group">
+                                <li *ngFor="let alias of pagedClanAliases[pagedClanAliasesIndex]"
+                                    class = "list-group-item">
+                                    <div class="row listButton">
+                                        <a class="btn listButtonA" role="button">
+                                            {{alias.name}}
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul> <!-- End Paged List -->
+                        </div> <!-- End Clan Alias List -->
+                    </div>
+                </div>
+            </div> <!-- End Selected Clan Card -->
+
+            <!-- Begin Update Form Grid Item -->
+            <div *ngIf="isUpdating" class="grid-item two-thirds {{gridItemClass}}">
+                <div class="card bg-glass">
+                    <div class="card-body">
+                        <h3>Update Clan</h3>
+                        <hr>
+                        <!-- Begin Form Div -->
+                        <div>
+
+                            <!-- Begin Creator Alias -->
+                            <!-- Only text inputs can be within validationForm, so including outside form here -->
+                            <div class="row mb-3">
+                                <div>
+                                    <select [(ngModel)]="aliasId" class="form-select custSelect" required>
+                                        <option value="-1" disabled selected>Select a creator alias</option>
+                                        <option *ngFor="let alias of aliases" value="{{alias.id}}">{{alias.name}}
+                                        </option>
+                                    </select>
+                                    <div class="custErrorMessage" *ngIf="invalidAliasId">
+                                        Creator Alias is required.
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Subcard Row 1 -->
-                <div class="row">
-                    <!-- Sub card 1 -->
-                    <div class="col-6">
-                        <div class="card bg-glass mb-2">
-                            <div class="card-body">
-                                <div class="row">
-                                    <h3>Create</h3>
-                                    <form>
-                                        <label for="Alises">Aliases: </label>
-                                        <select [(ngModel)]= "aliasId" name = "alias">
-                                            <option *ngFor="let item of aliases" [value]="item.id">{{item.name}}</option>
-                                        </select><br>
-                                        <input placeholder="Name" type="text" name="name" [(ngModel)]= "newClan.name" /><br />
-                                        <input placeholder="Description" type="text" name="description" [(ngModel)]= "newClan.description" /><br />
-                                        <input placeholder="ImageURL" type="text" name="imageUrl" [(ngModel)]= "newClan.imageUrl" /><br />
-                                        <input placeholder="Created" type="date" name="created" [(ngModel)]= "newClan.created" /><br />
-                                        <input type="checkbox" name="enabled" [(ngModel)]= "newClan.enabled" />Active<br />
-                                        <button (click)="createClan(newClan)">Submit</button>
-                                      </form>
+                            </div> <!-- End Creator Alias -->
+
+                            <!-- Begin Form -->
+                            <form [formGroup]="validationForm">
+                                <!-- Begin Name -->
+                                <div class="row mb-4">
+                                    <div>
+                                        <mdb-form-control>
+                                            <input mdbValidate mdbInput autofocus type="text" id="form1"
+                                                class="form-control text-white custInput" formControlName="name"
+                                                required [(ngModel)]="clanUpdated.name" />
+                                            <label mdbLabel class="form-label" for="form1">Clan name</label>
+                                            <mdb-error *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+                                                Clan name is required
+                                            </mdb-error>
+                                            <mdb-success *ngIf="name?.valid && (name?.dirty || name?.touched)">
+                                                Looks good!
+                                            </mdb-success>
+                                        </mdb-form-control>
+                                    </div>
+                                </div> <!-- End Name -->
+
+                                <!-- Begin Description -->
+                                <div class="row mb-3">
+                                    <div>
+                                        <mdb-form-control>
+                                            <input mdbValidate mdbInput autofocus type="text" id="form2"
+                                                class="form-control text-white custInput" formControlName="description"
+                                                [(ngModel)]="clanUpdated.description" />
+                                            <label mdbLabel class="form-label" for="form2">Description</label>
+                                        </mdb-form-control>
+                                    </div>
+                                </div> <!-- End Description -->
+
+                                <!-- Begin imageUrl -->
+                                <div class="row mb-3">
+                                    <div>
+                                        <mdb-form-control>
+                                            <input mdbValidate mdbInput autofocus type="text" id="form3"
+                                                class="form-control text-white custInput" formControlName="imageUrl"
+                                                [(ngModel)]="clanUpdated.imageUrl" />
+                                            <label mdbLabel class="form-label" for="form3">Image URL</label>
+                                        </mdb-form-control>
+                                    </div>
+                                </div> <!-- End imageUrl -->
+
+                                <!-- Begin Button Row -->
+                                <div class="d-flex justify-content-end">
+                                    <!-- Begin Button Group -->
+                                    <div class="btn-group" role="group">
+                                        <!-- Reset Button -->
+                                        <button (click)="resetClanUpdated()" class="btn btn-light" type="button">
+                                            <span>
+                                                <i class="fas fa-arrow-rotate-left me-1"></i>
+                                                RESET
+                                            </span>
+                                        </button>
+                                        <!-- Submit Button -->
+                                        <button (click)="beginUpdate()" class="btn btn-success" type="button">
+                                            <span>
+                                                <i class="fas fa-circle-check me-1"></i>
+                                                UPDATE
+                                            </span>
+                                        </button>
+                                    </div> <!-- End Button Group -->
+                                </div> <!-- End Button Row -->
+
+                            </form> <!-- End Form -->
+                        </div> <!-- End Form Div -->
+                    </div> <!-- End Card Body -->
+                </div> <!-- End Card -->
+            </div> <!-- End Form Grid Item -->
+
+
+            <!-- Begin Create Form Grid Item -->
+            <div *ngIf="isCreating" class="grid-item two-thirds {{gridItemClass}}">
+                <div class="card bg-glass">
+                    <div class="card-body">
+                        <h3>Create a Clan</h3>
+                        <hr>
+                        <!-- Begin Form Div -->
+                        <div>
+
+                           <!-- Begin Creator Alias -->
+                            <!-- Only text inputs can be within validationForm, so including outside form here -->
+                            <div class="row mb-3">
+                                <div>
+                                    <select [(ngModel)]="aliasId" class="form-select custSelect" required>
+                                        <option value="-1" disabled selected>Select a creator alias</option>
+                                        <option *ngFor="let alias of aliases" value="{{alias.id}}">{{alias.name}}
+                                        </option>
+                                    </select>
+                                    <div class="custErrorMessage" *ngIf="invalidAliasId">
+                                        Creator Alias is required.
+                                    </div>
                                 </div>
-                                <hr>
-                                <div class="row">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Sub card 2 -->
-                    <!-- <div class="col-6">
-                        <div class="card bg-glass mb-2">
-                            <div class="card-body">
-                                <div class="row">
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <h6>Contents</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                </div>
-                <!-- Subcard Row 2 -->
-                <div class="row">
-                    <!-- Sub card 3 -->
-                    <!-- <div class="col-6">
-                        <div class="card bg-glass mb-2">
-                            <div class="card-body">
-                                <div class="row">
-                                    <h3>Card 3</h3>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <h6>Contents</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!-- Sub card 4 -->
-                    <!-- <div class="col-6">
-                        <div class="card bg-glass mb-2">
-                            <div class="card-body">
-                                <div class="row">
-                                    <h3>Card 4</h3>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <h6></h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                </div>
-            </div>
-        </div>
-    </div>
+                            </div> <!-- End Creator Alias -->
+
+                            <!-- Begin Form -->
+                            <form [formGroup]="validationForm">
+                                <!-- Begin Row 1 -->
+                                <div class="row mb-4">
+                                    <!-- Name -->
+                                    <div>
+                                        <mdb-form-control>
+                                            <input mdbValidate mdbInput autofocus type="text" id="form1"
+                                                class="form-control text-white custInput" formControlName="name"
+                                                required [(ngModel)]="newClan.name" />
+                                            <label mdbLabel class="form-label" for="form1">Clan name</label>
+                                            <mdb-error *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+                                                Clan name is required
+                                            </mdb-error>
+                                            <mdb-success *ngIf="name?.valid && (name?.dirty || name?.touched)">
+                                                Looks good!
+                                            </mdb-success>
+                                        </mdb-form-control>
+                                    </div>
+                                </div> <!-- End Row 1 -->
+
+                                <!-- Begin Row 2 -->
+                                <div class="row mb-3">
+                                    <div>
+                                        <mdb-form-control>
+                                            <input mdbValidate mdbInput autofocus type="text" id="form2"
+                                                class="form-control text-white custInput" formControlName="description"
+                                                [(ngModel)]="newClan.description" />
+                                            <label mdbLabel class="form-label" for="form2">Description</label>
+                                        </mdb-form-control>
+                                    </div>
+                                </div> <!-- End Row 2 -->
+
+                                <!-- Begin Row 2 -->
+                                <div class="row mb-3">
+                                    <div>
+                                        <mdb-form-control>
+                                            <input mdbValidate mdbInput autofocus type="text" id="form3"
+                                                class="form-control text-white custInput" formControlName="imageUrl"
+                                                [(ngModel)]="newClan.imageUrl" />
+                                            <label mdbLabel class="form-label" for="form3">Image URL</label>
+                                        </mdb-form-control>
+                                    </div>
+                                </div> <!-- End Row 2 -->
+
+                                <!-- Begin Button Row -->
+                                <div class="d-flex justify-content-end">
+                                    <!-- Begin Button Group -->
+                                    <div class="btn-group" role="group">
+                                        <!-- Reset Button -->
+                                        <button (click)="resetCreateForm()" class="btn btn-light" type="button">
+                                            <span>
+                                                <i class="fas fa-arrow-rotate-left me-1"></i>
+                                                RESET
+                                            </span>
+                                        </button>
+                                        <!-- Submit Button -->
+                                        <button (click)="beginCreate()" class="btn btn-success" type="button">
+                                            <span>
+                                                <i class="fas fa-circle-check me-1"></i>
+                                                SUBMIT
+                                            </span>
+                                        </button>
+                                    </div> <!-- End Button Group -->
+                                </div> <!-- End Button Row -->
+
+                            </form> <!-- End Form -->
+                        </div> <!-- End Form Div -->
+                    </div> <!-- End Card Body -->
+                </div> <!-- End Card -->
+            </div> <!-- End Form Grid Item -->
+
+
+        </div> <!-- End Grid -->
+    </div> <!-- End Container -->
 </section>

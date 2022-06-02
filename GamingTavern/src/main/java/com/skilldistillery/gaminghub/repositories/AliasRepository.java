@@ -9,5 +9,6 @@ import com.skilldistillery.gaminghub.entities.Alias;
 public interface AliasRepository extends JpaRepository<Alias, Integer> {
 	
 	List<Alias> findByUserUsername(String username);
+	List<Alias> findByClansId(int clanId);
 
 }
