@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { User } from "src/app/models/user/user";
 import { GlobalComponent } from "src/app/global-component";
 import { AuthService } from "src/app/services/auth/auth.service";
+import { Game } from 'src/app/models/game/game';
+
 
 @Component({
   selector: "app-home",
@@ -17,6 +19,12 @@ export class HomeComponent implements OnInit {
   user: User;
   isUserLoaded: boolean;
   newUser: User = new User();
+  games: Game[] = [];
+  showRegister: boolean = false;
+  
+  
+
+ 
   
 
   constructor(
@@ -30,10 +38,19 @@ export class HomeComponent implements OnInit {
   // import { GlobalComponent } from "src/app/global-component";
   gridItemClass = GlobalComponent.gridItemClass;
   rippleColor = GlobalComponent.rippleColor;
-  customRounding = GlobalComponent.customRounding;
+
+  customRounding =GlobalComponent.customRounding;
+
 
   ngOnInit(): void {}
 
+  revealRegister(){
+    this.showRegister = true;
+  }
+
+  back(){
+    this.showRegister = false;
+  }
 
 
   register(user: User): void {

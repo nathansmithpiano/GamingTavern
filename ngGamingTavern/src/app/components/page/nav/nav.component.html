@@ -132,7 +132,7 @@
       <!-- Login -->
       <li *ngIf="!isLoggedIn()" class="{{ liClass }}">
         <!-- <a class="{{ rightItemsAClass }}" [routerLink]="['/login']"> -->
-        <a class="{{ rightItemsAClass }}" href="#" (click)="openLoginModal()">
+        <a class="{{ rightItemsAClass }}" (click)="openLoginModal()">
           <strong class="{{ rightItemStrongClass }}">{{ loginLabel }}</strong>
         </a>
       </li>
