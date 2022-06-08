@@ -1,12 +1,16 @@
+<head>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+</head>
+
 <section>
     <!-- Begin Container -->
     <div class="container py-3">
 
         <!-- Begin Grid -->
-        <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 310, "gutter": 15 }'>
+        <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 418, "gutter": 16 }'>
 
             <!-- Breadcrumb -->
-            <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item four {{gridItemClass}}">
+            <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item first four {{gridItemClass}}">
                 <div class="card bg-glass">
                     <nav aria-label="breadcrumb" class="p-3">
                         <ol class="breadcrumb mb-0">
@@ -19,10 +23,11 @@
             <!-- End Breadcrumb -->
 
             <!-- Begin Main Card -->
-            <div class="grid-item one-third {{gridItemClass}}">
+            <div class="grid-item first one-third {{gridItemClass}}">
                 <div class="card bg-glass">
                     <!-- Image Header -->
-                    <div mdbRipple rippleColor="{{rippleColor}}" class="bg-image hover-overlay ripple" mdbRipple rippleColor="{{rippleColor}}">
+                    <div mdbRipple rippleColor="{{rippleColor}}" class="bg-image hover-overlay ripple" mdbRipple
+                        rippleColor="{{rippleColor}}">
                         <img src="assets/art/clan_800_541.jpg" class="img-fluid" />
                     </div>
                     <div class="card-body">
@@ -80,7 +85,7 @@
             <div *ngIf="emptyStatus()" mdbRipple rippleColor="{{rippleColor}}"
                 class="grid-item two-thirds {{gridItemClass}}">
                 <div class="card bg-glass">
-                    <iframe width="847" height="476"
+                    <iframe width="852" height="478"
                         src="https://www.youtube.com/embed/mLyOj_QD4a4?&mute=1&controls=0&showinfo=0&autoplay=1"
                         title="Leroy Jenkins" frameborder="0" allow="accelerometer; 
                         encrypted-media; 
@@ -106,13 +111,15 @@
                         </div>
                         <div class="d-flex justify-content-end">
                             <div class="btn-group" role="group">
-                                <a class="btn btn-danger" role="button" (click)="deleteClanById(selected.id); resetAll()">
+                                <a class="btn btn-danger" role="button"
+                                    (click)="deleteClanById(selected.id); resetAll()">
                                     <span>
                                         <i class="fas fa-wrench me-2"></i>
                                         DELETE
                                     </span>
                                 </a>
-                                <a class="btn btn-success" role="button" (click)="isCreating = false; isUpdating = true; resetClanUpdated()">
+                                <a class="btn btn-success" role="button"
+                                    (click)="isCreating = false; isUpdating = true; resetClanUpdated()">
                                     <span>
                                         <i class="fas fa-wrench me-2"></i>
                                         UPDATE
@@ -142,7 +149,8 @@
                             <!-- Page Buttons -->
                             <div *ngIf="clanAliases.length > numRows">
                                 <div class="d-flex justify-content-center pageButtons-one-third">
-                                    <button (click)="pagedClanAliasesIndex = tPrev(pagedClanAliases, pagedClanAliasesIndex)"
+                                    <button
+                                        (click)="pagedClanAliasesIndex = tPrev(pagedClanAliases, pagedClanAliasesIndex)"
                                         class="btn btn-sm btn-light tPrev" type="button">
                                         <span><i class="fas fa-angles-left fa-sm"></i></span>
                                     </button>
@@ -155,14 +163,15 @@
                                     </button>
                                 </div>
                                 <div class="row text-center text-muted pageButtons-one-third pageItemCount-one-third">
-                                    <small>({{pagedClanAliasesIndex * numRows + 1}}-{{pagedClanAliasesIndex * numRows + numRows}} of
+                                    <small>({{pagedClanAliasesIndex * numRows + 1}}-{{pagedClanAliasesIndex * numRows +
+                                        numRows}} of
                                         {{clanAliases.length}})</small>
                                 </div>
                             </div> <!-- End Page Buttons -->
                             <!-- Paged List -->
                             <ul class="list-group">
                                 <li *ngFor="let alias of pagedClanAliases[pagedClanAliasesIndex]"
-                                    class = "list-group-item">
+                                    class="list-group-item">
                                     <div class="row listButton">
                                         <a class="btn listButtonA" role="button">
                                             {{alias.name}}
@@ -280,7 +289,7 @@
                         <!-- Begin Form Div -->
                         <div>
 
-                           <!-- Begin Creator Alias -->
+                            <!-- Begin Creator Alias -->
                             <!-- Only text inputs can be within validationForm, so including outside form here -->
                             <div class="row mb-3">
                                 <div>

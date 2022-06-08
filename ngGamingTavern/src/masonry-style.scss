@@ -10,7 +10,7 @@ body {
 
 .grid {
   //   background: #EEE;
-  max-width: 1288px;
+  max-width: 1285px;
   min-width: 635px;
 }
 
@@ -29,27 +29,32 @@ body {
   // shared for all grid-item
   float: left;
   border: 0px;
-  margin-bottom: 16px;
+  margin-bottom: 15px;
+  margin-left: 15px;
+}
+
+.grid-item.first {
+  margin-left: 0px;
 }
 
 .grid-item.one-third {
-  width: 416px;
+  width: 418px;
 }
 
 .grid-item.two-thirds {
-  width: 850px;
+  width: 852px;
 }
 
 .grid-item.two {
-  width: 636px; // 2 x one (310) + 16 padding
+  width: 635px;
 }
 
 .grid-item.three {
-  width: 962px; // 3 x one (310) + 2 x 16 padding
+  width: 960px; 
 }
 
 .grid-item.four {
-  width: 1288px; // full width, matching .grid above
+  width: 1285px;
 }
 
 .grid-item.game-image {

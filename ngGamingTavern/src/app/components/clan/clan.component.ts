@@ -57,7 +57,7 @@ export class ClanComponent implements OnInit {
   // used to hide/show main page card(s) via *ngIf="emptyStatus()"
   emptyStatus = (): boolean => {
     return (
-      !this.isLoading && !this.selected && !this.isCreating && !this.isUpdating
+      !this.isLoading && !this.selected && !this.isCreating && !this.isUpdating && this.isClansLoaded
     );
   };
 
