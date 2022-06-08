@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
+import { GlobalComponent } from "./global-component";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-  // title = 'mdb-angular-ui-kit-free';
-  title = 'Gaming Tavern';
+  title = "Gaming Tavern";
+
+  gridItemClass = GlobalComponent.gridItemClass;
+  rippleColor = GlobalComponent.rippleColor;
+  customRounding = GlobalComponent.customRounding;
 }

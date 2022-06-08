@@ -1,0 +1,98 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+/* ---- grid ---- */
+
+.grid {
+  //   background: #EEE;
+  max-width: 1285px;
+  min-width: 635px;
+}
+
+/* clearfix */
+.grid:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* ---- grid-item ---- */
+.grid-item {
+  //only for this (one-width)
+  width: 310px;
+
+  // shared for all grid-item
+  float: left;
+  border: 0px;
+  margin-bottom: 15px;
+  margin-left: 15px;
+}
+
+.grid-item.first {
+  margin-left: 0px;
+}
+
+.grid-item.one-third {
+  width: 418px;
+}
+
+.grid-item.two-thirds {
+  width: 852px;
+}
+
+.grid-item.two {
+  width: 634px;
+}
+
+.grid-item.three {
+  width: 960px; 
+}
+
+.grid-item.four {
+  width: 1285px;
+}
+
+.grid-item.game-image {
+  width: 150px;
+}
+
+// resize four-width when screen too small
+@media screen and (max-width: 1399px) {
+  .grid-item.four {
+    width: 960px;
+  }
+}
+
+// resize three- and four-width when screen too small
+@media screen and (max-width: 1010px) {
+  .grid-item.three {
+    width: 635px;
+  }
+  .grid-item.four {
+    width: 635px;
+  }
+}
+
+// fill 100% width for mobile devices (under 500 pixels wide)
+@media screen and (max-width: 500px) {
+  .grid {
+    min-width: 100%;
+  }
+  .grid-item {
+    width: 100%;
+  }
+  .grid-item.two {
+    width: 100%;
+  }
+  .grid-item.three {
+    width: 100%;
+  }
+  .grid-item.four {
+    width: 100%;
+  }
+}

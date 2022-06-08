@@ -13,15 +13,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.gaminghub.entities.Alias;
 import com.skilldistillery.gaminghub.entities.Clan;
+import com.skilldistillery.gaminghub.repositories.ClanInformationDTO;
 import com.skilldistillery.gaminghub.services.AliasService;
 import com.skilldistillery.gaminghub.services.ClanService;
 
 @RestController
-@CrossOrigin({ "*", "http://localhost" })
+@CrossOrigin({ "*", "http://localhost:4200" })
+@RequestMapping("api")
 public class ClanController {
 
 	@Autowired
@@ -29,6 +32,11 @@ public class ClanController {
 
 	@Autowired
 	private AliasService aliasSvc;
+	
+	@GetMapping("clans/data")
+	public List<ClanInformationDTO> data(){
+		return clanSvc.getClanData();
+	}
 
 	@GetMapping("clans")
 	public List<Clan> index(Principal principal) {
@@ -44,10 +52,20 @@ public class ClanController {
 		}
 		return clan;
 	}
+	
+	@GetMapping("name/{name}")
+	public String getClanByName(Principal principal, HttpServletResponse resp, @PathVariable String name) {
+		Clan clan = clanSvc.getClanByName(name);
+		if (clan == null) {
+			resp.setStatus(404);
+		}
+		return clan.getName();
+	}
 
 	@PostMapping("clans")
 	public Clan create(@RequestBody Clan clan, Principal principal, 
 			HttpServletResponse resp) {
+		System.out.println(clan);
 		Alias alias = aliasSvc.getAliasById(clan.getCreatorAlias().getId());
 		if (alias == null) {
 			resp.setStatus(404);
@@ -60,6 +78,13 @@ public class ClanController {
 
 	@PutMapping("clans/{clanId}")
 	public Clan update(@RequestBody Clan clans, @PathVariable int clanId, Principal principal) {
+		System.err.println("**********************************");
+		System.err.println("**********************************");
+		System.err.println("**********************************");
+		System.err.println(clans);
+		System.err.println("**********************************");
+		System.err.println("**********************************");
+		System.err.println("**********************************");
 		return clanSvc.updateClan(clans, clanId);
 	}
 

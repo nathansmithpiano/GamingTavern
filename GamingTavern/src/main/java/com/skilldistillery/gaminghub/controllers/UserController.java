@@ -1,6 +1,7 @@
 package com.skilldistillery.gaminghub.controllers;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -13,13 +14,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.gaminghub.entities.Alias;
+import com.skilldistillery.gaminghub.entities.Equipment;
+import com.skilldistillery.gaminghub.entities.Game;
+import com.skilldistillery.gaminghub.entities.Location;
+import com.skilldistillery.gaminghub.entities.Meetup;
 import com.skilldistillery.gaminghub.entities.User;
 import com.skilldistillery.gaminghub.services.UserService;
 
 @RestController
-@CrossOrigin({ "*", "http://localhost" })
+@CrossOrigin({ "*", "http://localhost:4200" })
+@RequestMapping("api")
 public class UserController {
 
 	@Autowired
@@ -40,19 +48,96 @@ public class UserController {
 		List<User> users = userSvc.index();
 		return users;
 	}
+	
+	@GetMapping("users/usernames")
+	public List<String> getAllUsernames(Principal principal) {
+		return userSvc.getAllUsernames();
+	}
 
-	@GetMapping("users/{userId}")
-	public User show(Principal principal, HttpServletResponse resp, @PathVariable int userId) {
-		User user = userSvc.getUserById(userId);
+	@GetMapping("users/{username}")
+	public User getByUsername(Principal principal, HttpServletResponse resp, @PathVariable String username) {
+		User user = userSvc.getUserByUsername(username);
 		if (user == null) {
 			resp.setStatus(404);
 		}
 		return user;
 	}
-
+	
+	@GetMapping("users/{username}/equipment")
+	public List<Equipment> getEquipmentByUsername(Principal principal, HttpServletResponse resp, @PathVariable String username) {
+		User user = userSvc.getUserByUsername(username);
+		if (user == null) {
+			resp.setStatus(404);
+			return null;
+		}
+		return user.getEquipments();
+	}
+	
+	@GetMapping("users/{username}/friends")
+	public List<User> getFriendsByUsername(Principal principal, HttpServletResponse resp, @PathVariable String username) {
+		User user = userSvc.getUserByUsername(username);
+		if (user == null) {
+			resp.setStatus(404);
+			return null;
+		}
+		return userSvc.getUserByUsername(username).getFriends();
+	}
+	
+	@GetMapping("users/{username}/blockedusers")
+	public List<User> getBlockedUsersByUsername(Principal principal, HttpServletResponse resp, @PathVariable String username) {
+		User user = userSvc.getUserByUsername(username);
+		if (user == null) {
+			resp.setStatus(404);
+			return null;
+		}
+		return userSvc.getUserByUsername(username).getBlockedUsers();
+	}
+	
+	@GetMapping("users/{username}/games")
+	public List<Game> getGamesByUsername(Principal principal, HttpServletResponse resp, @PathVariable String username) {
+		User user = userSvc.getUserByUsername(username);
+		if (user == null) {
+			resp.setStatus(404);
+			return null;
+		}
+		List<Game> games = new ArrayList<>();
+		for (Alias alias : user.getAliases()) {
+			for (Game game : alias.getGames()) {
+				games.add(game);
+			}
+		}
+		return games;
+	}
+	
+	@GetMapping("users/{username}/locations")
+	public List<Location> getLocationsByUsername(Principal principal, HttpServletResponse resp, @PathVariable String username) {
+		User user = userSvc.getUserByUsername(username);
+		if (user == null) {
+			resp.setStatus(404);
+			return null;
+		}
+		return user.getLocations();
+	}
+	
+	@GetMapping("users/{username}/meetups")
+	public List<Meetup> getMeetupsByUsername(Principal principal, HttpServletResponse resp, @PathVariable String username) {
+		User user = userSvc.getUserByUsername(username);
+		if (user == null) {
+			resp.setStatus(404);
+			return null;
+		}
+		return user.getMeetups();
+	}
+	
 	@PostMapping("users")
-	public User create(@RequestBody User user, Principal principal) {
-		return userSvc.createUser(user);
+	public User create(@RequestBody User user, HttpServletResponse resp, Principal principal) {
+		User newUser = userSvc.createUser(user);
+		if (newUser == null) {
+			resp.setStatus(409);
+			return null;
+		}
+		resp.setStatus(201);
+		return newUser;
 	}
 
 	@PutMapping("users/{userId}")

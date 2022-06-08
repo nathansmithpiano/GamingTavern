@@ -6,9 +6,13 @@
 
 @import "~mdb-angular-ui-kit/assets/scss/mdb.scss";
 
-body {
-  background-color: hsl(218, 41%, 15%);
-  background-image: radial-gradient(
+// global variables
+:root {
+  --backgroundColor: hsl(218, 41%, 25%);
+  --bodyBackgroundColor: hsl(218, 41%, 15%);
+  --bgGlassBackground: hsla(0, 0%, 100%, 0.15);
+  --bgGlassBackdropFilter: blur(30px);
+  --backgroundImage: radial-gradient(
       650px circle at 0% 0%,
       hsl(218, 41%, 35%) 15%,
       hsl(218, 41%, 30%) 35%,
@@ -24,22 +28,29 @@ body {
       hsl(218, 41%, 19%) 80%,
       transparent 100%
     );
+}
+
+body {
+  background-color: var(--bodyBackgroundColor);
+  background-image: var(--backgroundImage);
   height: 100vh;
   padding-left: 0px;
   overflow-x: hidden;
   color: #fff;
 }
+// resize on smaller screens
 @media only screen and (max-width: 991.98px) {
   body {
     height: 100%;
   }
 }
+
 .bg-glass {
-  background: hsla(0, 0%, 100%, 0.15);
-  backdrop-filter: blur(30px);
+  background: var(--bgGlassBackground);
+  backdrop-filter: var(--bgGlassBackdropFilter);
 }
 .bg-theme {
-  background-color: hsl(218, 41%, 25%);
+  background-color: var(--backgroundColor);
 }
 .text-muted {
   color: hsl(0, 0%, 80%) !important;
@@ -55,4 +66,124 @@ body {
 }
 .badge {
   padding: 5px 10px;
+}
+
+.chatUserButton {
+  font-size: 12px;
+}
+
+.videoOverlayText {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+}
+
+.list-group-item {
+  background-color: #778396;
+  color: hsl(0, 0%, 80%) !important;
+}
+.list-group-item.active {
+  background-color: #26395a;
+  color: white;
+  border: 0px;
+}
+
+.pageButtons {
+  width: 256px;
+  margin-left: 4px;
+}
+
+.pageButtons-one-third {
+  width: 356px;
+}
+
+.tPrev {
+  width: 60px;
+  border-top-left-radius: 6px !important;
+  border-bottom-left-radius: 6px !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  background-color: #243757;
+  color:hsla(0, 0%, 87%, 0.677);
+}
+
+.tNext {
+  width: 60px;
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  border-top-right-radius: 6px !important;
+  border-bottom-right-radius: 6px !important;
+  background-color: #243757;
+  color:hsla(0, 0%, 87%, 0.677);
+}
+
+.tCenter {
+  width: 120px;
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  background-color: #243757;
+  color:hsla(0, 0%, 87%, 0.677);
+}
+
+.pageItemCount {
+  width: 256px;
+  margin-top: 2px;
+  margin-left: 0px;
+  font-size: 14px;
+  text-align: center;
+  color:hsla(0, 0%, 87%, 0.677);
+}
+
+.pageItemCount-one-third {
+  margin-top: 2px;
+  margin-left: 0px;
+  font-size: 14px;
+  text-align: center;
+  width: 356px;
+  color:hsla(0, 0%, 87%, 0.677);
+}
+
+.custInput {
+  height: 40px;
+  color: white;
+}
+
+.form-label {
+  color: hsla(0, 0%, 58%, 0.677) !important;
+}
+
+.custSelect {
+  height: 40px;
+  background: transparent !important;
+  color: white;
+}
+
+.custErrorMessage {
+  color: #f93154;
+  font-size: 14px;
+  font-family: sans-serif;
+  padding-left: 3px;
+}
+
+.list-group-item {
+  border: 0px;
+  padding-bottom: 2px;
+  background: transparent !important;
+}
+
+.list-group-item.active > .listButton {
+  background-color: #4c75a3 !important;
+}
+
+.listButton {
+  background-color: #778396 !important;
+}
+
+.listButtonA {
+  color: hsl(0, 0%, 80%);
+}
+
+.listButtonA:hover {
+  color: white;
 }

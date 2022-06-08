@@ -1,0 +1,109 @@
+<div id="loginModal">
+  <div id="loginModalBody" class="col-12">
+    <div class="modal-header">
+      <h4 class="modal-title">Login</h4>
+      <button
+        type="button"
+        class="btn-close btn-close-white"
+        aria-label="Close"
+        (click)="loginModalRef.close()"
+      ></button>
+    </div>
+
+    <div class="modal-body border-0">
+      <form class="row g-3 needs-validation" novalidate>
+        <div class="col-md-12 mb-0">
+          <div class="input-group mb-0">
+            <span
+              class="input-group-text text-muted usernameLabel"
+              id="loginUsername"
+              >Username</span
+            >
+            <input
+              type="text"
+              name="username"
+              class="form-control custSearchAdj"
+              aria-label="Username"
+              aria-describedby="loginUsername"
+              [(ngModel)]="username"
+              required
+            />
+          </div>
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+        <div class="col-md-12 mb-0">
+          <div class="input-group mb-0">
+            <span
+              class="input-group-text text-muted passwordLabel"
+              id="loginPassword"
+              >Password</span
+            >
+            <input
+              type="password"
+              name="password"
+              class="form-control custSearchAdj"
+              aria-label="Password"
+              aria-describedby="loginPassword"
+              [(ngModel)]="password"
+              required
+            />
+          </div>
+        </div>
+        <div class="col-12 text-center">
+          <div class="text-center">
+            <p class="custMessage">{{statusMessage}}</p>
+          </div>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button class="btn btn-lg btn-primary" (click)="checkForm()" type="button">
+              Login
+            </button>
+            <button class="btn btn-lg btn-success" type="button">
+              Sign Up
+            </button>
+
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- <form id="loginForm">
+      <div class="modal-body border-0">
+        <div class="input-group mb-3">
+          <span
+            class="input-group-text text-muted usernameLabel"
+            id="loginUsername"
+            >Username</span
+          >
+          <input
+            type="text"
+            class="form-control custSearchAdj"
+            aria-label="Username"
+            aria-describedby="loginUsername"
+            required
+          />
+        </div>
+        <div>{{ usernameMessage }}</div>
+        <div class="input-group mb-3">
+          <span
+            class="input-group-text text-muted passwordLabel"
+            id="loginPassword"
+            >Password</span
+          >
+          <input
+            type="password"
+            class="form-control custSearchAdj"
+            aria-label="Password"
+            aria-describedby="loginPassword"
+            required
+          />
+        </div>
+        <div>{{ passwordMessage }}</div>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" (click)="tryLogin()" class="btn btn-primary">
+          Login
+        </button>
+      </div>
+    </form> -->
+  </div>
+</div>

@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "server")
 public class Server {
@@ -37,11 +39,11 @@ public class Server {
 	@ManyToOne
 	@JoinColumn(name = "game_id")
 	private Game game;
-
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "alias_server", joinColumns = @JoinColumn(name = "server_id"), inverseJoinColumns = @JoinColumn(name = "alias_id"))
 	private List<Alias> aliases;
-
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "clan_server", joinColumns = @JoinColumn(name = "server_id"), inverseJoinColumns = @JoinColumn(name = "clan_id"))
 	private List<Clan> clans;

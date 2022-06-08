@@ -1,0 +1,54 @@
+#loginModal {
+  background-color: var(--bodyBackgroundColor);
+  background-image: var(--backgroundImage);
+  padding-left: 0px;
+  overflow-x: hidden;
+  color: white;
+}
+
+#loginModalBody {
+  background: var(--bgGlassBackground);
+  backdrop-filter: var(--bgGlassBackdropFilter);
+}
+
+.custSearchAdj {
+  background: var(--bgGlassBackground);
+  // backdrop-filter: var(--bgGlassBackdropFilter);
+  margin-left: 10px;
+  min-width: 150px;
+  font-size: 14px;
+  color: white;
+  border-right: 1px solid rgba(255, 255, 255, 0.472);
+  border-top: 1px solid rgba(255, 255, 255, 0.472);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.472);
+  border-left: 1px solid rgba(255, 255, 255, 0.472);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  transition-duration: 0.3s;
+}
+
+.custSearchAdj:focus {
+  background-color: transparent;
+  outline: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.472);
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.472);
+}
+
+input[type="text"], input[type="password"] {
+  padding: 10px 10px; 
+  line-height: 26px;
+}
+
+.usernameLabel {
+  height: 36px;
+  width: 100px;
+}
+
+.passwordLabel {
+  height: 36px;
+  width: 100px;
+}
+
+.custMessage {
+  color: red;
+}

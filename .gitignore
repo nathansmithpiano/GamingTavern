@@ -3,14 +3,15 @@ Servers
 target
 build
 bin
-Backups
 .metadata
 .settings
 .gradle
 *.war
 *.bak
-
+ngGamingTavern/node_modules
 ngGamingTavern/node_modules/
 /ngGamingTavern/node_modules
 ngGamingTavern/node_modules/
 node_modules/
+/node_modules
+/node_modules/

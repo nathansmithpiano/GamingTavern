@@ -1,0 +1,68 @@
+.custBadgeAdj {
+  top: 14px;
+  margin-left: -4px;
+  padding-left: 4px;
+  padding-right: 6px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: 9px;
+  font-weight: normal;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.custCentAdj {
+  margin-left: 10px;
+}
+
+.custSearchAdj {
+  margin-left: 10px;
+  min-width: 275px;
+  font-size: 14px;
+  height: 36px;
+  color: white;
+  border-left: 1px solid rgba(255, 255, 255, 0.472);
+  border-top: 1px solid rgba(255, 255, 255, 0.472);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.472);
+  border-right: 0px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  transition-duration: 0.3s;
+}
+
+.custSearchAdj:focus {
+  background-color: transparent;
+  outline: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.472);
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.472);
+}
+
+.custSearchAdj::placeholder {
+  color: rgba(255, 255, 255, 0.763);
+}
+
+.custSearchAdj::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 24px;
+  width: 24px;
+  margin-left: 0.4em;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
+  cursor: pointer;
+}
+
+#button-search {
+  padding: 0px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  left: 0px;
+  border: 1px solid rgba(255, 255, 255, 0.472);
+  height: 36px;
+  background-color: hsl(218, 41%, 25%);
+  transition-duration: 0.3s;
+}
+
+#button-search:hover {
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.472);
+  border: 1px solid white;
+}

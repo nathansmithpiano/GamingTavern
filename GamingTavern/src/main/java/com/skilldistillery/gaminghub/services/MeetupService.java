@@ -1,8 +1,13 @@
 package com.skilldistillery.gaminghub.services;
 
+import java.util.List;
+
+
 import com.skilldistillery.gaminghub.entities.Meetup;
 
 public interface MeetupService {
+	
+	List<Meetup> index();
 	
 	Meetup getMeetupById(int meetupId);
 	

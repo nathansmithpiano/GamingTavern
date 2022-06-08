@@ -1,0 +1,60 @@
+<section>
+  <div class="container py-{{ topPadding }}">
+    <div class="row">
+      <!-- Left Column -->
+      <div class="col-lg-{{ leftColumnWidth }}">
+        <div class="card bg-glass mb-0">
+          <div class="card-body">
+            <!-- Row 1 -->
+            <div class="row">
+              <h3>{{ leftHeader }}</h3>
+              <div class="col">
+                <ul>
+                  <li *ngFor="let data of servers">
+                    <a (click)="
+                        selected = data;
+                        serverName = data.name;
+                        serverDescription = data.description;
+                        serverEnabled = data.enabled;
+                        serverType = data.type;
+                        serverIp = data.ip;
+                        serverCapacity = data.capacity;
+                        serverUrl = data.url;
+                      ">
+                      {{ data.name }} : {{ data.description }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Right Column -->
+      <div class="col-lg-{{ rightColumnWidth }}">
+        <!-- Primary Card -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card bg-glass mb-2">
+              <div class="card-body">
+                <div class="text-center text-muted">
+                  <!-- Row 1 -->
+                  <div class="row">
+                    <h3>{{ serverName }}</h3>
+                    <p>{{ serverDescription }}</p>
+                    <p *ngIf="serverEnabled">
+                      Currently Active: <input type="checkbox" checked="yes" />
+                    </p>
+                    <p>{{ serverType }}</p>
+                    <p>Ip: {{ serverIp }}</p>
+                    <p>Capacity: {{ serverCapacity }}</p>
+                    <p>Discord: {{ serverUrl }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
