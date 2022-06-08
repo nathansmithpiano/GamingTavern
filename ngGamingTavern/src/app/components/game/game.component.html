@@ -1,21 +1,18 @@
-
-
 <section>
-    <div class="container py-{{ topPadding }}">
-      <div class="row">
-        <!-- Left Column -->
-        <div class="col-lg-{{ leftColumnWidth }}">
-          <div class="card bg-glass mb-0">
-            <div class="card-body">
-              <!-- Row 1 -->
-              <div class="row">
-                <img src="assets/art/games.gif">
-                <h3>{{ leftHeader }}</h3>
-                <div class="col">
-                  <ul>
-                    <li *ngFor="let data of games">
-                      <a
-                        (click)="
+  <div class="container py-{{ topPadding }}">
+    <div class="row">
+      <!-- Left Column -->
+      <div class="col-lg-{{ leftColumnWidth }}">
+        <div class="card bg-glass mb-0">
+          <div class="card-body">
+            <!-- Row 1 -->
+            <div class="row">
+              <img src="assets/art/games.gif">
+              <h3>{{ leftHeader }}</h3>
+              <div class="col">
+                <ul>
+                  <li *ngFor="let data of games">
+                    <a (click)="
                           selected = data;
                           gameEnabled = data.enabled;
                           gameName = data.name;
@@ -25,36 +22,33 @@
                           gameCreated = data.created;
                           gameUpdated = data.updated;
                           
-                        "
-                      >
-                        {{ data.name }}</a
-                      >
-                    </li>
-                  </ul>
-                </div>
+                        ">
+                      {{ data.name }}</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
-        <!-- Right Column -->
-        <div class="col-lg-{{ rightColumnWidth }}">
-          <!-- Primary Card -->
-          <div class="row">
-            <div class="col-12">
-              <div class="card bg-glass mb-2">
-                <div class="card-body">
-                  <div class="text-center text-muted">
-                    <!-- Row 1 -->
-                    <div class="row">
-                      <h3>{{ gameName }}</h3>
-                      <img src="{{gameImage_url}}">
-                      <!-- <p>{{ gameEnabled | date:'short' }}</p> -->
-                      <p>{{ gameStudio }}</p>
-                      
-                      <p><a href="{{gameUrl}}">{{gameUrl}}</a></p>
-                      <p> {{ gameCreated | date:'short'}}</p>
-                      <p> {{ gameUpdated | date:'short'}}</p>
-                    </div>
+      </div>
+      <!-- Right Column -->
+      <div class="col-lg-{{ rightColumnWidth }}">
+        <!-- Primary Card -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card bg-glass mb-2">
+              <div class="card-body">
+                <div class="text-center text-muted">
+                  <!-- Row 1 -->
+                  <div class="row">
+                    <h3>{{ gameName }}</h3>
+                    <img src="{{gameImage_url}}">
+                    <!-- <p>{{ gameEnabled | date:'short' }}</p> -->
+                    <p>{{ gameStudio }}</p>
+
+                    <p><a href="{{gameUrl}}">{{gameUrl}}</a></p>
+                    <p> {{ gameCreated | date:'short'}}</p>
+                    <p> {{ gameUpdated | date:'short'}}</p>
                   </div>
                 </div>
               </div>
@@ -63,6 +57,5 @@
         </div>
       </div>
     </div>
-  </section>
-  
-
+  </div>
+</section>

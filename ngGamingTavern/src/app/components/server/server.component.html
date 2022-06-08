@@ -11,8 +11,7 @@
               <div class="col">
                 <ul>
                   <li *ngFor="let data of servers">
-                    <a
-                      (click)="
+                    <a (click)="
                         selected = data;
                         serverName = data.name;
                         serverDescription = data.description;
@@ -21,10 +20,8 @@
                         serverIp = data.ip;
                         serverCapacity = data.capacity;
                         serverUrl = data.url;
-                      "
-                    >
-                      {{ data.name }} : {{ data.description }}</a
-                    >
+                      ">
+                      {{ data.name }} : {{ data.description }}</a>
                   </li>
                 </ul>
               </div>

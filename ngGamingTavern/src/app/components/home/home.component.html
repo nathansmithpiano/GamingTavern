@@ -1,4 +1,4 @@
-<!-- <div>
+<div>
   <video style="
       position: fixed;
       opacity: 0.7;
@@ -8,7 +8,7 @@
       min-height: 100%;
       z-index: -11;
     " class="video-fluid" autoplay loop muted src="assets/art/forest.mp4"></video>
-</div> -->
+</div>
 
 <!-- Begin Section -->
 <section>
@@ -18,69 +18,69 @@
 
 
     <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 310, "gutter": 16 }'>
-    <!-- Breadcrumb -->
-      <!-- <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item four {{ gridItemClass }}">
+      <!-- Breadcrumb -->
+      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item first four {{ gridItemClass }}">
 
         <div class="card bg-glass">
-          <nav aria-label="breadcrumb" class="p-3">
-            <ol class="breadcrumb mb-0">
-              <li class="breadcrumb-item">Home</li>
-              <li class="breadcrumb-item text-muted">end path in double braces</li>
-            </ol>
-          </nav>
+          <div class="d-flex justify-content-between">
+            <!-- Breadcrumb Nav -->
+            <nav aria-label="breadcrumb" class="p-3">
+              <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">Home</li>
+              </ol>
+            </nav>
+
+            <!-- Register Button -->
+            <button type="button" class="btn btn-dark" (click)="revealRegister()">
+              Register
+            </button>
+
+          </div>
         </div>
-      </div> -->
+      </div>
       <!-- End Breadcrumb -->
 
       <!-- Begin Card -->
-      <!-- <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item four {{ gridItemClass }}">
-        <button type="button" class="btn btn-dark" (click)="revealRegister()">
-          Register
-        </button>
+      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item first four {{ gridItemClass }}">
         <div *ngIf="showRegister">
           <div class="card bg-glass">
             <div class="card-body">
+              <h4 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                New User Registration
+              </h4>
               <hr />
               <div>
-                <div>
-                  <form class="register">
-                    <label id="username" for="username">Username</label>
-                    <input [(ngModel)]="newUser.username" type="text" name="username" placeholder="Username" />
-                    <div *ngIf="isUsernameTaken">
-                      This Username Has Been Taken
-                    </div>
-                    <br />
-                    <label id="password" for="password">Password</label>
-                    <input [(ngModel)]="newUser.password" type="text" name="password" placeholder="Password" />
-                    <br />
-                    <label for="email">Email</label>
-                    <input [(ngModel)]="newUser.email" type="text" name="email" placeholder="Email" />
-                    <br />
-                    <br />
-                    <button type="button" class="btn btn-dark" (click)="register(newUser)">
-                      Submit
-                    </button>
-                    <button type="button" class="btn btn-dark" (click)="back()">
-                      Close
-                    </button>
-                  </form>
-                </div>
+                <form class="register">
+                  <label id="username" for="username">Username</label>
+                  <input [(ngModel)]="newUser.username" type="text" name="username" placeholder="Username" />
+                  <div *ngIf="isUsernameTaken">
+                    This Username Has Been Taken
+                  </div>
+                  <br />
+                  <label id="password" for="password">Password</label>
+                  <input [(ngModel)]="newUser.password" type="text" name="password" placeholder="Password" />
+                  <br />
+                  <label for="email">Email</label>
+                  <input [(ngModel)]="newUser.email" type="text" name="email" placeholder="Email" />
+                  <br />
+                  <br />
+                  <button type="button" class="btn btn-dark" (click)="register(newUser)">
+                    Submit
+                  </button>
+                  <button type="button" class="btn btn-dark" (click)="back()">
+                    Close
+                  </button>
+                </form>
               </div>
-
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
       <!-- End Card -->
-      <!-- Begin Image Card -->
 
-      <!-- End Image Card -->
       <!-- Begin Card -->
 
-      <!-- End Card -->
-      <!-- Begin Card -->
-
-      <!-- <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item two {{ gridItemClass }}">
+      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item first two {{ gridItemClass }}">
         <div class="card bg-glass">
           <div class="card-body">
 
@@ -118,12 +118,12 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
       <!-- End Card -->
 
       <!-- Begin Card -->
 
-      <!-- <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item two {{ gridItemClass }}">
+      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item two {{ gridItemClass }}">
         <div class="card bg-glass">
           <div class="card-body">
             <mdb-carousel [controls]="false" [animation]="'fade'">
@@ -155,10 +155,10 @@
             </mdb-carousel>
           </div>
         </div>
-      </div> -->
+      </div>
       <!-- End Card -->
 
-      <!-- <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item two {{ gridItemClass }}">
+      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item first two {{ gridItemClass }}">
         <div class="card bg-glass">
           <div class="card-body">
 
@@ -200,11 +200,11 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
 
       <!-- Begin Card -->
 
-      <!-- <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item two {{ gridItemClass }}">
+      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item two {{ gridItemClass }}">
         <div class="card bg-glass">
           <div class="card-body">
             <div>
@@ -244,292 +244,8 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
       <!--End Card-->
-
-      <!-- GRID TESTING -->
-
-      <!-- ROW 1: 1x4 -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item first four {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- ROW 2: 4x1 -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item first {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- ROW 3: 1x2, 2x1 -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item first two {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- ROW 4: 1x1, 1x2, 1x1-->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item first {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item two {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- ROW 5: 2x1, 1x2-->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item first {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item two {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- ROW 6: 3x1, 1x1-->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item first three {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- ROW 7: 1x1, 1x3-->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item first {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item three {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- ROW 8: 1x4-->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item first four {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-
-      <!-- Begin Card -->
-      <!-- <div
-        mdbRipple
-        rippleColor="{{ rippleColor }}"
-        class="grid-item {{ gridItemClass }}"
-        >
-        <h4>ONE WIDE NO BACKGROUND</h4>
-        <hr />
-        <div>contents</div>
-      </div> -->
-      <!-- End Card -->
-
-    </div>
-    <!-- End Grid -->
-
-    <!-- Begin Thirds Grid -->
-    <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 418, "gutter": 16 }'>
-
-      <!-- ROW 9: 1x1/3, 1x2/3-->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item first one-third {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-            TEST 1 - ONE THIRD
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item one-third {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-            TEST 1 - ONE THIRD
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item one-third {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-            TEST 1 - ONE THIRD
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- ROW 10: 1x1/3, 1x2/3-->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item first one-third {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-            TEST 2 - ONE THIRD
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item two-thirds {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-            TEST 2 - TWO THIRDS
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- ROW 11: 1x2/3, 1x1/3-->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item first two-thirds {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-            TEST 2 - TWO THIRDS
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
-
-      <!-- Begin Card -->
-      <div mdbRipple rippleColor="{{ rippleColor }}" class="grid-item one-third {{ gridItemClass }}">
-        <div class="card bg-glass">
-          <div class="card-body">
-            TEST 2 - ONE THIRD
-          </div>
-        </div>
-      </div>
-      <!-- End Card -->
 
     </div>
     <!-- End Grid -->

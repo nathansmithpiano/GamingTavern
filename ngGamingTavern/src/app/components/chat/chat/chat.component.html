@@ -7,7 +7,7 @@
     <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 310, "gutter": 15 }'>
 
       <!-- Breadcrumb -->
-      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item four {{gridItemClass}}">
+      <div mdbRipple rippleColor="{{rippleColor}}" class="grid-item first four {{gridItemClass}}">
         <div class="card bg-glass">
           <nav aria-label="breadcrumb" class="p-3">
             <ol class="breadcrumb mb-0">
@@ -21,7 +21,7 @@
       <!-- End Breadcrumb -->
 
       <!-- First Card - clickable list of chats -->
-      <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item one-third {{gridItemClass}}">
+      <div mdbRipple rippleColor="hsl(0, 0%, 75%)" class="grid-item first one-third {{gridItemClass}}">
         <div class="card bg-glass">
           <div class="card-body">
             <h5 class="font-weight-bold mb-3 text-center text-lg-start">My Chats</h5>
@@ -53,12 +53,12 @@
         </div>
       </div> <!-- End First Card -->
 
-      <!-- Begin Video Card -->
+      <!-- Begin Art Card -->
       <div *ngIf="!selectedChat" mdbRipple rippleColor="{{rippleColor}}" class="grid-item two-thirds {{gridItemClass}}">
         <div class="card bg-glass">
-          <img src="assets/art/tavern_room.png">
+          <img src="assets/art/clan_852_429.jpg">
         </div>
-      </div> <!-- End Video Card -->
+      </div> <!-- End Art Card -->
 
       <!-- Second Card - chat -->
       <div *ngIf="selectedChat" mdbRipple rippleColor="{{rippleColor}}" class="grid-item two-thirds {{gridItemClass}}">
