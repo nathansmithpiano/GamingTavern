@@ -13,6 +13,13 @@ repositories {
 	mavenCentral()
 }
 
+apply plugin: 'war'
+war {
+	enabled = true
+	archiveFileName = "${archivesBaseName}.war"
+	destinationDirectory = file("../")      // Project root
+}
+
 dependencies {
 
 	implementation project(':JPAGamingHub')
