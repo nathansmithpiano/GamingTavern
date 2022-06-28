@@ -52,7 +52,19 @@
         <div class="col-12 text-center">
           <div class="text-center">
             <p class="custMessage">{{statusMessage}}</p>
+            <p>For testing purposes, click one of users:<strong>
+              <br>
+              <a class="text-white" href="#" (click)="password = 'bamboogateway'; username = 'bamboogateway'">
+                bamboogateway
+              </a>
+              <br>
+              <a class="text-white" href="#" (click)="password = 'immaculatesymbols'; username = 'immaculatesymbols'">
+                immaculatesymbols
+              </a>
+            </strong>
+            </p>
           </div>
+
           <div class="btn-group" role="group" aria-label="Basic example">
             <button class="btn btn-lg btn-primary" (click)="checkForm()" type="button">
               Login
